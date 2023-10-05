@@ -20,5 +20,5 @@ jobs:
           pip install black
       - name: Running Formatter
         run: |
-          python -m black $(git ls-files '*.py')
+          python -m black $(git ls-files '*.py') --check
           npm run lint
