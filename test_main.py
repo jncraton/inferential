@@ -5,3 +5,6 @@ from app import *
 def client():
     app.config['TESTING'] = True
     return app.test_client()
+
+def test_placeholder():
+    assert True
