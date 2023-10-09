@@ -1,21 +1,21 @@
 body {
-    font-family: Arial, sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 .container {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
 }
 
 .box {
-    padding: 10px;
-    width: 45%;
+  padding: 10px;
+  width: 45%;
 }
 
 textarea {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 5px;
-    margin-top: 5px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 5px;
+  margin-top: 5px;
 }
