@@ -1,51 +1,54 @@
 html {
-    background-color: #e4e4e4;
-    height: 100vh;
+  background-color: #e4e4e4;
+  height: 100vh;
 }
 body {
-    background-color: white;
-    font-family: Arial, Helvetica, sans-serif;
-    margin: 0 auto;
-    min-height: 100%;
-    overflow: auto;
-    padding: 0.5em 0.7em 4em 0.7em;
-    box-sizing: border-box;
+  background-color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0 auto;
+  min-height: 100%;
+  overflow: auto;
+  padding: 0.5em 0.7em 4em 0.7em;
+  box-sizing: border-box;
 }
-body, #foot {
-    width: 768px;
-    max-width: 100%;
+body,
+#foot {
+  width: 768px;
+  max-width: 100%;
 }
 h1 {
-    margin-top: 0.1em; margin-bottom: 0;
+  margin-top: 0.1em;
+  margin-bottom: 0;
 }
-p, pre {
-    margin: 0;
+p,
+pre {
+  margin: 0;
 }
 *:focus {
-    outline-color: blue;
+  outline-color: blue;
 }
 label {
-    display: block;
+  display: block;
 }
-input[type="button"],
-input[type="submit"] {
-    background: white;
-    border: 2px solid;
-    font: inherit;
-    font-weight: bold;
-    margin: 0.2em;
-    padding: 0.2em 0.7em;
-    border-radius: 6px;
+input[type='button'],
+input[type='submit'] {
+  background: white;
+  border: 2px solid;
+  font: inherit;
+  font-weight: bold;
+  margin: 0.2em;
+  padding: 0.2em 0.7em;
+  border-radius: 6px;
 }
-input[type="button"]:hover,
-input[type="submit"]:hover {
-    background: #f4f4f4;
+input[type='button']:hover,
+input[type='submit']:hover {
+  background: #f4f4f4;
 }
-input[type="button"]:active,
-input[type="submit"]:active {
-    background: #999999;
+input[type='button']:active,
+input[type='submit']:active {
+  background: #999999;
 }
-input[type="button"]:focus,
-input[type="submit"]:focus {
-    outline-offset: 3px;
+input[type='button']:focus,
+input[type='submit']:focus {
+  outline-offset: 3px;
 }
