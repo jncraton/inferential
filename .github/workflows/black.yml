@@ -1,4 +1,4 @@
-name: Prettier
+name: Black
 
 on:
   push:
@@ -8,11 +8,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  Prettier:
+  Black:
     runs-on: ubuntu-latest
     
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v3
-      - run: npm install -g prettier
-      - run: npm run lint
+      - uses: actions/setup-python@v2
+      - run: pip install black
+      - run: python -m black . --check
