@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Inferential</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="static/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="static/android-chrome-192x192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="static/favicon-16x16.png"
+    />
+    <link rel="icon" href="favicon.ico" />
+    <meta name="theme-color" content="#00ff00" />
+    <link rel="stylesheet" type="text/css" href="/static/style.css" />
+    <style>
+      textarea {
+        width: 100%;
+        box-sizing: border-box;
+        resize: none;
+        min-height: 5em;
+        display: block;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div>
+      <h1>Inferential</h1>
+      <form action="." method="post">
+        <div>
+          <p style="font-weight: bold; margin-top: 1em">
+            <label for="input">Prompt</label>
+          </p>
+          <textarea id="input" name="input" autofocus></textarea>
+        </div>
+        <input type="submit" value="Submit" />
+        <div style="display: {{ outputDisplay }};">
+          <p style="font-weight: bold; margin-top: 1em">Response</p>
+          <pre style="font: inherit">{{ output }}</pre>
+        </div>
+      </form>
+    </div>
+
+    <div
+      id="foot"
+      style="
+        position: fixed;
+        bottom: 0;
+        padding: 0.7em;
+        border-top: 2px solid;
+        margin: 0 auto;
+        left: 0;
+        right: 0;
+        box-sizing: border-box;
+        background: inherit;
+      "
+    >
+      Made by students of Anderson University
+    </div>
+  </body>
+</html>
