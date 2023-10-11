@@ -2,6 +2,7 @@ from flask import *
 import languagemodels as lm
 from markupsafe import escape
 import requests
+import psutil
 
 app = Flask(__name__)
 
@@ -28,5 +29,10 @@ def favicon():
 @app.route("/api")
 def api():
         chat = request.args.get('output', '')
+
+        #changes ram the llm is using dynamic to half of avaiable ram to imporve accuracy
+        freeRam = psutil.virtual_memory().free
+        lm.set_max_ram(freeRam / 2)
+
         reply = lm.do(chat)
         return {"data" : f"{reply}"}, 200
