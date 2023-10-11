@@ -22,8 +22,11 @@ def favicon():
         app.root_path, "static/favicon.ico", mimetype="image/vnd.microsoft.icon"
     )
 
+#function to submit prompt and get a response
 def makeRequest(input):
+    #finds the amount of avaiable ram 
     freeRam = psutil.virtual_memory().free
+    #sets the max ram for the lm to imporve its accuracy
     lm.set_max_ram(freeRam / 2)
     return lm.do (input)
 
