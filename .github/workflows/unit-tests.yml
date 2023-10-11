@@ -1,4 +1,4 @@
-name: unit-tests
+name: Pytest
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
+  Pytest:
     runs-on: ubuntu-latest
 
     steps:
