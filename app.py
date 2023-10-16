@@ -14,8 +14,9 @@ def root():
         # For now, the output is just the input
         output = escape(request.form["input"])
         api_route = requests.get("http://127.0.0.1:5000/api?output= " + f"{output}")
+        response = api_route.json()
         return render_template(
-            "index.html", output=api_route.json(), outputDisplay="block"
+            "index.html", output=response["data"], outputDisplay="block"
         )
     else:
         return render_template("index.html", output="", outputDisplay="none")
@@ -40,4 +41,5 @@ def api():
     lm.set_max_ram(freeRam / 2)
 
     reply = lm.do(chat)
-    return {"data": f"{reply}"}, 200
+    data = {"data" : reply}
+    return data,200 #returns the dictionary and a 200 response code 
