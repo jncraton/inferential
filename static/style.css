@@ -84,12 +84,10 @@ textarea {
   font-weight: bold;
 }
 
-textarea, input, pre {
+textarea,
+input,
+pre {
   font: inherit;
-}
-
-.response {
-  display: {{ outputDisplay }};
 }
 
 .footer {
