@@ -63,9 +63,9 @@ input[type='submit']:focus {
 }
 
 textarea {
-        width: 100%;
-        box-sizing: border-box;
-        resize: none;
-        min-height: 5em;
-        display: block;
-      }
+  width: 100%;
+  box-sizing: border-box;
+  resize: none;
+  min-height: 5em;
+  display: block;
+}
