@@ -1,3 +1,4 @@
+from html import escape
 from flask import *
 import languagemodels as lm
 from markupsafe import escape
