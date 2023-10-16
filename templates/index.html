@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    <title>Saliva</title>
+    <title>Inferential</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
@@ -27,39 +27,25 @@
     <link rel="stylesheet" type="text/css" href="/static/style.css" />
   </head>
 
-  <body>
-    <div>
-      <h1>Saliva</h1>
-      <form action="." method="post">
-        <div>
-          <p style="font-weight: bold; margin-top: 1em">
-            <label for="input">Prompt</label>
-          </p>
-          <textarea id="input" name="input" autofocus></textarea>
-        </div>
-        <input type="submit" value="Submit" />
-        <div style="display: {{ outputDisplay }};">
-          <p style="font-weight: bold; margin-top: 1em">Response</p>
-          <pre style="font: inherit">{{ output }}</pre>
-        </div>
-      </form>
-    </div>
+<body>
+  <div class="container">
+    <h1>Inferential</h1>
+    <form action="." method="post">
+      <div class="form-section">
+        <p class="label">
+          <label for="input">Prompt</label>
+        </p>
+        <textarea id="input" name="input" autofocus></textarea>
+      </div>
+      <input type="submit" value="Submit" />
+      <div class="response" style="display: {{ outputDisplay }};">
+        <p class="label">Response</p>
+        <pre class="output">{{ output }}</pre>
+      </div>
+    </form>
+  </div>
 
-    <div
-      id="foot"
-      style="
-        position: fixed;
-        bottom: 0;
-        padding: 0.7em;
-        border-top: 2px solid;
-        margin: 0 auto;
-        left: 0;
-        right: 0;
-        box-sizing: border-box;
-        background: inherit;
-      "
-    >
-      Made by students of Anderson University
-    </div>
-  </body>
-</html>
+  <div id="foot" class="footer">
+    Made by students of Anderson University
+  </div>
+</body>
