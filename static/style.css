@@ -69,3 +69,37 @@ textarea {
   min-height: 5em;
   display: block;
 }
+
+.container {
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.form-section {
+  font-weight: bold;
+  margin-top: 1em;
+}
+
+.label {
+  font-weight: bold;
+}
+
+textarea, input, pre {
+  font: inherit;
+}
+
+.response {
+  display: {{ outputDisplay }};
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  padding: 0.7em;
+  border-top: 2px solid;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  box-sizing: border-box;
+  background: inherit;
+}
