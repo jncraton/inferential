@@ -42,5 +42,5 @@ def api():
     lm.set_max_ram(freeRam / 2)
 
     reply = lm.do(chat)
-    data = {"data" : reply}
-    return data,200 #returns the dictionary and a 200 response code 
+    data = {"data": reply}
+    return data, 200  # returns the dictionary and a 200 response code
