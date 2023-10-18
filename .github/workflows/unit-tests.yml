@@ -19,7 +19,4 @@ jobs:
       - run: pip install pytest-playwright
       - run: python -m playwright install
       - run: pip install pytest
-      - name: UI Testing
-        run: |
-        python -m flask run &
-        python -m pytest
+      - run: python -m flask run & python -m pytest
