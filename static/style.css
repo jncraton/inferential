@@ -38,7 +38,6 @@ label {
 
 input[type='button'],
 input[type='submit'] {
-
   background: white;
   border: 2px solid;
   font: inherit;
@@ -58,7 +57,6 @@ input[type='submit']:active {
 }
 input[type='button']:focus,
 input[type='submit']:focus {
-
   outline-offset: 3px;
 }
 
