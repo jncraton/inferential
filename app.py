@@ -37,7 +37,7 @@ def favicon():
 @app.route("/api")
 def api():
     query = request.args.get("output", "")
-    if  len(query) >= 250:
+    if len(query) >= 250:
         return {"data": "Enter a valid query!"}
     # changes ram the llm is using dynamic to half of avaiable ram to imporve accuracy
     freeRam = psutil.virtual_memory().free
