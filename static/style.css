@@ -36,7 +36,6 @@ label {
   display: block;
 }
 
-
 input[type="button"],
 input[type="submit"] {
   background: white;
@@ -53,12 +52,10 @@ input[type="submit"]:hover {
   background: #f4f4f4;
 }
 
-
 input[type="button"]:active,
 input[type="submit"]:active {
   background: #999999;
 }
-
 
 input[type="button"]:focus,
 input[type="submit"]:focus {
