@@ -11,27 +11,34 @@ body {
   padding: 0.5em 0.7em 4em 0.7em;
   box-sizing: border-box;
 }
+
 body,
 #foot {
   width: 768px;
   max-width: 100%;
 }
+
 h1 {
   margin-top: 0.1em;
   margin-bottom: 0;
 }
+
 p,
 pre {
   margin: 0;
 }
+
 *:focus {
   outline-color: blue;
 }
+
 label {
   display: block;
 }
+
 input[type='button'],
 input[type='submit'] {
+
   background: white;
   border: 2px solid;
   font: inherit;
@@ -40,6 +47,7 @@ input[type='submit'] {
   padding: 0.2em 0.7em;
   border-radius: 6px;
 }
+
 input[type='button']:hover,
 input[type='submit']:hover {
   background: #f4f4f4;
@@ -50,5 +58,46 @@ input[type='submit']:active {
 }
 input[type='button']:focus,
 input[type='submit']:focus {
+
   outline-offset: 3px;
+}
+
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+  resize: none;
+  min-height: 5em;
+  display: block;
+}
+
+.container {
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.form-section {
+  font-weight: bold;
+  margin-top: 1em;
+}
+
+.label {
+  font-weight: bold;
+}
+
+textarea,
+input,
+pre {
+  font: inherit;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  padding: 0.7em;
+  border-top: 2px solid;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  box-sizing: border-box;
+  background: inherit;
 }
