@@ -36,8 +36,8 @@ label {
   display: block;
 }
 
-input[type='button'],
-input[type='submit'] {
+input[type="button"],
+input[type="submit"] {
   background: white;
   border: 2px solid;
   font: inherit;
@@ -47,18 +47,18 @@ input[type='submit'] {
   border-radius: 6px;
 }
 
-input[type='button']:hover,
-input[type='submit']:hover {
+input[type="button"]:hover,
+input[type="submit"]:hover {
   background: #f4f4f4;
 }
 
-input[type='button']:active,
-input[type='submit']:active {
+input[type="button"]:active,
+input[type="submit"]:active {
   background: #999999;
 }
 
-input[type='button']:focus,
-input[type='submit']:focus {
+input[type="button"]:focus,
+input[type="submit"]:focus {
   outline-offset: 3px;
 }
 
