@@ -25,50 +25,28 @@
     <link rel="icon" href="favicon.ico" />
     <meta name="theme-color" content="#00ff00" />
     <link rel="stylesheet" type="text/css" href="/static/style.css" />
-    <style>
-      textarea {
-        width: 100%;
-        box-sizing: border-box;
-        resize: none;
-        min-height: 5em;
-        display: block;
-      }
-    </style>
   </head>
 
   <body>
-    <div>
+    <div class="container">
       <h1>Inferential</h1>
       <form action="." method="post">
-        <div>
-          <p style="font-weight: bold; margin-top: 1em">
+        <div class="form-section">
+          <p class="label">
             <label for="input">Prompt</label>
           </p>
           <textarea id="input" name="input" autofocus></textarea>
         </div>
         <input type="submit" value="Submit" />
-        <div style="display: {{ outputDisplay }};">
-          <p style="font-weight: bold; margin-top: 1em">Response</p>
-          <pre style="font: inherit">{{ output }}</pre>
+        {% if output %}
+        <div>
+          <p class="label">Response</p>
+          <pre class="output">{{output}}</pre>
         </div>
+        {% endif %}
       </form>
     </div>
 
-    <div
-      id="foot"
-      style="
-        position: fixed;
-        bottom: 0;
-        padding: 0.7em;
-        border-top: 2px solid;
-        margin: 0 auto;
-        left: 0;
-        right: 0;
-        box-sizing: border-box;
-        background: inherit;
-      "
-    >
-      Made by students of Anderson University
-    </div>
+    <div id="foot" class="footer">Made by students of Anderson University</div>
   </body>
 </html>
