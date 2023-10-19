@@ -15,6 +15,7 @@ def root():
         # For now, the output is just the input
         output = escape(request.form["input"])
         api_route = requests.get("http://127.0.0.1:5000/api?output= " + f"{output}")
+
         response = api_route.json()
         return render_template(
             "index.html", output=response["data"], outputDisplay="block"
@@ -35,12 +36,16 @@ def favicon():
 
 @app.route("/api")
 def api():
-    chat = request.args.get("output", "")
-
+    query = request.args.get("output", "")
+    if len(query) >= 250:
+        return {"data": "Enter a valid query!"}
     # changes ram the llm is using dynamic to half of avaiable ram to imporve accuracy
     freeRam = psutil.virtual_memory().free
     lm.set_max_ram(freeRam / 2)
 
-    reply = lm.do(chat)
-    data = {"data": reply}
-    return data, 200  # returns the dictionary and a 200 response code
+    reply = lm.do(query)
+
+    if reply == "Noinput>.":
+        return {"data": "Enter a valid query!"}
+    else:
+        return {"data": reply}, 200  # returns the dictionary and a 200 response code
