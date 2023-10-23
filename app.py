@@ -5,6 +5,7 @@ from markupsafe import escape
 import requests
 import psutil
 
+
 app = Flask(__name__)
 
 
@@ -44,6 +45,7 @@ def api():
     lm.set_max_ram(freeRam / 2)
 
     reply = lm.do(query)
+    
 
     if reply == "Noinput>.":
         return {"data": "Enter a valid query!"}
