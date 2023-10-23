@@ -35,7 +35,12 @@
           <p class="label">
             <label for="input">Prompt</label>
           </p>
-          <textarea id="input" name="input" autofocus></textarea>
+          <textarea
+            id="input"
+            name="input"
+            autofocus
+            onkeydown="if (event.shiftKey && event.keyCode === 13) { event.preventDefault(); this.value += '\n'; }"
+          ></textarea>
         </div>
         <input type="submit" value="Submit" />
         {% if output %}
@@ -48,5 +53,16 @@
     </div>
 
     <div id="foot" class="footer">Made by students of Anderson University</div>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const inputElement = document.getElementById('input')
+        inputElement.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault()
+            document.querySelector('form').submit()
+          }
+        })
+      })
+    </script>
   </body>
 </html>
