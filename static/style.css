@@ -34,6 +34,7 @@ pre {
 
 label {
   display: block;
+  text-align: center;
 }
 
 input[type='button'],
@@ -98,4 +99,11 @@ pre {
   right: 0;
   box-sizing: border-box;
   background: inherit;
+}
+
+.output {
+  word-wrap: break-word;
+  max-width: 100%;
+  text-align: left;
+  text-indent: 20px;
 }
