@@ -14,7 +14,7 @@ def root():
     if request.method == "POST":
         # For now, the output is just the input
         output = escape(request.form["input"])
-        api_route = requests.get("http://127.0.0.1:5000/api?output= " + f"{output}")
+        api_route = requests.get("http://127.0.0.1:5000/api?output=" + f"{output}")
 
         response = api_route.json()
         return render_template(
@@ -37,7 +37,7 @@ def favicon():
 @app.route("/api")
 def api():
     query = request.args.get("output", "")
-    if len(query) >= 250 or query == " ":
+    if len(query) >= 250 or query == "":
         return {"data": "Enter a valid query!"}
 
     reply = lm.do(query)
