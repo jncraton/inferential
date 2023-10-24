@@ -3,7 +3,6 @@ from flask import *
 import languagemodels as lm
 from markupsafe import escape
 import requests
-import psutil
 
 
 app = Flask(__name__)
@@ -38,14 +37,10 @@ def favicon():
 @app.route("/api")
 def api():
     query = request.args.get("output", "")
-    if len(query) >= 250:
+    if len(query) >= 250 or query == " ":
         return {"data": "Enter a valid query!"}
-    # changes ram the llm is using dynamic to half of avaiable ram to imporve accuracy
-    freeRam = psutil.virtual_memory().free
-    lm.set_max_ram(freeRam / 2)
 
     reply = lm.do(query)
-    
 
     if reply == "Noinput>.":
         return {"data": "Enter a valid query!"}
