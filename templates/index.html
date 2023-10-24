@@ -37,11 +37,12 @@
           </p>
           <textarea id="input" name="input" autofocus></textarea>
         </div>
-        <input type="submit" value="Submit" />
+        <input id="submitButton" type="submit" value="Submit" />
         {% if output %}
         <div>
           <p class="label">Response</p>
-          <pre class="output">{{output}}</pre>
+          <pre id="outputResponse" class="output">{{output}}</pre>
+          <script src="data.js"></script>
         </div>
         {% endif %}
       </form>
