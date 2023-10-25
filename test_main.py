@@ -19,6 +19,15 @@ def test_paris_query(page: Page):
     output_value = page.locator(".output").inner_text()
     assert "France" in output_value
 
+def test_shift_button(page: Page):
+    page.goto("http://127.0.0.1:5000/")
+    prompt_box = page.get_by_label("Prompt")
+    prompt_box.click()
+    # Simulate Shift+Enter to create a new line
+    prompt_box.press('Shift+Enter')
+    text = prompt_box.inner_text()
+    assert '\n' in text
+    prompt_box.press('Enter')
 
 def test_empty_query(page: Page):
     page.goto("http://127.0.0.1:5000/")
