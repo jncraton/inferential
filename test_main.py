@@ -1,6 +1,6 @@
 import pytest
 from app import *
-from playwright.sync_api import * 
+from playwright.sync_api import *
 from random import choice
 from string import ascii_lowercase
 
