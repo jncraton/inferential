@@ -41,7 +41,13 @@
         {% if output %}
         <div>
           <p class="label">Response</p>
-          <div class="output">{{output}}</div>
+          <!--Changes the styling to paragraph styling if the response is a paragraph,
+          and simple styling if the reponse is short (80 characters)-->
+          <div
+            class="{{ 'output' if output|length > 80 else 'output-simple' }}"
+          >
+            {{output}}
+          </div>
         </div>
         {% endif %}
       </form>

@@ -110,3 +110,9 @@ pre {
   text-align: left;
   text-indent: 20px;
 }
+
+.output-simple {
+  word-wrap: break-word;
+  max-width: 100%;
+  text-align: center;
+}
