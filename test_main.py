@@ -16,7 +16,7 @@ def test_paris_query(page: Page):
     page.get_by_label("Prompt").click()
     page.get_by_label("Prompt").fill("Where is Paris")
     page.get_by_role("button", name="Submit").click()
-    chat_reply = page.locator(".output")
+    chat_reply = page.locator("#outputResponse")
     expect(chat_reply).to_contain_text("France")
 
 
