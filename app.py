@@ -26,8 +26,8 @@ def favicon():
 
 @app.route("/api")
 def api():
-    query = request.args.get("input", "")
-    if len(query) >= 250 or query == "":
+    query = request.args.get("output", "")
+    if len(query) >= 250 or query == " ":
         return {"data": "Enter a valid query!"}
 
     reply = lm.do(query)
