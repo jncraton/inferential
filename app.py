@@ -11,7 +11,7 @@ app = Flask(__name__)
 # Front end
 @app.route("/")
 def root():
-    return render_template("index.html", output="", outputDisplay="none")
+    return render_template("index.html", outputDisplay="none")
 
 
 @app.route("/favicon.ico")
