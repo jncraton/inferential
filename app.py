@@ -11,7 +11,7 @@ app = Flask(__name__)
 # Front end
 @app.route("/")
 def root():
-    return render_template("index.html", output="", outputDisplay="none")
+    return render_template("index.html")
 
 
 @app.route("/favicon.ico")
@@ -27,7 +27,7 @@ def favicon():
 @app.route("/api")
 def api():
     query = request.args.get("input", "")
-    if len(query) >= 250 or query == " ":
+    if len(query) >= 250 or query == "":
         return {"data": "Enter a valid query!"}
 
     reply = lm.do(query)
