@@ -6,7 +6,8 @@ import requests
 
 app = Flask(__name__)
 
-#Front end
+
+# Front end
 @app.route("/", methods=["GET", "POST"])
 def root():
     if request.method == "POST":
@@ -21,13 +22,15 @@ def root():
     else:
         return render_template("index.html", output="", outputDisplay="none")
 
+
 @app.route("/favicon.ico")
 def favicon():
     return send_from_directory(
         app.root_path, "static/favicon.ico", mimetype="image/vnd.microsoft.icon"
     )
 
-#Backend
+
+# Backend
 @app.route("/api")
 def api():
     query = request.args.get("output", "")
@@ -35,4 +38,4 @@ def api():
         return {"data": "Enter a valid query!"}
 
     reply = lm.do(query)
-    return {"data": reply}, 200  #Returns the dictionary and a 200 response code
+    return {"data": reply}, 200  # Returns the dictionary and a 200 response code
