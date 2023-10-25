@@ -36,4 +36,3 @@ def test_query_too_big(page: Page):
     page.get_by_role("button", name="Submit").click()
     chat_reply = page.locator(".output")
     expect(chat_reply).to_contain_text("Enter a valid query!")
-    
