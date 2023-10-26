@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 
 # Front end
-@app.route("/", methods=["GET", "POST"])
+@app.route("/")
 def root():
     if request.method == "POST":
         # For now, the output is just the input
@@ -21,6 +21,7 @@ def root():
         )
     else:
         return render_template("index.html", output="", outputDisplay="none")
+    return render_template("index.html")
 
 
 @app.route("/favicon.ico")
@@ -33,7 +34,7 @@ def favicon():
 # Backend
 @app.route("/api")
 def api():
-    query = request.args.get("output", "")
+    query = request.args.get("input", "")
     if len(query) >= 250 or query == "":
         return {"data": "Enter a valid query!"}
 
