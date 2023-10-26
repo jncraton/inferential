@@ -3,18 +3,29 @@ const button = document.getElementById('submitButton')
 const output = document.getElementById('outputResponse')
 const input = document.getElementById('input')
 
-// event listener on the button element
+// Assign different class to output based on response
+function setOutputClass(outputString) {
+  if (outputString.length < 80) {
+    output.className = 'output-simple'
+  } else {
+    output.className = 'output'
+  }
+}
+
+// Event listener on the button element
 button.onclick = function () {
   fetch('/api?' + new URLSearchParams({ input: input.value }))
     .then(response => {
       if (response.ok) {
         return response.json()
       } else {
-        alert('something is wrong')
+        alert('Something is wrong')
       }
     })
     .then(json => {
       output.innerText = json.data
+
+      setOutputClass(json.data)
     })
     .catch(err => console.error(err))
 }
