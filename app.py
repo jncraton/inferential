@@ -25,8 +25,10 @@ def favicon():
 @app.route("/api")
 def api():
     query = request.args.get("input", "")
-    if len(query) >= 250 or query == "":
-        return {"data": "Enter a valid query!"}
+    if query == "":
+        return {"data": "Error: No prompt was provided."}, 400  # 400 Bad Request
+    if len(query) >= 250:
+        return {"data": "Error: The prompt was too long."}, 413  # 413 Content Too Large
 
     reply = lm.do(query)
-    return {"data": reply}, 200  # returns the dictionary and a 200 response code
+    return {"data": reply}, 200  # returns with a response code of 200 OK
