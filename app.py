@@ -11,7 +11,7 @@ app = Flask(__name__)
 # Front end
 @app.route("/")
 def root():
-    return render_template("index.html", outputDisplay="none")
+    return render_template("index.html")
 
 
 @app.route("/favicon.ico")
@@ -22,8 +22,6 @@ def favicon():
 
 
 # Backend
-
-
 @app.route("/api")
 def api():
     query = request.args.get("input", "")
