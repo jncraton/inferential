@@ -4,6 +4,7 @@ from playwright.sync_api import *
 from random import choice
 from string import ascii_lowercase
 
+
 @pytest.fixture()
 def client():
     app.config["TESTING"] = True
