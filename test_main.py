@@ -24,7 +24,7 @@ def test_empty_query(page: Page):
     page.goto("http://127.0.0.1:5000/")
     page.get_by_role("button", name="Submit").click()
     chat_reply = page.locator(".output")
-    expect(chat_reply).to_contain_text("Enter a valid query!")
+    expect(chat_reply).to_contain_text("Error: No prompt was provided.")
 
 
 def test_query_too_big(page: Page):
@@ -35,4 +35,4 @@ def test_query_too_big(page: Page):
     page.get_by_label("Prompt").fill(query)
     page.get_by_role("button", name="Submit").click()
     chat_reply = page.locator(".output")
-    expect(chat_reply).to_contain_text("Enter a valid query!")
+    expect(chat_reply).to_contain_text("Error: The prompt was too long.")
