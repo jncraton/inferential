@@ -27,6 +27,11 @@ def test_empty_query(page: Page):
     expect(chat_reply).to_contain_text("Error: No prompt was provided.")
 
 
+def test_empty_query_api(client):
+    response = client.get("/api?input=")
+    assert response.status_code == 400
+
+
 def test_query_too_big(page: Page):
     n = 250
     page.goto("http://127.0.0.1:5000/")
@@ -36,3 +41,10 @@ def test_query_too_big(page: Page):
     page.get_by_role("button", name="Submit").click()
     chat_reply = page.locator(".output")
     expect(chat_reply).to_contain_text("Error: The prompt was too long.")
+
+
+def test_query_too_big_api(client):
+    response = client.get(
+        "/api?input=" + ("".join(choice(ascii_lowercase) for i in range(250)))
+    )
+    assert response.status_code == 413
