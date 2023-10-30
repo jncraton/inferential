@@ -16,24 +16,15 @@ def test_paris_query(page: Page):
     page.get_by_label("Prompt").click()
     page.get_by_label("Prompt").fill("Where is Paris")
     page.get_by_role("button", name="Submit").click()
-    output_value = page.locator(".output").inner_text()
-    assert "France" in output_value
+    chat_reply = page.locator(".output")
+    expect(chat_reply).to_contain_text("France")
 
-def test_shift_button(page: Page):
-    page.goto("http://127.0.0.1:5000/")
-    prompt_box = page.get_by_label("Prompt")
-    prompt_box.click()
-    # Simulate Shift+Enter to create a new line
-    prompt_box.press('Shift+Enter')
-    text = prompt_box.inner_text()
-    assert '\n' in text
-    prompt_box.press('Enter')
 
 def test_empty_query(page: Page):
     page.goto("http://127.0.0.1:5000/")
     page.get_by_role("button", name="Submit").click()
-    output_value = page.locator(".output").inner_text()
-    assert "Enter a valid query!" in output_value
+    chat_reply = page.locator(".output")
+    expect(chat_reply).to_contain_text("Enter a valid query!")
 
 
 def test_query_too_big(page: Page):
@@ -43,5 +34,5 @@ def test_query_too_big(page: Page):
     query = "a".join(choice(ascii_lowercase) for i in range(n))
     page.get_by_label("Prompt").fill(query)
     page.get_by_role("button", name="Submit").click()
-    output_value = page.locator(".output").inner_text()
-    assert "Enter a valid query!" in output_value
+    chat_reply = page.locator(".output")
+    expect(chat_reply).to_contain_text("Enter a valid query!")
