@@ -10,6 +10,10 @@ def client():
     app.config["TESTING"] = True
     return app.test_client()
 
+def test_paris_query_api(client):
+    response = client.get("/api?input=Where is Paris")
+    assert(True)
+
 
 def test_paris_query(page: Page):
     page.goto("http://127.0.0.1:5000/")
