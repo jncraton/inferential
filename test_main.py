@@ -10,9 +10,10 @@ def client():
     app.config["TESTING"] = True
     return app.test_client()
 
+
 def test_paris_query_api(client):
     response = client.get("/api?input=Where is Paris")
-    assert(True)
+    assert response.status_code == 200
 
 
 def test_paris_query(page: Page):
