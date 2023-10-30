@@ -11,18 +11,18 @@ button.onclick = function () {
     .then(response => {
       const textStream = response.body.getReader();
       let accumulatedData = ''; // To accumulate the JSON data
-
+      const decode = new TextDecoder()
       function readAndDisplay() {
         textStream.read().then(({ done, value }) => {
           if (done) {
             return; // All tokens have been received
           }
-
-          accumulatedData += value; // Accumulate the received text
-
+          console.log("Value: " + value)
+          accumulatedData += decode.decode(value); // Accumulate the received text
+          console.log("Accumulated Data: "+accumulatedData)
           try {
-            const token = JSON.parse(accumulatedData);
-            output.innerText += token.data + ' '; // Display each token with a space
+          const token = JSON.stringify(accumulatedData);
+          output.innerText = token + ' '; // Display each token with a space
           } catch (error) {
             console.error(error);
           }

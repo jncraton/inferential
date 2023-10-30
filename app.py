@@ -33,8 +33,8 @@ def api():
     if len(query) >= 250 or query == "":
         return {"data": "Enter a valid query!"}
 
-    reply = tokenize(query)
-    return Response(output_generator(reply), content_type="application/json")
+    tokens = tokenize(query)
+    return Response(output_generator(tokens), content_type="application/json")
 
 def output_generator(output_tokens):
     for token in output_tokens:
@@ -72,4 +72,4 @@ def tokenize(input):
     
     text = tokenizer.decode(output_ids, skip_special_tokens=True)
     
-    return output_tokens
+    return text
