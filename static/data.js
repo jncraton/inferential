@@ -7,7 +7,7 @@ const input = document.getElementById('input')
 button.onclick = function () {
   fetch('/api?' + new URLSearchParams({ input: input.value }))
     .then(response => {
-      if (response.ok) {
+      if (responsçe.ok) {
         return response.json()
       } else {
         alert('something is wrong')
