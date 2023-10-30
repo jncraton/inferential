@@ -6,6 +6,7 @@ import requests
 from huggingface_hub import hf_hub_download
 from tokenizers import Tokenizer
 import ctranslate2
+import json
 
 app = Flask(__name__)
 
@@ -24,6 +25,8 @@ def favicon():
 
 
 # Backend
+import time  # Import the time module
+
 @app.route("/api")
 def api():
     query = request.args.get("input", "")
@@ -31,7 +34,12 @@ def api():
         return {"data": "Enter a valid query!"}
 
     reply = tokenize(query)
-    return {"data": reply}, 200  # returns the dictionary and a 200 response code
+    return Response(output_generator(reply), content_type="application/json")
+
+def output_generator(output_tokens):
+    for token in output_tokens:
+        yield json.dumps({"data": token}) + '\n'
+        time.sleep(1)  # Add a time delay of 1 second (adjust as needed)
 
 def tokenize(input):
     # Download the tokenizer
@@ -55,6 +63,13 @@ def tokenize(input):
     # Translate the tokens
     results = model.translate_batch([tokens])
     output_tokens = results[0].hypotheses[0]
+    output_tokens_list = list(output_tokens)
+    output_json = json.dumps(output_tokens_list)
+    with open('output_tokens.json', 'w') as file:
+     file.write(output_json)
+   
     output_ids = [tokenizer.token_to_id(t) for t in output_tokens]
+    
     text = tokenizer.decode(output_ids, skip_special_tokens=True)
-    return text
+    
+    return output_tokens
