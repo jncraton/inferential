@@ -50,10 +50,11 @@
     <script>
       document.addEventListener('DOMContentLoaded', function () {
         const inputElement = document.getElementById('input')
+        const submitButton = document.getElementById('submitButton')
         inputElement.addEventListener('keydown', function (e) {
           if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault()
-            document.querySelector('form').submit()
+            submitButton.click()
+            inputElement.clear()
           }
         })
       })
