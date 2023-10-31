@@ -26,4 +26,4 @@ button.addEventListener('click', function () {
       readAndDisplay() // Start the process
     })
     .catch(err => console.error(err))
-});
+})

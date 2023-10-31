@@ -27,6 +27,7 @@ def favicon():
 # Backend
 import time  # Import the time module
 
+
 @app.route("/api")
 def api():
     query = request.args.get("input", "")
@@ -38,9 +39,12 @@ def api():
     tokens = tokenize(query)
     return Response(tokens, content_type="text/plain")
 
+
 def tokenize(input):
     # Download the tokenizer
-    tok_config = hf_hub_download("jncraton/LaMini-Flan-T5-248M-ct2-int8", "tokenizer.json")
+    tok_config = hf_hub_download(
+        "jncraton/LaMini-Flan-T5-248M-ct2-int8", "tokenizer.json"
+    )
     tokenizer = Tokenizer.from_file(tok_config)
 
     # Tokenize the input
@@ -55,19 +59,9 @@ def tokenize(input):
 
     # Translate the tokens
     results = model.generate_tokens(input_tokens)
-    output_ids = []
 
-    for step_result in step_results:
-        is_new_word = step_result.token.startswith("▁")
-
-        if is_new_word and output_ids:
-            word = sp.decode(output_ids)
-            print(word, end=" ", flush=True)
-            output_ids = []
-
-    output_ids.append(step_result.token_id)
     for item in results:
-        print('"' + item.token + '", ' + str(item.token_id) + ', ' + str(item.is_last))
-        if (item.is_last):
+        print('"' + item.token + '", ' + str(item.token_id) + ", " + str(item.is_last))
+        if item.is_last:
             break
         yield item.token
