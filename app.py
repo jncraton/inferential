@@ -30,8 +30,10 @@ import time  # Import the time module
 @app.route("/api")
 def api():
     query = request.args.get("input", "")
-    if len(query) >= 250 or query == "":
-        return {"data": "Enter a valid query!"}
+    if query == "":
+        return {"data": "Error: No prompt was provided."}, 400  # 400 Bad Request
+    if len(query) >= 250:
+        return {"data": "Error: The prompt was too long."}, 413  # 413 Content Too Large
 
     tokens = tokenize(query)
     return Response(output_generator(tokens), content_type="application/json")

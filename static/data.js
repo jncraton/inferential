@@ -3,10 +3,8 @@ const button = document.getElementById('submitButton')
 const output = document.getElementById('outputResponse')
 const input = document.getElementById('input')
 
-// Event listener on the button element
-// ... Your existing code ...
-
 button.onclick = function () {
+  output.innerText = 'Loading...'
   fetch('/api?' + new URLSearchParams({ input: input.value }))
     .then(response => {
       const textStream = response.body.getReader();
@@ -35,6 +33,3 @@ button.onclick = function () {
     })
     .catch(err => console.error(err))
 }
-
-// ... Your existing code ...
-
