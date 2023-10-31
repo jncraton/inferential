@@ -3,33 +3,27 @@ const button = document.getElementById('submitButton')
 const output = document.getElementById('outputResponse')
 const input = document.getElementById('input')
 
-button.onclick = function () {
-  output.innerText = 'Loading...'
+button.addEventListener('click', function () {
   fetch('/api?' + new URLSearchParams({ input: input.value }))
     .then(response => {
-      const textStream = response.body.getReader();
-      let accumulatedData = ''; // To accumulate the JSON data
-      const decode = new TextDecoder()
+      const textStream = response.body.getReader()
+      let accumulatedData = '' // To accumulate the data
+      const decoder = new TextDecoder()
       function readAndDisplay() {
         textStream.read().then(({ done, value }) => {
           if (done) {
-            return; // All tokens have been received
+            return // All tokens have been received
           }
-          console.log("Value: " + value)
-          accumulatedData += decode.decode(value).replace(/[^a-zA-Z ]/g,"").replace("data",""); // Accumulate the received text
-          console.log("Accumulated Data: "+accumulatedData)
-          try {
-          const token = JSON.stringify(accumulatedData);
-          output.innerText = token + " "// Display each token with a space
-          } catch (error) {
-            console.error(error);
-          }
+          console.log('Value: ' + value)
+          accumulatedData += decoder.decode(value) // Accumulate the received text
+          console.log('Accumulated Data: ' + accumulatedData)
+          output.innerText = accumulatedData
 
-          readAndDisplay(); // Continue reading and displaying
-        });
+          readAndDisplay() // Continue reading and displaying
+        })
       }
 
-      readAndDisplay(); // Start the process
+      readAndDisplay() // Start the process
     })
     .catch(err => console.error(err))
-}
+});

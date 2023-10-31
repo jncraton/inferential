@@ -36,12 +36,7 @@ def api():
         return {"data": "Error: The prompt was too long."}, 413  # 413 Content Too Large
 
     tokens = tokenize(query)
-    return Response(output_generator(tokens), content_type="application/json")
-
-def output_generator(output_tokens):
-    for token in output_tokens:
-        yield json.dumps({"data": token}) + '\n'
-        time.sleep(1)  # Add a time delay of 1 second (adjust as needed)
+    return Response(tokens, content_type="text/plain")
 
 def tokenize(input):
     # Download the tokenizer
@@ -49,29 +44,30 @@ def tokenize(input):
     tokenizer = Tokenizer.from_file(tok_config)
 
     # Tokenize the input
-    tokens = tokenizer.encode(input).tokens
+    input_tokens = tokenizer.encode(input).tokens
 
     # Download the model configuration and model weights
-    hf_hub_download("jncraton/LaMini-Flan-T5-248M-ct2-int8", "config.json")
     model_path = hf_hub_download("jncraton/LaMini-Flan-T5-248M-ct2-int8", "model.bin")
     model_base_path = model_path[:-10]
-
-    # Download shared vocabulary
-    hf_hub_download("jncraton/LaMini-Flan-T5-248M-ct2-int8", "shared_vocabulary.txt")
 
     # Initialize the translator
     model = ctranslate2.Translator(model_base_path, compute_type="int8")
 
     # Translate the tokens
-    results = model.translate_batch([tokens])
-    output_tokens = results[0].hypotheses[0]
-    output_tokens_list = list(output_tokens)
-    output_json = json.dumps(output_tokens_list)
-    with open('output_tokens.json', 'w') as file:
-     file.write(output_json)
-   
-    output_ids = [tokenizer.token_to_id(t) for t in output_tokens]
-    
-    text = tokenizer.decode(output_ids, skip_special_tokens=True)
-    
-    return text
+    results = model.generate_tokens(input_tokens)
+    output_ids = []
+
+    for step_result in step_results:
+        is_new_word = step_result.token.startswith("▁")
+
+        if is_new_word and output_ids:
+            word = sp.decode(output_ids)
+            print(word, end=" ", flush=True)
+            output_ids = []
+
+    output_ids.append(step_result.token_id)
+    for item in results:
+        print('"' + item.token + '", ' + str(item.token_id) + ', ' + str(item.is_last))
+        if (item.is_last):
+            break
+        yield item.token
