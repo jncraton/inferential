@@ -11,6 +11,11 @@ def client():
     return app.test_client()
 
 
+def test_paris_query_api(client):
+    response = client.get("/api?input=Where is Paris")
+    assert response.status_code == 200
+
+
 def test_paris_query(page: Page):
     page.goto("http://127.0.0.1:5000/")
     page.get_by_label("Prompt").click()
