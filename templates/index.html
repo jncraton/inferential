@@ -47,17 +47,5 @@
     </div>
 
     <div id="foot" class="footer">Made by students of Anderson University</div>
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        const inputElement = document.getElementById('input')
-        const submitButton = document.getElementById('submitButton')
-        inputElement.addEventListener('keydown', function (e) {
-          if (e.key === 'Enter' && !e.shiftKey) {
-            submitButton.click()
-            inputElement.clear()
-          }
-        })
-      })
-    </script>
   </body>
 </html>

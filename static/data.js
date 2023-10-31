@@ -15,3 +15,14 @@ button.onclick = function () {
     })
     .catch(err => console.error(err))
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+  const inputElement = document.getElementById('input')
+  const submitButton = document.getElementById('submitButton')
+  inputElement.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      submitButton.click()
+      inputElement.value = ''
+    }
+  })
+})
