@@ -18,11 +18,11 @@ button.onclick = function () {
             return; // All tokens have been received
           }
           console.log("Value: " + value)
-          accumulatedData += decode.decode(value); // Accumulate the received text
+          accumulatedData += decode.decode(value).replace(/[^a-zA-Z ]/g,"").replace("data",""); // Accumulate the received text
           console.log("Accumulated Data: "+accumulatedData)
           try {
           const token = JSON.stringify(accumulatedData);
-          output.innerText = token + ' '; // Display each token with a space
+          output.innerText = token + " "// Display each token with a space
           } catch (error) {
             console.error(error);
           }
