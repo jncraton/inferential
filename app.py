@@ -3,25 +3,15 @@ from flask import *
 import languagemodels as lm
 from markupsafe import escape
 import requests
-import psutil
+
 
 app = Flask(__name__)
 
 
 # Front end
-@app.route("/", methods=["GET", "POST"])
+@app.route("/")
 def root():
-    if request.method == "POST":
-        # For now, the output is just the input
-        output = escape(request.form["input"])
-        api_route = requests.get("http://127.0.0.1:5000/api?output= " + f"{output}")
-
-        response = api_route.json()
-        return render_template(
-            "index.html", output=response["data"], outputDisplay="block"
-        )
-    else:
-        return render_template("index.html", output="", outputDisplay="none")
+    return render_template("index.html")
 
 
 @app.route("/favicon.ico")
@@ -32,20 +22,13 @@ def favicon():
 
 
 # Backend
-
-
 @app.route("/api")
 def api():
-    query = request.args.get("output", "")
+    query = request.args.get("input", "")
+    if query == "":
+        return {"data": "Error: No prompt was provided."}, 400  # 400 Bad Request
     if len(query) >= 250:
-        return {"data": "Enter a valid query!"}
-    # changes ram the llm is using dynamic to half of avaiable ram to imporve accuracy
-    freeRam = psutil.virtual_memory().free
-    lm.set_max_ram(freeRam / 2)
+        return {"data": "Error: The prompt was too long."}, 413  # 413 Content Too Large
 
     reply = lm.do(query)
-
-    if reply == "Noinput>.":
-        return {"data": "Enter a valid query!"}
-    else:
-        return {"data": reply}, 200  # returns the dictionary and a 200 response code
+    return {"data": reply}, 200  # returns with a response code of 200 OK
