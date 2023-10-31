@@ -21,8 +21,8 @@ document.addEventListener('DOMContentLoaded', function () {
   const submitButton = document.getElementById('submitButton')
   inputElement.addEventListener('keydown', function (e) {
     if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault()
       submitButton.click()
-      inputElement.value = ''
     }
   })
 })
