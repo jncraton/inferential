@@ -21,14 +21,14 @@ def test_paris_query(page: Page):
     page.get_by_label("Prompt").click()
     page.get_by_label("Prompt").fill("Where is Paris")
     page.get_by_role("button", name="Submit").click()
-    chat_reply = page.locator(".output")
+    chat_reply = page.locator(".output-simple")
     expect(chat_reply).to_contain_text("France")
 
 
 def test_empty_query(page: Page):
     page.goto("http://127.0.0.1:5000/")
     page.get_by_role("button", name="Submit").click()
-    chat_reply = page.locator(".output")
+    chat_reply = page.locator(".output-simple")
     expect(chat_reply).to_contain_text("Error: No prompt was provided.")
 
 
@@ -44,7 +44,7 @@ def test_query_too_big(page: Page):
     query = "a".join(choice(ascii_lowercase) for i in range(n))
     page.get_by_label("Prompt").fill(query)
     page.get_by_role("button", name="Submit").click()
-    chat_reply = page.locator(".output")
+    chat_reply = page.locator(".output-simple")
     expect(chat_reply).to_contain_text("Error: The prompt was too long.")
 
 
