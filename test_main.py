@@ -56,3 +56,22 @@ def test_query_too_big_api(client):
         "/api?input=" + ("".join(choice(ascii_lowercase) for i in range(250)))
     )
     assert response.status_code == 413
+
+
+def test_shift_enter(page: Page):
+    page.goto("http://127.0.0.1:5000/")
+    prompt_box = page.get_by_label("Prompt")
+    prompt_box.click()
+    # Simulate Shift+Enter to create a new line
+    prompt_box.press('Shift+Enter')
+    expect(prompt_box).to_contain_text('\n')
+
+
+def test_enter(page: Page):
+    page.goto("http://127.0.0.1:5000/")
+    prompt_box = page.get_by_label("Prompt")
+    prompt_box.click()
+    # Simulate Shift+Enter to create a new line
+    prompt_box.press('Enter')
+    chat_reply = page.locator(".output")
+    expect(chat_reply).to_contain_text("Error: No prompt was provided.")
