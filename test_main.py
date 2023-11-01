@@ -63,8 +63,8 @@ def test_shift_enter(page: Page):
     prompt_box = page.get_by_label("Prompt")
     prompt_box.click()
     # Simulate Shift+Enter to create a new line
-    prompt_box.press('Shift+Enter')
-    expect(prompt_box).to_contain_text('\n')
+    prompt_box.press("Shift+Enter")
+    expect(prompt_box).to_contain_text("\n")
 
 
 def test_enter(page: Page):
@@ -72,6 +72,6 @@ def test_enter(page: Page):
     prompt_box = page.get_by_label("Prompt")
     prompt_box.click()
     # Simulate Shift+Enter to create a new line
-    prompt_box.press('Enter')
+    prompt_box.press("Enter")
     chat_reply = page.locator(".output")
     expect(chat_reply).to_contain_text("Error: No prompt was provided.")
