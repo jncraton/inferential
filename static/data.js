@@ -4,7 +4,7 @@ const output = document.getElementById('outputResponse')
 const input = document.getElementById('input')
 
 // event listener on the button element
-button.onclick = function () {
+const buttonClick = e =>  {
   output.innerText = 'Loading...'
   fetch('/api?' + new URLSearchParams({ input: input.value }))
     .then(response => {
@@ -16,13 +16,9 @@ button.onclick = function () {
     .catch(err => console.error(err))
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-  const inputElement = document.getElementById('input')
-  const submitButton = document.getElementById('submitButton')
-  inputElement.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault()
-      submitButton.click()
-    }
-  })
+input.addEventListener('keydown', function (e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault()
+    buttonClick()    
+  }
 })
