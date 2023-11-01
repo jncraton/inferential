@@ -2,6 +2,7 @@ html {
   background-color: #e4e4e4;
   height: 100vh;
 }
+
 body {
   background-color: white;
   font-family: Arial, Helvetica, sans-serif;
@@ -81,6 +82,8 @@ textarea {
 
 .label {
   font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 5px;
 }
 
 textarea,
@@ -106,4 +109,10 @@ pre {
   max-width: 100%;
   text-align: left;
   text-indent: 20px;
+}
+
+.output-simple {
+  word-wrap: break-word;
+  max-width: 100%;
+  text-align: center;
 }
