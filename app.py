@@ -58,10 +58,10 @@ def tokenize(input):
     model = ctranslate2.Translator(model_base_path, compute_type="int8")
 
     # Translate the tokens
-    results = model.generate_tokens(input_tokens)
+    results = model.generate_tokens(input_tokens, disable_unk=True)
 
     for item in results:
         print('"' + item.token + '", ' + str(item.token_id) + ", " + str(item.is_last))
         if item.is_last:
             break
-        yield item.token
+        yield item.token.replace("\u2581", " ") # Note: This looks like an underscore but is actually a different character.

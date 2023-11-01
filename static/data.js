@@ -4,6 +4,7 @@ const output = document.getElementById('outputResponse')
 const input = document.getElementById('input')
 
 button.addEventListener('click', function () {
+  output.innerText = 'Loading...'
   fetch('/api?' + new URLSearchParams({ input: input.value }))
     .then(response => {
       const textStream = response.body.getReader()
