@@ -20,7 +20,7 @@ button.onclick = function () {
 
   fetch('/api?' + new URLSearchParams({ input: input.value }))
     .then(response => {
-    return response.json() 
+      return response.json()
     })
     .then(json => {
       output.innerText = json.data
