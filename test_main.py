@@ -12,6 +12,7 @@ def client():
 
 
 def test_paris_query_api(client):
+    """This will test to verify a status for a normal query"""
     response = client.get("/api?input=Where is Paris")
     assert response.status_code == 200
 
@@ -35,6 +36,7 @@ def test_empty_query(page: Page):
 
 
 def test_empty_query_api(client):
+    """This will test to verify a status for empty query"""
     response = client.get("/api?input=")
     assert response.status_code == 400
 
@@ -52,6 +54,7 @@ def test_query_too_big(page: Page):
 
 
 def test_query_too_big_api(client):
+    """This will test verify status code for a too big query"""
     response = client.get(
         "/api?input=" + ("".join(choice(ascii_lowercase) for i in range(250)))
     )
@@ -59,19 +62,19 @@ def test_query_too_big_api(client):
 
 
 def test_shift_enter(page: Page):
+    """This will test if shift+enter creates a new line"""
     page.goto("http://127.0.0.1:5000/")
     prompt_box = page.get_by_label("Prompt")
     prompt_box.click()
-    # Simulate Shift+Enter to create a new line
     prompt_box.press("Shift+Enter")
     expect(prompt_box).to_contain_text("\n")
 
 
 def test_enter(page: Page):
+    """This will test if enter submits prompt"""
     page.goto("http://127.0.0.1:5000/")
     prompt_box = page.get_by_label("Prompt")
     prompt_box.click()
-    # Simulate Shift+Enter to create a new line
     prompt_box.press("Enter")
     chat_reply = page.locator(".output")
     expect(chat_reply).to_contain_text("Error: No prompt was provided.")
