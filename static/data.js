@@ -5,7 +5,8 @@ const input = document.getElementById('input')
 
 // Assign different class to output based on response
 function setOutputClass(outputString) {
-  if (outputString.length < 80) {         //Number of characters before it switches styles is 80, change if needed
+  if (outputString.length < 80) {
+    //Number of characters before it switches styles is 80, change if
     output.className = 'output-simple'
   } else {
     output.className = 'output'
@@ -14,6 +15,7 @@ function setOutputClass(outputString) {
 
 // Event listener on the button element
 button.onclick = function () {
+  output.innerText = 'Loading...'
   fetch('/api?' + new URLSearchParams({ input: input.value }))
     .then(response => {
       if (response.ok) {
