@@ -25,44 +25,27 @@
     <link rel="icon" href="favicon.ico" />
     <meta name="theme-color" content="#00ff00" />
     <link rel="stylesheet" type="text/css" href="/static/style.css" />
+    <script src="/static/data.js" defer></script>
   </head>
 
   <body>
     <div class="container">
       <h1>Inferential</h1>
-      <form action="." method="post">
-        <div class="form-section">
-          <p class="label">
-            <label for="input">Prompt</label>
-          </p>
-          <textarea
-            id="input"
-            name="input"
-            autofocus
-            onkeydown="if (event.shiftKey && event.keyCode === 13) { event.preventDefault(); this.value += '\n'; }"
-          ></textarea>
-        </div>
-        <input type="submit" value="Submit" />
-        {% if output %}
-        <div>
-          <p class="label">Response</p>
-          <pre class="output">{{output}}</pre>
-        </div>
-        {% endif %}
-      </form>
+
+      <div class="form-section">
+        <p class="label">
+          <label for="input">Prompt</label>
+        </p>
+        <textarea id="input" name="input" autofocus></textarea>
+      </div>
+      <input id="submitButton" type="button" value="Submit" />
+
+      <div>
+        <p class="label">Response</p>
+        <div id="outputResponse" class="output"></div>
+      </div>
     </div>
 
     <div id="foot" class="footer">Made by students of Anderson University</div>
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        const inputElement = document.getElementById('input')
-        inputElement.addEventListener('keydown', function (e) {
-          if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault()
-            document.querySelector('form').submit()
-          }
-        })
-      })
-    </script>
   </body>
 </html>

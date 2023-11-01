@@ -5,16 +5,24 @@ const input = document.getElementById('input')
 
 // event listener on the button element
 button.onclick = function () {
+  output.innerText = 'Loading...'
   fetch('/api?' + new URLSearchParams({ input: input.value }))
     .then(response => {
-      if (responsçe.ok) {
-        return response.json()
-      } else {
-        alert('something is wrong')
-      }
+      return response.json()
     })
     .then(json => {
       output.innerText = json.data
     })
     .catch(err => console.error(err))
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+  const inputElement = document.getElementById('input')
+  const submitButton = document.getElementById('submitButton')
+  inputElement.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault()
+      submitButton.click()
+    }
+  })
+})
