@@ -4,7 +4,7 @@ const output = document.getElementById('outputResponse')
 const input = document.getElementById('input')
 
 // event listener on the button element
-const buttonClick = e =>  {
+const buttonClick = e => {
   output.innerText = 'Loading...'
   fetch('/api?' + new URLSearchParams({ input: input.value }))
     .then(response => {
@@ -19,6 +19,6 @@ const buttonClick = e =>  {
 input.addEventListener('keydown', function (e) {
   if (e.key === 'Enter' && !e.shiftKey) {
     e.preventDefault()
-    buttonClick()    
+    buttonClick()
   }
 })
