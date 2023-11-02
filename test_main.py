@@ -41,24 +41,24 @@ def test_empty_query_api(client):
     assert response.status_code == 400
 
 
-# def test_query_too_big(page: Page):
-#     """This will test if the query of a user is to big"""
-#     n = 250
-#     page.goto("http://127.0.0.1:5000/")
-#     page.get_by_label("Prompt").click()
-#     query = "a".join(choice(ascii_lowercase) for i in range(n))
-#     page.get_by_label("Prompt").fill(query)
-#     page.get_by_role("button", name="Submit").click()
-#     chat_reply = page.locator(".output")
-#     expect(chat_reply).to_contain_text("Error: The prompt was too long.")
+def test_query_too_big(page: Page):
+    """This will test if the query of a user is to big"""
+    n = 250
+    page.goto("http://127.0.0.1:5000/")
+    page.get_by_label("Prompt").click()
+    query = "a".join(choice(ascii_lowercase) for i in range(n))
+    page.get_by_label("Prompt").fill(query)
+    page.get_by_role("button", name="Submit").click()
+    chat_reply = page.locator(".output")
+    expect(chat_reply).to_contain_text("Error: The prompt was too long.")
 
 
-# def test_query_too_big_api(client):
-#     """This will test verify status code for a too big query"""
-#     response = client.get(
-#         "/api?input=" + ("".join(choice(ascii_lowercase) for i in range(250)))
-#     )
-#     assert response.status_code == 413
+def test_query_too_big_api(client):
+    """This will test verify status code for a too big query"""
+    response = client.get(
+        "/api?input=" + ("".join(choice(ascii_lowercase) for i in range(250)))
+    )
+    assert response.status_code == 413
 
 
 def test_streaming_api(client):
