@@ -77,5 +77,5 @@ def test_enter(page: Page):
     prompt_box.click()
     prompt_box.press("Enter")
     expect(prompt_box).to_contain_text("")
-    chat_reply = page.locator(".output")
+    chat_reply = page.locator(".output-simple")
     expect(chat_reply).to_contain_text("Error: No prompt was provided.")
