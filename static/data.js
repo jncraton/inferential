@@ -15,9 +15,7 @@ button.addEventListener('click', function () {
           if (done) {
             return // All tokens have been received
           }
-          console.log('Value: ' + value)
           accumulatedData += decoder.decode(value) // Accumulate the received text
-          console.log('Accumulated Data: ' + accumulatedData)
           output.innerText = accumulatedData
 
           readAndDisplay() // Continue reading and displaying
