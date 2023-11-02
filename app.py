@@ -68,3 +68,8 @@ def tokenize(input):
             response = tokenizer.decode(list_of_token_ids)
             yield response + " "
             list_of_token_ids.clear()
+
+
+if __name__ == '__main__':
+    app.debug = True
+    app.run()
