@@ -22,9 +22,6 @@ def favicon():
 
 
 # Backend
-import time  # Import the time module
-
-
 @app.route("/api")
 def api():
     query = request.args.get("input", "")
