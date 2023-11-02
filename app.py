@@ -57,7 +57,6 @@ def generate_response(input):
     accumlated_results = []
     current_length = 0
     for item in results:
-        print('"' + item.token + '", ' + str(item.token_id) + ", " + str(item.is_last))
         if item.is_last:
             break
         accumlated_results.append(item.token_id)
