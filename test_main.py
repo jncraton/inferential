@@ -79,3 +79,8 @@ def test_enter(page: Page):
     expect(prompt_box).to_contain_text("")
     chat_reply = page.locator(".output")
     expect(chat_reply).to_contain_text("Error: No prompt was provided.")
+
+def test_streaming(client):
+    """This test will confirm that the response is streamed"""
+    response = client.get("/api?input=" + "hielo")
+    assert response.is_streamed == True
