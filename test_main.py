@@ -55,7 +55,7 @@ def test_query_too_big_api(client):
     assert response.status_code == 413
 
 
-def test_streaming(client):
+def test_streaming_api(client):
     """This test will confirm that the response is streamed"""
     response = client.get("/api?input=" + "hielo")
     assert response.is_streamed == True
