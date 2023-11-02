@@ -48,8 +48,7 @@ def tokenize(input):
     tokenizer = Tokenizer.from_file(tok_config)
 
     # Tokenize the input
-    input_tokens = tokenizer.encode(input).tokens
-
+    input_tokens = tokenizer.encode(input).tokens  # This is the query
     # Download the model configuration and model weights
     model_path = hf_hub_download("jncraton/LaMini-Flan-T5-248M-ct2-int8", "model.bin")
     model_base_path = model_path[:-10]
@@ -58,10 +57,14 @@ def tokenize(input):
     model = ctranslate2.Translator(model_base_path, compute_type="int8")
 
     # Translate the tokens
-    results = model.generate_tokens(input_tokens, disable_unk=True)
-
-    for item in results:
-        print('"' + item.token + '", ' + str(item.token_id) + ", " + str(item.is_last))
-        if item.is_last:
-            break
-        yield item.token.replace("\u2581", " ") # Note: This looks like an underscore but is actually a different character.
+    results = model.generate_tokens(
+        input_tokens, disable_unk=True
+    )  # This generates the reply of tokens
+    list_of_token_ids = []
+    for text in results:
+        if text.token[0] == "\u2581":
+            list_of_token_ids.append(text.token_id)
+        else:
+            response = tokenizer.decode(list_of_token_ids)
+            yield response + " "
+            list_of_token_ids.clear()
