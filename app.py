@@ -1,12 +1,9 @@
-from html import escape
 from flask import *
 import languagemodels as lm
 from markupsafe import escape
-import requests
 from huggingface_hub import hf_hub_download
 from tokenizers import Tokenizer
 import ctranslate2
-import json
 
 app = Flask(__name__)
 
