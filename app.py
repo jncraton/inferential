@@ -35,7 +35,8 @@ def api():
         return {"data": "Error: No prompt was provided."}, 400  # 400 Bad Request
     if len(query) >= 250:
         return {"data": "Error: The prompt was too long."}, 413  # 413 Content Too Large
-
+    if query == None:
+        return {"data": "This is a test"}
     tokens = tokenize(query)
     return Response(tokens, content_type="text/plain")
 
