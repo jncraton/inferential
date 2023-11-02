@@ -36,11 +36,11 @@ def api():
     if len(query) >= 250:
         return {"data": "Error: The prompt was too long."}, 413  # 413 Content Too Large
 
-    tokens = tokenize(query)
+    tokens = generate_response(query)
     return Response(tokens, content_type="text/plain")
 
 
-def tokenize(input):
+def generate_response(input):
     # Download the tokenizer
     tok_config = hf_hub_download(
         "jncraton/LaMini-Flan-T5-248M-ct2-int8", "tokenizer.json"
@@ -60,8 +60,14 @@ def tokenize(input):
     # Translate the tokens
     results = model.generate_tokens(input_tokens, disable_unk=True)
 
+    accumlated_results = []
+    current_length = 0
     for item in results:
         print('"' + item.token + '", ' + str(item.token_id) + ", " + str(item.is_last))
         if item.is_last:
             break
-        yield item.token.replace("\u2581", " ") # Note: This looks like an underscore but is actually a different character.
+        accumlated_results.append(item.token_id)
+        decoded_string = tokenizer.decode(accumlated_results)
+        new_text = decoded_string[current_length - len(decoded_string) :]
+        current_length = len(decoded_string)
+        yield new_text
