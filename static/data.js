@@ -3,8 +3,6 @@ const button = document.getElementById('submitButton')
 const output = document.getElementById('outputResponse')
 const input = document.getElementById('input')
 
-
-
 // Event Listners
 button.addEventListener('click', submitButton)
 
@@ -21,7 +19,6 @@ function submitButton() {
 
   fetch('/api?' + new URLSearchParams({ input: input.value }))
     .then(response => {
-
       const textStream = response.body.getReader()
       let accumulatedData = '' // To accumulate the data
       const decoder = new TextDecoder()
@@ -38,7 +35,6 @@ function submitButton() {
       }
 
       readAndDisplay() // Start the process
-
     })
     .catch(err => console.error(err))
 }
