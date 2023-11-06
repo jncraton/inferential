@@ -3,10 +3,12 @@ from flask import *
 import languagemodels as lm
 from markupsafe import escape
 import requests
+import yaml
 
 
 app = Flask(__name__)
-
+with open("config.yml", "r") as f:
+    config = yaml.safe_load(f)
 
 # Front end
 @app.route("/")
