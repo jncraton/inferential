@@ -17,14 +17,7 @@ def test_paris_query_api(client):
     assert response.status_code == 200
 
 
-def test_paris_query(page: Page):
-    """This will tests a basic query"""
-    page.goto("http://127.0.0.1:5000/")
-    page.get_by_label("Prompt").click()
-    page.get_by_label("Prompt").fill("Where is Paris")
-    page.get_by_role("button", name="Submit").click()
-    chat_reply = page.locator("#outputResponse")
-    expect(chat_reply).to_contain_text("France")
+
 
 
 def test_empty_query(page: Page):
@@ -60,6 +53,14 @@ def test_query_too_big_api(client):
     )
     assert response.status_code == 413
 
+def test_paris_query(page: Page):
+    """This will tests a basic query"""
+    page.goto("http://127.0.0.1:5000/")
+    page.get_by_label("Prompt").click()
+    page.get_by_label("Prompt").fill("Where is Paris")
+    page.get_by_role("button", name="Submit").click()
+    chat_reply = page.locator("#outputResponse")
+    expect(chat_reply).to_contain_text("France")
 
 def test_streaming_api(client):
     """This test will confirm that the response is streamed"""
