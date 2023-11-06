@@ -8,8 +8,14 @@ import requests
 app = Flask(__name__)
 
 
-# Front end
+# Loading page
 @app.route("/")
+def loading_page():
+    return render_template("status.html")
+
+
+# API Front End
+@app.route("/Inferential")
 def root():
     return render_template("index.html")
 
