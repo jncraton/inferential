@@ -50,13 +50,19 @@ def tokenize(input):
     # Tokenize the input
     input_tokens = tokenizer.encode(input).tokens  # This is the query
     # Download the model configuration and model weights
+   
     model_path = hf_hub_download("jncraton/LaMini-Flan-T5-248M-ct2-int8", "model.bin")
+    if model_path is None or model_path == "":
+        model_path = hf_hub_download("jncraton/LaMini-Flan-T5-248M-ct2-int8", "model.bin")
     model_base_path = model_path[:-10]
     print("Model path: " + model_path)
     print("Model base path: " + model_base_path)
     # Initialize the translator
-    model = ctranslate2.Translator(str(model_base_path))
-    print("Model: " + str(model))
+    try:
+        model = ctranslate2.Translator(str(model_base_path), compute_type="int8")
+        print("Model: " + str(model))
+    except RuntimeError as e:
+        print("Issue with model: " + e)
     # Translate the tokens
     results = model.generate_tokens(
         input_tokens, disable_unk=True
