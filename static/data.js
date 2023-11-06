@@ -40,13 +40,12 @@ function submitButton() {
           accumulatedData += decoder.decode(value) // Accumulate the received text
           output.innerText = accumulatedData
 
+          setOutputClass(accumulatedData)
           readAndDisplay() // Continue reading and displaying
         })
       }
 
       readAndDisplay() // Start the process
-
-      setOutputClass(json.data)
     })
     .catch(err => console.error(err))
 }
