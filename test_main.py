@@ -24,7 +24,7 @@ def test_paris_query(page: Page):
     page.get_by_label("Prompt").fill("Where is Paris")
     page.get_by_role("button", name="Submit").click()
     chat_reply = page.locator(".output")
-    expect(chat_reply).to_contain_text("France")
+    expect(page.locator(".output")).to_contain_text("France")
 
 
 def test_empty_query(page: Page):
