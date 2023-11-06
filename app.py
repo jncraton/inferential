@@ -37,7 +37,7 @@ def api():
         return {"data": "Error: The prompt was too long."}, 413  # 413 Content Too Large
 
     tokens = tokenize(query)
-    return Response(tokens, content_type="text/plain")
+    return Response(tokens, content_type="text/plain"),200
 
 
 def tokenize(input):
