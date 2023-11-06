@@ -62,7 +62,7 @@ def tokenize(input):
         model = ctranslate2.Translator(str(model_base_path), compute_type="int8")
         print("Model: " + str(model))
     except RuntimeError as e:
-        print("Issue with model: " + e)
+        print("Issue with model: " + str(e))
     # Translate the tokens
     results = model.generate_tokens(
         input_tokens, disable_unk=True
