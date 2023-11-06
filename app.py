@@ -55,7 +55,7 @@ def tokenize(input):
     print("Model path: " + model_path)
     print("Model base path: " + model_base_path)
     # Initialize the translator
-    model = ctranslate2.Translator(model_base_path)
+    model = ctranslate2.Translator(str(model_base_path))
     print("Model: " + str(model))
     # Translate the tokens
     results = model.generate_tokens(
