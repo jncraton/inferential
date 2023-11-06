@@ -37,7 +37,7 @@ def api():
         return {"data": "Error: The prompt was too long."}, 413  # 413 Content Too Large
 
     tokens = tokenize(query)
-    return Response(tokens, content_type="text/plain"),200
+    return Response(tokens, content_type="text/plain")
 
 
 def tokenize(input):
@@ -50,12 +50,10 @@ def tokenize(input):
     # Tokenize the input
     input_tokens = tokenizer.encode(input).tokens  # This is the query
     # Download the model configuration and model weights
-
+   
     model_path = hf_hub_download("jncraton/LaMini-Flan-T5-248M-ct2-int8", "model.bin")
     if model_path is None or model_path == "":
-        model_path = hf_hub_download(
-            "jncraton/LaMini-Flan-T5-248M-ct2-int8", "model.bin"
-        )
+        model_path = hf_hub_download("jncraton/LaMini-Flan-T5-248M-ct2-int8", "model.bin")
     model_base_path = model_path[:-10]
     print("Model path: " + model_path)
     print("Model base path: " + model_base_path)
@@ -63,17 +61,17 @@ def tokenize(input):
     try:
         model = ctranslate2.Translator(str(model_base_path), compute_type="int8")
         print("Model: " + str(model))
-
-        # Translate the tokens
-
+   
+    # Translate the tokens
+    
         results = model.generate_tokens(
-            input_tokens, disable_unk=True
-        )  # This generates the reply of tokens
+        input_tokens, disable_unk=True
+    )  # This generates the reply of tokens
 
         for text in results:
             list_of_token_ids = []
             list_of_token_ids.append(text.token_id)
             response = tokenizer.decode(list_of_token_ids)
-            yield response
+            yield response + " "
     except RuntimeError as e:
         print("Issue with model: " + str(e))
