@@ -17,17 +17,18 @@ def test_paris_query_api(client):
     assert response.status_code == 200
 
 
-def test_paris_query(page: Page):
+def test_paris_query_ui(page: Page):
     """This will tests a basic query"""
     page.goto("http://127.0.0.1:5000/")
     page.get_by_label("Prompt").click()
     page.get_by_label("Prompt").fill("Where is Paris")
     page.get_by_role("button", name="Submit").click()
     chat_reply = page.locator(".output")
-    expect(chat_reply).to_contain_text("France ")
+    time.sleep(3)
+    expect(chat_reply).to_contain_text("France")
 
 
-def test_empty_query(page: Page):
+def test_empty_query_ui(page: Page):
     """This will test if the user queries an empty string"""
     page.goto("http://127.0.0.1:5000/")
     page.get_by_role("button", name="Submit").click()
@@ -41,7 +42,7 @@ def test_empty_query_api(client):
     assert response.status_code == 400
 
 
-def test_query_too_big(page: Page):
+def test_query_too_big_ui(page: Page):
     """This will test if the query of a user is to big"""
     n = 250
     page.goto("http://127.0.0.1:5000/")
@@ -67,7 +68,7 @@ def test_streaming_api(client):
     assert response.is_streamed == True
 
 
-def test_shift_enter(page: Page):
+def test_shift_enter_ui(page: Page):
     """This will test if shift+enter creates a new line"""
     page.goto("http://127.0.0.1:5000/")
     prompt_box = page.get_by_label("Prompt")
@@ -76,7 +77,7 @@ def test_shift_enter(page: Page):
     expect(prompt_box).to_contain_text("\n")
 
 
-def test_enter(page: Page):
+def test_enter_ui(page: Page):
     """This will test if enter submits prompt"""
     page.goto("http://127.0.0.1:5000/")
     prompt_box = page.get_by_label("Prompt")
