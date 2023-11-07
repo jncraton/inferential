@@ -15,7 +15,7 @@ def loading_page():
 
 
 # API Front End
-@app.route("/Inferential")
+@app.route("/playground")
 def root():
     return render_template("index.html")
 
