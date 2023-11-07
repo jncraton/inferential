@@ -1,0 +1,5 @@
+# A list of llms to test with. Some are work with the API and some don't
+model: flan-t5-base-ct2-int8
+model2: flan-t5-base
+model3: gte-small
+model4: flan-alpaca-base
