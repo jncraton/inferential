@@ -3,18 +3,38 @@ const button = document.getElementById('submitButton')
 const output = document.getElementById('outputResponse')
 const input = document.getElementById('input')
 
-// event listener on the button element
-button.onclick = function () {
+// Assign different class to output based on response
+function setOutputClass(outputString) {
+  //Number of characters before it switches styles is 80, change if needed
+  if (outputString.length < 80) {
+    output.className = 'output-simple'
+  } else {
+    output.className = 'output'
+  }
+}
+
+// Event Listners
+button.addEventListener('click', submitButton)
+
+input.addEventListener('keydown', function (e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault()
+    submitButton()
+  }
+})
+
+// Function calls fetch API upon promptSubmition
+function submitButton() {
+  output.innerText = 'Loading...'
+
   fetch('/api?' + new URLSearchParams({ input: input.value }))
     .then(response => {
-      if (response.ok) {
-        return response.json()
-      } else {
-        alert('something is wrong')
-      }
+      return response.json()
     })
     .then(json => {
       output.innerText = json.data
+
+      setOutputClass(json.data)
     })
     .catch(err => console.error(err))
 }

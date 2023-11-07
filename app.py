@@ -7,8 +7,16 @@ import yaml
 
 
 app = Flask(__name__)
+
+# Opens the config file and assigns it to configIndex
 with open("config.yml", "r") as f:
-    config = yaml.safe_load(f)
+    configIndex = yaml.safe_load(f)
+
+# Uses the chosen model in the config file and sets it to selected_model
+selected_model = configIndex["model4"]
+
+# Changes the model lm uses to the selected model.
+lm.config['instruct_model'] = selected_model
 
 # Front end
 @app.route("/")
@@ -27,12 +35,10 @@ def favicon():
 @app.route("/api")
 def api():
     query = request.args.get("input", "")
-    if len(query) >= 250 or query == "":
-        return {"data": "Enter a valid query!"}
-
+    if query == "":
+        return {"data": "Error: No prompt was provided."}, 400  # 400 Bad Request
+    if len(query) >= 250:
+        return {"data": "Error: The prompt was too long."}, 413  # 413 Content Too Large
+    
     reply = lm.do(query)
-
-    if reply == "Noinput>.":
-        return {"data": "Enter a valid query!"}
-    else:
-        return {"data": reply}, 200  # returns the dictionary and a 200 response code
+    return {"data": reply}, 200  # returns with a response code of 200 OK
