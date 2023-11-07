@@ -77,3 +77,4 @@ def tokenize(input):
             yield response + " "
     except RuntimeError as e:
         print("Issue with model: " + str(e))
+        raise e
