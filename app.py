@@ -61,6 +61,9 @@ def api():
 
 
 def tokenize(input):
+    # Download model config and vocabulary
+    hf_hub_download("jncraton/LaMini-Flan-T5-248M-ct2-int8", "config.json")
+    hf_hub_download("jncraton/LaMini-Flan-T5-248M-ct2-int8", "shared_vocabulary.txt")
     # Download the tokenizer
     tok_config = hf_hub_download(
         "jncraton/LaMini-Flan-T5-248M-ct2-int8", "tokenizer.json"
