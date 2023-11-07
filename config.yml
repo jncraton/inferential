@@ -1,3 +1,7 @@
 # A dictionary of models to use
 models:
-  - flan-alpaca-base
+  - fastchat-t5-3b-v1.0 # Conversational tasks
+  - codet5p-220m-py # Coding tasks
+  - LaMini-GPT-124M # Creative writing tasks
+  - flan-alpaca-gpt4-xl # Larger model - Large tasks
+  - flan-t5-xl # Summarization and translation tasks

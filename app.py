@@ -4,7 +4,6 @@ import languagemodels as lm
 from markupsafe import escape
 import requests
 import yaml
-import yaml
 
 
 app = Flask(__name__)
@@ -18,26 +17,8 @@ selected_model = configIndex["models"][0]
 
 # Changes the model lm uses to the selected model.
 lm.config["instruct_model"] = selected_model
+lm.set_max_ram("512mb")
 
-# Opens the config file and assigns it to configIndex
-with open("config.yml", "r") as f:
-    configIndex = yaml.safe_load(f)
-
-# Uses the chosen model in the config file and sets it to selected_model
-selected_model = configIndex["models"][0]
-
-# Changes the model lm uses to the selected model.
-lm.config["instruct_model"] = selected_model
-
-# Opens the config file and assigns it to configIndex
-with open("config.yml", "r") as f:
-    configIndex = yaml.safe_load(f)
-
-# Uses the chosen model in the config file and sets it to selected_model
-selected_model = configIndex["model4"]
-
-# Changes the model lm uses to the selected model.
-lm.config['instruct_model'] = selected_model
 
 # Front end
 @app.route("/")
