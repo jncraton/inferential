@@ -3,17 +3,38 @@ from flask import *
 import languagemodels as lm
 from markupsafe import escape
 import requests
+
 from huggingface_hub import hf_hub_download
 from tokenizers import Tokenizer
 import ctranslate2
 import json
 
+import yaml
+
+
+
 app = Flask(__name__)
 
+# Opens the config file and assigns it to configIndex
+with open("config.yml", "r") as f:
+    configIndex = yaml.safe_load(f)
 
-# Front end
+# Uses the chosen model in the config file and sets it to selected_model
+selected_model = configIndex["models"][0]
+
+# Changes the model lm uses to the selected model.
+lm.config["instruct_model"] = selected_model
+
+
+# Loading page
 @app.route("/")
-def root():
+def loading_page():
+    return render_template("status.html")
+
+
+# API Front End
+@app.route("/playground")
+def playground():
     return render_template("index.html")
 
 

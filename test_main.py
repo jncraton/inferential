@@ -19,7 +19,7 @@ def test_paris_query_api(client):
 
 def test_paris_query_ui(page: Page):
     """This will tests a basic query"""
-    page.goto("http://127.0.0.1:5000/")
+    page.goto("http://127.0.0.1:5000/playground")
     page.get_by_label("Prompt").click()
     page.get_by_label("Prompt").fill("Where is Paris")
     page.get_by_role("button", name="Submit").click()
@@ -38,7 +38,7 @@ def test_paris_query_ui_2(page:Page):
 
 def test_empty_query_ui(page: Page):
     """This will test if the user queries an empty string"""
-    page.goto("http://127.0.0.1:5000/")
+    page.goto("http://127.0.0.1:5000/playground")
     page.get_by_role("button", name="Submit").click()
     chat_reply = page.locator(".output")
     expect(chat_reply).to_contain_text("Error: No prompt was provided.")
@@ -53,7 +53,7 @@ def test_empty_query_api(client):
 def test_query_too_big_ui(page: Page):
     """This will test if the query of a user is to big"""
     n = 250
-    page.goto("http://127.0.0.1:5000/")
+    page.goto("http://127.0.0.1:5000/playground")
     page.get_by_label("Prompt").click()
     query = "a".join(choice(ascii_lowercase) for i in range(n))
     page.get_by_label("Prompt").fill(query)
@@ -78,7 +78,7 @@ def test_streaming_api(client):
 
 def test_shift_enter_ui(page: Page):
     """This will test if shift+enter creates a new line"""
-    page.goto("http://127.0.0.1:5000/")
+    page.goto("http://127.0.0.1:5000/playground")
     prompt_box = page.get_by_label("Prompt")
     prompt_box.click()
     prompt_box.press("Shift+Enter")
@@ -87,7 +87,7 @@ def test_shift_enter_ui(page: Page):
 
 def test_enter_ui(page: Page):
     """This will test if enter submits prompt"""
-    page.goto("http://127.0.0.1:5000/")
+    page.goto("http://127.0.0.1:5000/playground")
     prompt_box = page.get_by_label("Prompt")
     prompt_box.click()
     prompt_box.press("Enter")
