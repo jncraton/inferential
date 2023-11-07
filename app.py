@@ -13,7 +13,7 @@ with open("config.yml", "r") as f:
     configIndex = yaml.safe_load(f)
 
 # Uses the chosen model in the config file and sets it to selected_model
-selected_model = configIndex["model4"]
+selected_model = configIndex["models"][0]
 
 # Changes the model lm uses to the selected model.
 lm.config["instruct_model"] = selected_model
