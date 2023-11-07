@@ -19,10 +19,15 @@ selected_model = configIndex["models"][0]
 lm.config["instruct_model"] = selected_model
 lm.set_max_ram("512mb")
 
-
-# Front end
+# Loading page
 @app.route("/")
-def root():
+def loading_page():
+    return render_template("status.html")
+
+
+# API Front End
+@app.route("/playground")
+def playground():
     return render_template("index.html")
 
 
