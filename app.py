@@ -12,7 +12,6 @@ import json
 import yaml
 
 
-
 app = Flask(__name__)
 
 # Opens the config file and assigns it to configIndex
@@ -82,7 +81,7 @@ def tokenize(input):
     print("Model base path: " + model_base_path)
     # Initialize the translator
     try:
-        model = ctranslate2.Translator(str(model_base_path), compute_type="int8")
+        model = ctranslate2.Translator(model_base_path, compute_type="int8")
         print("Model: " + str(model))
 
         # Translate the tokens
