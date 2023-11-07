@@ -16,7 +16,7 @@ def loading_page():
 
 # API Front End
 @app.route("/playground")
-def root():
+def playground():
     return render_template("index.html")
 
 
