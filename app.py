@@ -41,6 +41,6 @@ def api():
         return {"data": "Error: No prompt was provided."}, 400  # 400 Bad Request
     if len(query) >= 250:
         return {"data": "Error: The prompt was too long."}, 413  # 413 Content Too Large
-    
+
     reply = lm.do(query)
     return {"data": reply}, 200  # returns with a response code of 200 OK
