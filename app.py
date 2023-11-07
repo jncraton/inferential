@@ -46,6 +46,8 @@ def generate_response(input):
 
     # Download the model configuration and model weights
     model_path = hf_hub_download("jncraton/LaMini-Flan-T5-248M-ct2-int8", "model.bin")
+    if model_path is None or model_path == "":
+        model_path = hf_hub_download("jncraton/LaMini-Flan-T5-248M-ct2-int8", "model.bin")
     model_base_path = model_path[:-10]
 
     # Initialize the translator
