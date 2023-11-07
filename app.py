@@ -4,6 +4,7 @@ import languagemodels as lm
 from markupsafe import escape
 import requests
 import yaml
+import yaml
 
 
 app = Flask(__name__)
@@ -18,6 +19,25 @@ selected_model = configIndex["models"][0]
 # Changes the model lm uses to the selected model.
 lm.config["instruct_model"] = selected_model
 
+# Opens the config file and assigns it to configIndex
+with open("config.yml", "r") as f:
+    configIndex = yaml.safe_load(f)
+
+# Uses the chosen model in the config file and sets it to selected_model
+selected_model = configIndex["models"][0]
+
+# Changes the model lm uses to the selected model.
+lm.config["instruct_model"] = selected_model
+
+# Opens the config file and assigns it to configIndex
+with open("config.yml", "r") as f:
+    configIndex = yaml.safe_load(f)
+
+# Uses the chosen model in the config file and sets it to selected_model
+selected_model = configIndex["model4"]
+
+# Changes the model lm uses to the selected model.
+lm.config['instruct_model'] = selected_model
 
 # Front end
 @app.route("/")
@@ -40,6 +60,6 @@ def api():
         return {"data": "Error: No prompt was provided."}, 400  # 400 Bad Request
     if len(query) >= 250:
         return {"data": "Error: The prompt was too long."}, 413  # 413 Content Too Large
-
+    
     reply = lm.do(query)
     return {"data": reply}, 200  # returns with a response code of 200 OK
