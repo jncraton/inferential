@@ -19,6 +19,7 @@ selected_model = configIndex["models"][0]
 lm.config["instruct_model"] = selected_model
 lm.set_max_ram("512mb")
 
+
 # Loading page
 @app.route("/")
 def loading_page():
