@@ -116,3 +116,9 @@ pre {
   max-width: 100%;
   text-align: center;
 }
+
+.right {
+  word-wrap: break-word;
+  max-width: 100%;
+  text-align: right;
+}

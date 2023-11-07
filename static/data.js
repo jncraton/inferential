@@ -2,6 +2,7 @@
 const button = document.getElementById('submitButton')
 const output = document.getElementById('outputResponse')
 const input = document.getElementById('input')
+const modelSelect = document.getElementById('models')
 
 // Assign different class to output based on response
 function setOutputClass(outputString) {
@@ -38,3 +39,14 @@ function submitButton() {
     })
     .catch(err => console.error(err))
 }
+
+modelSelect.addEventListener('change', event => {
+  const model = event.target.value
+  if(model == "flan-alpaca-base"){
+    //update model selection
+    console.assert("base model")
+  }
+  else if(model == "test"){
+    console.assert("test model")
+  }
+})
