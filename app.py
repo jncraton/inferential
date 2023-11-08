@@ -66,7 +66,6 @@ def generate_response(input):
     model_base_path = os.path.dirname(model_path)
 
     # Initialize the translator
-    print("model_base_path is currently " + model_base_path)
     model = ctranslate2.Translator(model_base_path, compute_type="int8")
 
     # Translate the tokens
