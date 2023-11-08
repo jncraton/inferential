@@ -1,6 +1,6 @@
 from flask import *
 import languagemodels as lm
-from markupsafe import escape
+# from markupsafe import escape
 from huggingface_hub import hf_hub_download
 from tokenizers import Tokenizer
 import ctranslate2
@@ -17,6 +17,12 @@ selected_model = configIndex["models"][0]
 
 # Changes the model lm uses to the selected model.
 lm.config["instruct_model"] = selected_model
+
+# Download tokenizer, model config, and vocabulary
+hf_hub_download("jncraton/LaMini-Flan-T5-248M-ct2-int8", "config.json")
+hf_hub_download("jncraton/LaMini-Flan-T5-248M-ct2-int8", "shared_vocabulary.txt")
+tok_config = hf_hub_download("jncraton/LaMini-Flan-T5-248M-ct2-int8", "tokenizer.json")
+model_path = hf_hub_download("jncraton/LaMini-Flan-T5-248M-ct2-int8", "model.bin")
 
 
 # Loading page
@@ -43,29 +49,21 @@ def favicon():
 def api():
     query = request.args.get("input", "")
     if query == "":
-        return {"data": "Error: No prompt was provided."}, 400  # 400 Bad Request
+        return "Error: No prompt was provided.", 400  # 400 Bad Request
     if len(query) >= 250:
-        return {"data": "Error: The prompt was too long."}, 413  # 413 Content Too Large
+        return "Error: The prompt was too long.", 413  # 413 Content Too Large
 
     tokens = generate_response(query)
     return Response(tokens, content_type="text/plain")
 
 
 def generate_response(input):
-    # Download the tokenizer
-    tok_config = hf_hub_download(
-        "jncraton/LaMini-Flan-T5-248M-ct2-int8", "tokenizer.json"
-    )
-    tokenizer = Tokenizer.from_file(tok_config)
-
     # Tokenize the input
+    tokenizer = Tokenizer.from_file(tok_config)
     input_tokens = tokenizer.encode(input).tokens
 
     # Download the model configuration and model weights
-    model_path = hf_hub_download("jncraton/LaMini-Flan-T5-248M-ct2-int8", "model.bin")
-    if model_path is None or model_path == "":
-        model_path = hf_hub_download("jncraton/LaMini-Flan-T5-248M-ct2-int8", "model.bin")
-    model_base_path = model_path[:-10]
+    model_base_path = model_path + "\\.."
 
     # Initialize the translator
     print("model_base_path is currently " + model_base_path)
