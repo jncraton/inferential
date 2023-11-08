@@ -40,13 +40,22 @@ function submitButton() {
     .catch(err => console.error(err))
 }
 
+// Update model selection
 modelSelect.addEventListener('change', event => {
   const model = event.target.value
-  if(model == "flan-alpaca-base"){
-    //update model selection
-    console.assert("base model")
+  if(model == "Conversational tasks"){
+    // fastchat-t5-3b-v1.0
   }
-  else if(model == "test"){
-    console.assert("test model")
+  else if(model == "Coding tasks"){
+    // codet5p-220m-py
+  }
+  else if(model == "Creative writing tasks"){
+    // LaMini-GPT-124M
+  }
+  else if(model == "Large tasks"){
+    // flan-alpaca-gpt4-xl
+  }
+  else if(model == "Summarization and translation tasks"){
+    // flan-t5-xl
   }
 })

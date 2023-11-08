@@ -117,8 +117,8 @@ pre {
   text-align: center;
 }
 
-.right {
+.left {
   word-wrap: break-word;
   max-width: 100%;
-  text-align: right;
+  text-align: left;
 }
