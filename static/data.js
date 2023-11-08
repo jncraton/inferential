@@ -43,19 +43,15 @@ function submitButton() {
 // Update model selection
 modelSelect.addEventListener('change', event => {
   const model = event.target.value
-  if(model == "Conversational tasks"){
+  if (model == 'Conversational tasks') {
     // fastchat-t5-3b-v1.0
-  }
-  else if(model == "Coding tasks"){
+  } else if (model == 'Coding tasks') {
     // codet5p-220m-py
-  }
-  else if(model == "Creative writing tasks"){
+  } else if (model == 'Creative writing tasks') {
     // LaMini-GPT-124M
-  }
-  else if(model == "Large tasks"){
+  } else if (model == 'Large tasks') {
     // flan-alpaca-gpt4-xl
-  }
-  else if(model == "Summarization and translation tasks"){
+  } else if (model == 'Summarization and translation tasks') {
     // flan-t5-xl
   }
 })
