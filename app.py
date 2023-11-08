@@ -1,3 +1,4 @@
+import os
 from flask import *
 import languagemodels as lm
 from markupsafe import escape
@@ -62,8 +63,7 @@ def generate_response(input):
     tokenizer = Tokenizer.from_file(tok_config)
     input_tokens = tokenizer.encode(input).tokens
 
-    # Download the model configuration and model weights
-    model_base_path = model_path + "\\.."
+    model_base_path = os.path.dirname(model_path)
 
     # Initialize the translator
     print("model_base_path is currently " + model_base_path)
