@@ -10,7 +10,7 @@ function initializePlayground() {
           window.location.href = '/playground'
         }, 15)
       }, 630)
-    }, 3800)
+    }, 2000)
   }, 500)
 }
 
