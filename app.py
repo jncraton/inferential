@@ -3,9 +3,20 @@ from flask import *
 import languagemodels as lm
 from markupsafe import escape
 import requests
+import yaml
 
 
 app = Flask(__name__)
+
+# Opens the config file and assigns it to configIndex
+with open("config.yml", "r") as f:
+    configIndex = yaml.safe_load(f)
+
+# Uses the chosen model in the config file and sets it to selected_model
+selected_model = configIndex["models"][0]
+
+# Changes the model lm uses to the selected model.
+lm.config["instruct_model"] = selected_model
 
 
 # Loading page
@@ -16,7 +27,7 @@ def loading_page():
 
 # API Front End
 @app.route("/playground")
-def root():
+def playground():
     return render_template("index.html")
 
 

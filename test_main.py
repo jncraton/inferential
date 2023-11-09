@@ -79,3 +79,11 @@ def test_enter(page: Page):
     expect(prompt_box).to_contain_text("")
     chat_reply = page.locator(".output-simple")
     expect(chat_reply).to_contain_text("Error: No prompt was provided.")
+
+
+def test_redirect(browser):
+    page = browser.new_page()
+    page.goto("http://127.0.0.1:5000/")
+    # Wait for 10 seconds, adjust based on potential wait times
+    page.wait_for_url("http://127.0.0.1:5000/playground", timeout=10000)
+    assert page.url == "http://127.0.0.1:5000/playground"
