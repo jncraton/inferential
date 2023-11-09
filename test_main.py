@@ -85,5 +85,5 @@ def test_redirect(browser):
     page = browser.new_page()
     page.goto("http://127.0.0.1:5000/")
     # Wait for 10 seconds, adjust based on potential wait times
-    page.wait_for_url("http://127.0.0.1:5000/playground", timeout=10000)
+    page.wait_for_url("http://127.0.0.1:5000/playground", timeout=5000)
     assert page.url == "http://127.0.0.1:5000/playground"

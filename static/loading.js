@@ -8,10 +8,10 @@ function initializePlayground() {
         document.getElementById('status').textContent = 'Redirecting'
         setTimeout(function () {
           window.location.href = '/playground'
-        }, 15)
-      }, 630)
-    }, 2000)
-  }, 500)
+        }, 12)
+      }, 600)
+    }, 1500)
+  }, 450)
 }
 
 initializePlayground()
