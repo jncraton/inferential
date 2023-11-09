@@ -4,8 +4,6 @@ import languagemodels as lm
 from markupsafe import escape
 import requests
 import yaml
-import psutil
-import time
 
 
 app = Flask(__name__)
