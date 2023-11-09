@@ -1,3 +1,10 @@
-# A dictionary of models to use
+# A list of models with name and backend information
 models:
-  - flan-alpaca-base
+  - name: flan-alpaca-base
+    backend: ctransformers
+
+  - name: your-model-name
+    backend: ctranslate
+
+  - name: another-model
+    backend: ctransformers
