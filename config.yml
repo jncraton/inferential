@@ -1,10 +1,7 @@
-# A list of models with name and backend information
 models:
-  - name: flan-alpaca-base
+  - name: gpt2
     backend: ctransformers
-
-  - name: your-model-name
-    backend: ctranslate
-
-  - name: another-model
+  - name: LaMini-Flan-T5-783M-ct2-int8
+    backend: ctranslate2
+  - name: marella/gpt-2-ggml
     backend: ctransformers
