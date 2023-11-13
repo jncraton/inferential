@@ -1,7 +1,7 @@
 from flask import *
 import yaml
 from ctransformers import AutoModelForCausalLM
-import ctranslate2
+
 
 
 app = Flask(__name__)
@@ -11,7 +11,7 @@ with open("config.yml", "r") as f:
     config_index = yaml.safe_load(f)
 
 # Uses the chosen model in the config file and sets it to selected_model
-selected_model = config_index["models"][2]
+selected_model = config_index["models"][3]
 
 # Dynamically load the appropriate model based on the selected backend
 if selected_model["backend"] == "ctransformers":

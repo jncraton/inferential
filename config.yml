@@ -1,7 +1,11 @@
 models:
-  - name: gpt2
+  - name: TheBloke/Llama-2-7B-Chat-GGUF
     backend: ctransformers
   - name: LaMini-Flan-T5-783M-ct2-int8
     backend: ctranslate2
-  - name: marella/gpt-2-ggml
+  - name: TheBloke/Llama-2-7B-Chat-GGML
     backend: ctransformers
+  - name: TheBloke/Nous-Capybara-7B-v1.9-GGUF
+    backend: ctransformers
+  
+  
