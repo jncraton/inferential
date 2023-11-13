@@ -84,6 +84,7 @@ textarea {
   font-weight: bold;
   margin-top: 20px;
   margin-bottom: 5px;
+  text-align: center;
 }
 
 textarea,
@@ -115,4 +116,16 @@ pre {
   word-wrap: break-word;
   max-width: 100%;
   text-align: center;
+}
+
+.subtext-footer {
+  position: fixed;
+  bottom: 40px;
+  padding: 0.7em;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  box-sizing: border-box;
+  background: inherit;
+  font-size: 9px;
 }
