@@ -82,6 +82,7 @@ def test_enter(page: Page):
 
 
 def test_redirect(browser):
+    """This test will test to see if the page will redirect to the playground after a certain amount of time and properly load"""
     page = browser.new_page()
     page.goto("http://127.0.0.1:5000/")
     # Wait for 10 seconds, adjust based on potential wait times
