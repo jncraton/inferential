@@ -81,10 +81,16 @@ def test_enter(page: Page):
     expect(chat_reply).to_contain_text("Error: No prompt was provided.")
 
 
+def test_streaming(client):
+    """This test will confirm that the response is streamed"""
+    response = client.get("/api?input=" + "hielo")
+    assert response.is_streamed == True
+
+
 def test_redirect(browser):
     """This test will test to see if the page will redirect to the playground after a certain amount of time and properly load"""
     page = browser.new_page()
     page.goto("http://127.0.0.1:5000/")
-    # Wait for 10 seconds, adjust based on potential wait times
+    # Wait for 5 seconds, adjust based on potential wait times
     page.wait_for_url("http://127.0.0.1:5000/playground", timeout=5000)
     assert page.url == "http://127.0.0.1:5000/playground"
