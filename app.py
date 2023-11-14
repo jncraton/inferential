@@ -29,16 +29,19 @@ else:
 def loading_page():
     return render_template("status.html")
 
+
 # API Front End
 @app.route("/playground")
 def playground():
     return render_template("index.html")
+
 
 @app.route("/favicon.ico")
 def favicon():
     return send_from_directory(
         app.root_path, "static/favicon.ico", mimetype="image/vnd.microsoft.icon"
     )
+
 
 # Backend
 @app.route("/api")

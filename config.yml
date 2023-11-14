@@ -9,7 +9,3 @@ models:
     backend: ctransformers
   - name: TheBloke/TinyLlama-1.1B-1T-OpenOrca-GGUF
     backend: ctransformers
-  
-
-  
-  
