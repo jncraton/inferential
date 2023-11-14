@@ -7,5 +7,3 @@ models:
     backend: ctransformers
   - name: TheBloke/Nous-Capybara-7B-v1.9-GGUF
     backend: ctransformers
-  
-  
