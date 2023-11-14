@@ -19,7 +19,7 @@ def test_paris_query_api(client):
 
 def test_paris_query(page: Page):
     """This will tests a basic query"""
-    page.goto("http://127.0.0.1:5000/")
+    page.goto("http://127.0.0.1:5000/playground")
     page.get_by_label("Prompt").click()
     page.get_by_label("Prompt").fill("Where is Paris")
     page.get_by_role("button", name="Submit").click()
@@ -29,7 +29,7 @@ def test_paris_query(page: Page):
 
 def test_empty_query(page: Page):
     """This will test if the user queries an empty string"""
-    page.goto("http://127.0.0.1:5000/")
+    page.goto("http://127.0.0.1:5000/playground")
     page.get_by_role("button", name="Submit").click()
     chat_reply = page.locator(".output-simple")
     expect(chat_reply).to_contain_text("Error: No prompt was provided.")
@@ -44,7 +44,7 @@ def test_empty_query_api(client):
 def test_query_too_big(page: Page):
     """This will test if the query of a user is to big"""
     n = 250
-    page.goto("http://127.0.0.1:5000/")
+    page.goto("http://127.0.0.1:5000/playground")
     page.get_by_label("Prompt").click()
     query = "a".join(choice(ascii_lowercase) for i in range(n))
     page.get_by_label("Prompt").fill(query)
@@ -63,7 +63,7 @@ def test_query_too_big_api(client):
 
 def test_shift_enter(page: Page):
     """This will test if shift+enter creates a new line"""
-    page.goto("http://127.0.0.1:5000/")
+    page.goto("http://127.0.0.1:5000/playground")
     prompt_box = page.get_by_label("Prompt")
     prompt_box.click()
     prompt_box.press("Shift+Enter")
@@ -72,10 +72,25 @@ def test_shift_enter(page: Page):
 
 def test_enter(page: Page):
     """This will test if enter submits prompt"""
-    page.goto("http://127.0.0.1:5000/")
+    page.goto("http://127.0.0.1:5000/playground")
     prompt_box = page.get_by_label("Prompt")
     prompt_box.click()
     prompt_box.press("Enter")
     expect(prompt_box).to_contain_text("")
     chat_reply = page.locator(".output-simple")
     expect(chat_reply).to_contain_text("Error: No prompt was provided.")
+
+
+def test_streaming(client):
+    """This test will confirm that the response is streamed"""
+    response = client.get("/api?input=" + "hielo")
+    assert response.is_streamed == True
+
+
+def test_redirect(browser):
+    """This test will test to see if the page will redirect to the playground after a certain amount of time and properly load"""
+    page = browser.new_page()
+    page.goto("http://127.0.0.1:5000/")
+    # Wait for 5 seconds, adjust based on potential wait times
+    page.wait_for_url("http://127.0.0.1:5000/playground", timeout=5000)
+    assert page.url == "http://127.0.0.1:5000/playground"
