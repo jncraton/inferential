@@ -22,30 +22,6 @@ Ctranslate2
 
 Ctranslate2 us a C++ and Python Library that helps run efficient inference with transformer models. This package is used for running inference on compatible modles found in the Ctranslate2 Documentation[https://github.com/OpenNMT/CTranslate2]
 
-```python
-# Download tokenizer, model config, and vocabulary
->>> hf_hub_download("jncraton/LaMini-Flan-T5-248M-ct2-int8", "config.json")
->>> hf_hub_download("jncraton/LaMini-Flan-T5-248M-ct2-int8", "shared_vocabulary.txt")
->>> tok_config = hf_hub_download("jncraton/LaMini-Flan-T5-248M-ct2-int8", "tokenizer.json")
->>> model_path = hf_hub_download("jncraton/LaMini-Flan-T5-248M-ct2-int8", "model.bin")
-
-#Encode the query(input)
->>> input_tokens = tokenizer.encode(input).tokens
- # Translate the tokens
->>> results = model.generate_tokens(input_tokens,disable_unk=True)
-
-#Stream the tokens
->>> accumlated_results = []
->>> current_length = 0
->>> for item in results:
-        if item.is_last:
-            break
-        accumlated_results.append(item.token_id)
-        decoded_string = tokenizer.decode(accumlated_results)
-        new_text = decoded_string[current_length - len(decoded_string) :]
-        current_length = len(decoded_string)
-        yield new_text
-```
 
 CTransformers
 
@@ -92,6 +68,6 @@ If this does not work here is the alternative
 python -m flask run
 ```
 
-Ctrl click on the url, should look something like this "https://0.0.0.0"
+Ctrl click on the url, should look something like this "https://0.0.0.0:0000"
 
 Now you can start running inference using the different models selected
