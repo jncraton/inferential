@@ -1,25 +1,29 @@
 from flask import *
-import yaml
+from markupsafe import escape
+from inference import generate_response_ctranslate2
+from huggingface_hub import hf_hub_download, snapshot_download
 from ctransformers import AutoModelForCausalLM
-
-
+import yaml
 
 app = Flask(__name__)
 
+# Download the model (ctranslate2)
+model_folder = snapshot_download(repo_id="jncraton/LaMini-Flan-T5-248M-ct2-int8")
+tok_config = hf_hub_download("jncraton/LaMini-Flan-T5-248M-ct2-int8", "tokenizer.json")
 # Opens the config file and assigns it to config_index
 with open("config.yml", "r") as f:
     config_index = yaml.safe_load(f)
 
 # Uses the chosen model in the config file and sets it to selected_model
-selected_model = config_index["models"][2]
-
+selected_model = config_index["models"][4]
 # Dynamically load the appropriate model based on the selected backend
 if selected_model["backend"] == "ctransformers":
-    llm = AutoModelForCausalLM.from_pretrained(selected_model['name'], gpu_layers=50)
+    llm = AutoModelForCausalLM.from_pretrained(selected_model['name'])
 else:
-    pass
-    
-
+    # Download the model (ctranslate2)
+    model_folder = snapshot_download(repo_id=selected_model['name'])
+    tok_config = hf_hub_download(selected_model['name'], "tokenizer.json")
+ 
 # Loading page
 @app.route("/")
 def loading_page():
@@ -41,10 +45,15 @@ def favicon():
 def api():
     query = request.args.get("input", "")
     if query == "":
-        return {"data": "Error: No prompt was provided."}, 400  # 400 Bad Request
+        return "Error: No prompt was provided.", 400  # 400 Bad Request
     if len(query) >= 250:
-        return {"data": "Error: The prompt was too long."}, 413  # 413 Content Too Large
-
-    # Generate a reply using the selected model
-    reply = llm(query)
-    return {"data": reply}, 200  # returns with a response code of 200 OK
+        return "Error: The prompt was too long.", 413  # 413 Content Too Large
+    # Dynamically load the appropriate model based on the selected backend
+    if selected_model["backend"] == "ctransformers":
+     reply = llm(query)
+     return {"data": reply}, 200
+    else:
+     # Download the model (ctranslate2)
+     tokens = generate_response_ctranslate2(query, model_folder)
+     return Response(tokens, content_type="text/plain")
+    
