@@ -25,7 +25,7 @@ def test_text_appears(page: Page):
     page.get_by_role("button", name="Submit").click()
 
     # Wait for the output to appear, adjust the selector accordingly
-    chat_reply = page.locator(".output-simple")
+    chat_reply = page.locator("#outputResponse")
 
     # Check if the generated text is not empty
     generated_text = chat_reply.inner_text()
@@ -59,7 +59,7 @@ def test_empty_query(page: Page):
     """This will test if the user queries an empty string"""
     page.goto("http://127.0.0.1:5000/playground")
     page.get_by_role("button", name="Submit").click()
-    chat_reply = page.locator(".output-simple")
+    chat_reply = page.locator("#outputResponse")
     expect(chat_reply).to_contain_text("Error: No prompt was provided.")
 
 
@@ -77,7 +77,7 @@ def test_query_too_big(page: Page):
     query = "a".join(choice(ascii_lowercase) for i in range(n))
     page.get_by_label("Prompt").fill(query)
     page.get_by_role("button", name="Submit").click()
-    chat_reply = page.locator(".output-simple")
+    chat_reply = page.locator("#outputResponse")
     expect(chat_reply).to_contain_text("Error: The prompt was too long.")
 
 
@@ -105,7 +105,7 @@ def test_enter(page: Page):
     prompt_box.click()
     prompt_box.press("Enter")
     expect(prompt_box).to_contain_text("")
-    chat_reply = page.locator(".output-simple")
+    chat_reply = page.locator("#outputResponse")
     expect(chat_reply).to_contain_text("Error: No prompt was provided.")
 
 
