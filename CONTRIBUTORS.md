@@ -1,8 +1,6 @@
-Contributor
-===========
+# Contributor
 
-Introduction to Packages
-------------------------
+## Introduction to Packages
 
 Flask
 
@@ -22,7 +20,6 @@ Ctranslate2
 
 Ctranslate2 us a C++ and Python Library that helps run efficient inference with transformer models. This package is used for running inference on compatible modles found in the ![Ctranslate2](https://github.com/OpenNMT/CTranslate2) Documentation
 
-
 CTransformers
 
 CTransformers is another Python library used for running inference on supported large language models. The difference between this and Ctranslate2 is CTransformers runs the encoding of tokens and decoding of tokens on the backend. ![Ctransformers](https://github.com/marella/ctransformers)
@@ -36,13 +33,13 @@ CTransformers is another Python library used for running inference on supported 
        print(text, end="", flush=True)
 ```
 
-Setup and Installation
-----------------------
+## Setup and Installation
 
 Requirements for installation:
-   * Must have git installed ![Git Install](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-   * Must have python version 3.11 installed ![Python Install](https://www.python.org/downloads/)
-   * Must have x(This will change depending on the models) RAM available
+
+- Must have git installed ![Git Install](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+- Must have python version 3.11 installed ![Python Install](https://www.python.org/downloads/)
+- Must have x(This will change depending on the models) RAM available
 
 Install requirements.txt after
 
@@ -72,8 +69,7 @@ Ctrl click on the url, should look something like this "http://127.0.0.1:5000"
 
 Now you can start running inference using the different models selected
 
-Running Tests
--------------
+## Running Tests
 
 If you are interested in changing and creating a PR, here is how you can run tests locally
 

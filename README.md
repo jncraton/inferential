@@ -8,9 +8,7 @@ Inferential is a web application that houses several large language models to ru
 
 This project helps those at a beginner programming level understand the fundamentals of large language models, tokenization, and API's. This web application follows an encoder-decoder format where a query is sent to the API where it will encode the query into tokens, generate a response in tokens, and then decode those tokens into readable text. For more information on this process ![Attention is All You Need](https://arxiv.org/pdf/1706.03762.pdf)
 
-
-QuickStart
-----------
+## QuickStart
 
 Clone the git repository
 
@@ -32,9 +30,9 @@ python -m flask run
 
 Basic python script to communicate with the API
 
-```python 
+```python
 import requests
-print(requests.get("http://127.0.0.1:5000/api?input=Where is Paris").text) 
+print(requests.get("http://127.0.0.1:5000/api?input=Where is Paris").text)
 # Returns a json object with the following response
 '{"data":"Paris is located in France."}'
 ```
