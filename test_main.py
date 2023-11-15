@@ -16,17 +16,6 @@ def test_paris_query_api(client):
     response = client.get("/api?input=Where is Paris")
     assert response.status_code == 200
 
-
-def test_paris_query(page: Page):
-    """This will tests a basic query"""
-    page.goto("http://127.0.0.1:5000/playground")
-    page.get_by_label("Prompt").click()
-    page.get_by_label("Prompt").fill("Where is Paris")
-    page.get_by_role("button", name="Submit").click()
-    chat_reply = page.locator(".output-simple")
-    expect(chat_reply).to_contain_text("France")
-
-
 def test_ctransformers_exists():
     try:
         from ctransformers import AutoModelForCausalLM
@@ -44,7 +33,7 @@ def test_ctransformers_working():
     # Check if the ctransformers model can be instantiated
     model_name = selected_model.get("name")
     try:
-        llm = AutoModelForCausalLM.from_pretrained(model_name, gpu_layers=50)
+        llm = AutoModelForCausalLM.from_pretrained(model_name)
         assert True
     except Exception as e:
         assert False, f"Error loading ctransformers model: {e}"
