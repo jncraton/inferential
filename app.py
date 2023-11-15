@@ -7,15 +7,12 @@ import yaml
 
 app = Flask(__name__)
 
-# Download the model (ctranslate2)
-model_folder = snapshot_download(repo_id="jncraton/LaMini-Flan-T5-248M-ct2-int8")
-tok_config = hf_hub_download("jncraton/LaMini-Flan-T5-248M-ct2-int8", "tokenizer.json")
 # Opens the config file and assigns it to config_index
 with open("config.yml", "r") as f:
     config_index = yaml.safe_load(f)
 
 # Uses the chosen model in the config file and sets it to selected_model
-selected_model = config_index["models"][4]
+selected_model = config_index["models"][5]
 # Dynamically load the appropriate model based on the selected backend
 if selected_model["backend"] == "ctransformers":
     llm = AutoModelForCausalLM.from_pretrained(selected_model['name'])

@@ -9,3 +9,5 @@ models:
     backend: ctransformers
   - name: TheBloke/TinyLlama-1.1B-1T-OpenOrca-GGUF
     backend: ctransformers
+  - name: marella/gpt-2-ggml
+    backend: ctransformers
