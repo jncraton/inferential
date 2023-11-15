@@ -33,6 +33,7 @@ def test_text_appears(page: Page):
 
 
 def test_ctransformers_exists():
+    """This test will check if ctransformers exist and is working"""
     try:
         from ctransformers import AutoModelForCausalLM
 
@@ -42,7 +43,7 @@ def test_ctransformers_exists():
 
 
 def test_ctransformers_working():
-    # Check if ctransformers model is properly loaded in app.py
+    """This test will check if ctransformers model is loaded in app.py"""
     assert isinstance(selected_model, dict)
     assert selected_model.get("backend") == "ctransformers"
 
