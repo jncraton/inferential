@@ -16,9 +16,26 @@ def test_paris_query_api(client):
     response = client.get("/api?input=Where is Paris")
     assert response.status_code == 200
 
+
+def test_text_appears(page: Page):
+    """This will test a basic query."""
+    page.goto("http://127.0.0.1:5000/playground")
+    page.get_by_label("Prompt").click()
+    page.get_by_label("Prompt").fill("Where is Paris")
+    page.get_by_role("button", name="Submit").click()
+
+    # Wait for the output to appear, adjust the selector accordingly
+    chat_reply = page.locator(".output-simple")
+
+    # Check if the generated text is not empty
+    generated_text = chat_reply.inner_text()
+    assert generated_text.strip() != "", "Generated text is empty"
+
+
 def test_ctransformers_exists():
     try:
         from ctransformers import AutoModelForCausalLM
+
         assert True
     except ImportError:
         assert False, "ctransformers library not found"
@@ -28,7 +45,6 @@ def test_ctransformers_working():
     # Check if ctransformers model is properly loaded in app.py
     assert isinstance(selected_model, dict)
     assert selected_model.get("backend") == "ctransformers"
-    
 
     # Check if the ctransformers model can be instantiated
     model_name = selected_model.get("name")
@@ -37,7 +53,7 @@ def test_ctransformers_working():
         assert True
     except Exception as e:
         assert False, f"Error loading ctransformers model: {e}"
-        
+
 
 def test_empty_query(page: Page):
     """This will test if the user queries an empty string"""

@@ -1,6 +1,6 @@
 from flask import *
 from markupsafe import escape
-from inference import generate_response_ctranslate2,generate_response_ctransformers
+from inference import generate_response_ctranslate2, generate_response_ctransformers
 from huggingface_hub import hf_hub_download, snapshot_download
 from ctransformers import AutoModelForCausalLM
 import yaml
@@ -15,12 +15,13 @@ with open("config.yml", "r") as f:
 selected_model = config_index["models"][5]
 # Dynamically load the appropriate model based on the selected backend
 if selected_model["backend"] == "ctransformers":
-    llm = AutoModelForCausalLM.from_pretrained(selected_model['name'])
+    llm = AutoModelForCausalLM.from_pretrained(selected_model["name"])
 else:
     # Download the model (ctranslate2)
-    model_folder = snapshot_download(repo_id=selected_model['name'])
-    tok_config = hf_hub_download(selected_model['name'], "tokenizer.json")
- 
+    model_folder = snapshot_download(repo_id=selected_model["name"])
+    tok_config = hf_hub_download(selected_model["name"], "tokenizer.json")
+
+
 # Loading page
 @app.route("/")
 def loading_page():
@@ -50,10 +51,9 @@ def api():
         return "Error: The prompt was too long.", 413  # 413 Content Too Large
     # Dynamically load the appropriate model based on the selected backend
     if selected_model["backend"] == "ctransformers":
-     reply= generate_response_ctransformers(query,llm)
-     return Response(reply, content_type="text/plain")
+        reply = generate_response_ctransformers(query, llm)
+        return Response(reply, content_type="text/plain")
     else:
-     # Download the model (ctranslate2)
-     tokens = generate_response_ctranslate2(query, model_folder)
-     return Response(tokens, content_type="text/plain")
-    
+        # Download the model (ctranslate2)
+        tokens = generate_response_ctranslate2(query, model_folder)
+        return Response(tokens, content_type="text/plain")
