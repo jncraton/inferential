@@ -49,11 +49,10 @@ def api():
         return "Error: No prompt was provided.", 400  # 400 Bad Request
     if len(query) >= 250:
         return "Error: The prompt was too long.", 413  # 413 Content Too Large
-    # Dynamically load the appropriate model based on the selected backend
+    # Dynamically generate reposnse based on the selected backend
     if selected_model["backend"] == "ctransformers":
         reply = generate_response_ctransformers(query, llm)
         return Response(reply, content_type="text/plain")
     else:
-        # Download the model (ctranslate2)
         tokens = generate_response_ctranslate2(query, model_folder)
         return Response(tokens, content_type="text/plain")
