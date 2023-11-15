@@ -68,6 +68,6 @@ If this does not work here is the alternative
 python -m flask run
 ```
 
-Ctrl click on the url, should look something like this "https://0.0.0.0:0000"
+Ctrl click on the url, should look something like this "http://127.0.0.1:5000"
 
 Now you can start running inference using the different models selected
