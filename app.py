@@ -1,6 +1,6 @@
 from flask import *
 from markupsafe import escape
-from inference import generate_response_ctranslate2
+from inference import generate_response_ctranslate2,generate_response_ctransformers
 from huggingface_hub import hf_hub_download, snapshot_download
 from ctransformers import AutoModelForCausalLM
 import yaml
@@ -50,8 +50,8 @@ def api():
         return "Error: The prompt was too long.", 413  # 413 Content Too Large
     # Dynamically load the appropriate model based on the selected backend
     if selected_model["backend"] == "ctransformers":
-     reply = llm(query)
-     return {"data": reply}, 200
+     reply= generate_response_ctransformers(query,llm)
+     return Response(reply, content_type="text/plain")
     else:
      # Download the model (ctranslate2)
      tokens = generate_response_ctranslate2(query, model_folder)
