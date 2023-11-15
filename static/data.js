@@ -3,16 +3,6 @@ const button = document.getElementById('submitButton')
 const output = document.getElementById('outputResponse')
 const input = document.getElementById('input')
 
-// Assign different class to output based on response
-function setOutputClass(outputString) {
-  //Number of characters before it switches styles is 80, change if needed
-  if (outputString.length < 80) {
-    output.className = 'output-simple'
-  } else {
-    output.className = 'output'
-  }
-}
-
 // Event Listners
 button.addEventListener('click', submitButton)
 
@@ -40,7 +30,6 @@ function submitButton() {
           accumulatedData += decoder.decode(value) // Accumulate the received text
           output.innerText = accumulatedData
 
-          setOutputClass(accumulatedData)
           readAndDisplay() // Continue reading and displaying
         })
       }
