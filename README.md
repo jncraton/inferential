@@ -14,6 +14,16 @@ Clone the git repository
 git clone git@github.com:jncraton/inferential.git
 ```
 
+```sh
+pip install requirements.txt
+```
+
+If pip install does not work here is the alternative
+
+```sh
+python -m pip install requirements.txt
+```
+
 Run the web application
 
 ```sh
