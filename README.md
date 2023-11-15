@@ -34,10 +34,7 @@ Basic python script to communicate with the API
 
 ```python 
 import requests
-import urllib.parse
-input_param = "Where is paris"
-api_url = "http://127.0.0.1:5000/api?input=" + urllib.parse.quote(input_param)
-response = requests.get(api_url)
-print(response.text)  # Returns a json object with the following response
+print(requests.get("http://127.0.0.1:5000/api?input=Where is Paris").text) 
+# Returns a json object with the following response
 '{"data":"Paris is located in France."}'
 ```

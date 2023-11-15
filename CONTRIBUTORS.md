@@ -71,3 +71,18 @@ python -m flask run
 Ctrl click on the url, should look something like this "http://127.0.0.1:5000"
 
 Now you can start running inference using the different models selected
+
+Running Tests
+-------------
+
+If you are interested in changing and creating a PR, here is how you can run tests locally
+
+```sh
+pytest test_main.py
+```
+
+If this does not work here is the alternative
+
+```sh
+python -m pytest
+```
