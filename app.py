@@ -19,7 +19,7 @@ model_folder = snapshot_download(repo_id="jncraton/LaMini-Flan-T5-248M-ct2-int8"
 tok_config = hf_hub_download("jncraton/LaMini-Flan-T5-248M-ct2-int8", "tokenizer.json")
 
 if selected_model["backend"] == "ctransformers":
-    llm = AutoModelForCausalLM.from_pretrained(selected_model["name"], gpu_layers=50)
+    llm = AutoModelForCausalLM.from_pretrained(selected_model["name"])
 else:
     pass
 
@@ -56,7 +56,5 @@ def api():
 
     if selected_model["backend"] == "ctransformers":
         llm = AutoModelForCausalLM.from_pretrained(selected_model["name"], gpu_layers=50)
-        for text in llm("Ctransformers will", stream=True):
-            return (text, end="", flush=True)
 
     return Response(tokens, content_type="text/plain")
