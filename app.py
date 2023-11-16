@@ -45,13 +45,20 @@ def favicon():
 @app.route("/api")
 def api():
     query = request.args.get("input", "")
-    model = request.args.get("model", "")
-    selected_model = config_index["models"][model]
-
     if query == "":
         return "Error: No prompt was provided.", 400  # 400 Bad Request
     if len(query) >= 250:
         return "Error: The prompt was too long.", 413  # 413 Content Too Large
+
+    model = int(request.args.get("model", ""))
+    selected_model = config_index["models"][model]
+    if selected_model["backend"] == "ctransformers":
+        llm = AutoModelForCausalLM.from_pretrained(selected_model["name"])
+    else:
+        # Download the model (ctranslate2)
+        model_folder = snapshot_download(repo_id=selected_model["name"])
+        tok_config = hf_hub_download(selected_model["name"], "tokenizer.json")
+
     # Dynamically generate reposnse based on the selected backend
     if selected_model["backend"] == "ctransformers":
         reply = generate_response_ctransformers(query, llm)
