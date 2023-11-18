@@ -26,3 +26,8 @@ def generate_response_ctranslate2(prompt, model_folder):
         new_text = decoded_string[current_length - len(decoded_string) :]
         current_length = len(decoded_string)
         yield new_text
+
+
+def generate_response_ctransformers(prompt, model):
+    for text in model(prompt, stream=True):
+        yield text

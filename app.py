@@ -1,27 +1,26 @@
 from flask import *
 from markupsafe import escape
-from inference import generate_response_ctranslate2
+from inference import generate_response_ctranslate2, generate_response_ctransformers
 from huggingface_hub import hf_hub_download, snapshot_download
-import yaml
 from ctransformers import AutoModelForCausalLM
+import yaml
 
 app = Flask(__name__)
 
-
+# Opens the config file and assigns it to config_index
 with open("config.yml", "r") as f:
     config_index = yaml.safe_load(f)
 
-selected_model = config_index["models"][2]
-
-
-# Download the model (ctranslate2)
-model_folder = snapshot_download(repo_id="jncraton/LaMini-Flan-T5-248M-ct2-int8")
-tok_config = hf_hub_download("jncraton/LaMini-Flan-T5-248M-ct2-int8", "tokenizer.json")
-
+# Uses the chosen model in the config file and sets it to selected_model
+selected_model = config_index["models"][5]
+# Dynamically load the appropriate model based on the selected backend
 if selected_model["backend"] == "ctransformers":
     llm = AutoModelForCausalLM.from_pretrained(selected_model["name"])
 else:
-    pass
+    # Download the model (ctranslate2)
+    model_folder = snapshot_download(repo_id=selected_model["name"])
+    tok_config = hf_hub_download(selected_model["name"], "tokenizer.json")
+
 
 # Loading page
 @app.route("/")
@@ -50,11 +49,10 @@ def api():
         return "Error: No prompt was provided.", 400  # 400 Bad Request
     if len(query) >= 250:
         return "Error: The prompt was too long.", 413  # 413 Content Too Large
-    
-    if selected_model["backend"] == "ctranslate2":
-        tokens = generate_response_ctranslate2(query, model_folder)
-
+    # Dynamically generate reposnse based on the selected backend
     if selected_model["backend"] == "ctransformers":
-        llm = AutoModelForCausalLM.from_pretrained(selected_model["name"], gpu_layers=50)
-
-    return Response(tokens, content_type="text/plain")
+        reply = generate_response_ctransformers(query, llm)
+        return Response(reply, content_type="text/plain")
+    else:
+        tokens = generate_response_ctranslate2(query, model_folder)
+        return Response(tokens, content_type="text/plain")

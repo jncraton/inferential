@@ -1,4 +1,3 @@
-# A dictionary of models to use
 models:
   - name: TheBloke/Llama-2-7B-Chat-GGUF
     backend: ctransformers
@@ -9,4 +8,6 @@ models:
   - name: TheBloke/Nous-Capybara-7B-v1.9-GGUF
     backend: ctransformers
   - name: TheBloke/TinyLlama-1.1B-1T-OpenOrca-GGUF
+    backend: ctransformers
+  - name: marella/gpt-2-ggml
     backend: ctransformers
