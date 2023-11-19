@@ -21,23 +21,25 @@ else:
     model_folder = snapshot_download(repo_id=selected_model["name"])
     tok_config = hf_hub_download(selected_model["name"], "tokenizer.json")
 
+selected_logo = config_index["logo"]
+logo_path = selected_logo["path"]
 
 # Loading page
 @app.route("/")
 def loading_page():
-    return render_template("status.html")
+    return render_template("status.html", selected_logo = selected_logo)
 
 
 # API Front End
 @app.route("/playground")
 def playground():
-    return render_template("index.html")
+    return render_template("index.html", selected_logo = selected_logo)
 
 
-@app.route("/favicon.ico")
+@app.route(logo_path)
 def favicon():
     return send_from_directory(
-        app.root_path, "static/favicon.ico", mimetype="image/vnd.microsoft.icon"
+        app.root_path, f"static{logo_path}", mimetype="image/vnd.microsoft.icon"
     )
 
 

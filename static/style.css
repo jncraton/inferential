@@ -79,3 +79,10 @@ textarea,
 input {
   font: inherit;
 }
+
+.body_logo{
+  float: right;
+  width: 150px;
+  height: 70px;
+  margin-top: -30px;
+}
