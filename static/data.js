@@ -7,7 +7,6 @@ const modelSelect = document.getElementById('models')
 // Event Listners
 button.addEventListener('click', submitButton)
 modelSelect.addEventListener('change', checkModelType)
-
 input.addEventListener('keydown', function (e) {
   if (e.key === 'Enter' && !e.shiftKey) {
     e.preventDefault()
@@ -15,6 +14,7 @@ input.addEventListener('keydown', function (e) {
   }
 })
 
+// Function to check selected model
 function checkModelType() {
   let modelNumber = 1
   if (modelSelect.value == 'Llama-2-7B-Chat-GGUF') {

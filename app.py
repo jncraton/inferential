@@ -11,10 +11,9 @@ app = Flask(__name__)
 with open("config.yml", "r") as f:
     config_index = yaml.safe_load(f)
 
-# # Uses the chosen model in the config file and sets it to selected_model
-
-
 # Loading page
+
+
 @app.route("/")
 def loading_page():
     return render_template("status.html")
