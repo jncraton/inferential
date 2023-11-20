@@ -79,3 +79,15 @@ textarea,
 input {
   font: inherit;
 }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #ccc;
+  padding: 10px;
+}
+
+.header-sec {
+  font-size: 18px;
+}
