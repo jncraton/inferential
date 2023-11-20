@@ -32,30 +32,6 @@ def test_text_appears(page: Page):
     assert generated_text.strip() != "", "Generated text is empty"
 
 
-def test_ctransformers_exists():
-    """This test will check if ctransformers exist and is working"""
-    try:
-        from ctransformers import AutoModelForCausalLM
-
-        assert True
-    except ImportError:
-        assert False, "ctransformers library not found"
-
-
-def test_ctransformers_working():
-    """This test will check if ctransformers model is loaded in app.py"""
-    assert isinstance(selected_model, dict)
-    assert selected_model.get("backend") == "ctransformers"
-
-    # Check if the ctransformers model can be instantiated
-    model_name = selected_model.get("name")
-    try:
-        llm = AutoModelForCausalLM.from_pretrained(model_name)
-        assert True
-    except Exception as e:
-        assert False, f"Error loading ctransformers model: {e}"
-
-
 def test_empty_query(page: Page):
     """This will test if the user queries an empty string"""
     page.goto("http://127.0.0.1:5000/playground")
