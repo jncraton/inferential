@@ -2,11 +2,10 @@
 const button = document.getElementById('submitButton')
 const output = document.getElementById('outputResponse')
 const input = document.getElementById('input')
-const modelSelect = document.getElementById('models')
+const modelSelect = document.getElementById('modelSelect')
 
 // Event Listners
 button.addEventListener('click', submitButton)
-modelSelect.addEventListener('change', checkModelType)
 input.addEventListener('keydown', function (e) {
   if (e.key === 'Enter' && !e.shiftKey) {
     e.preventDefault()
@@ -14,23 +13,12 @@ input.addEventListener('keydown', function (e) {
   }
 })
 
-// Function to check selected model
-function checkModelType() {
-  let modelNumber = 0
-  if (modelSelect.value == 'jncraton/LaMini-Flan-T5-783M-ct2-int8') {
-    modelNumber = 0
-  } else if (modelSelect.value == 'marella/gpt-2-ggml') {
-    modelNumber = 1
-  }
-  return modelNumber
-}
-
 // Function calls fetch API upon promptSubmition`
 function submitButton() {
   output.innerText = 'Loading...'
-  const currentModel = checkModelType()
   fetch(
-    '/api?' + new URLSearchParams({ input: input.value, model: currentModel }),
+    '/api?' +
+      new URLSearchParams({ input: input.value, model: modelSelect.value }),
   )
     .then(response => {
       const textStream = response.body.getReader()

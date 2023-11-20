@@ -31,15 +31,12 @@
   <body>
     <main>
       <h1>Inferential</h1>
-      <div class="left">
-        <label class="left" for="models">Models:</label>
-        <select id="models">
-          <option value="jncraton/LaMini-Flan-T5-783M-ct2-int8">
-            jncraton/LaMini-Flan-T5-783M-ct2-int8
-          </option>
-          <option value="marella/gpt-2-ggml">marella/gpt-2-ggml</option>
-        </select>
-      </div>
+      <h2><label for="modelSelect">Choose Model</label></h2>
+      <select id="modelSelect">
+        {% for model in models %}
+        <option value="{{model.name}}">{{model.name}}</option>
+        {% endfor %}
+      </select>
 
       <h2><label for="input">Prompt</label></h2>
       <textarea id="input" name="input" autofocus></textarea>
