@@ -16,7 +16,7 @@ input.addEventListener('keydown', function (e) {
 })
 
 function checkModelType() {
-  const modelNumber = 1
+  let modelNumber = 1
   if (modelSelect.value == 'Llama-2-7B-Chat-GGUF') {
     modelNumber = 0
   } else if (modelSelect.value == 'LaMini-Flan-T5-783M-ct2-int8') {
@@ -33,11 +33,10 @@ function checkModelType() {
   return modelNumber
 }
 
-// Function calls fetch API upon promptSubmition
+// Function calls fetch API upon promptSubmition`
 function submitButton() {
   output.innerText = 'Loading...'
   const currentModel = checkModelType()
-
   fetch(
     '/api?' + new URLSearchParams({ input: input.value, model: currentModel }),
   )
