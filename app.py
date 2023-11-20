@@ -7,19 +7,36 @@ import yaml
 
 app = Flask(__name__)
 
-# Opens the config file and assigns it to config_index
 with open("config.yml", "r") as f:
     config_index = yaml.safe_load(f)
 
-# Uses the chosen model in the config file and sets it to selected_model
+flag = False #Flag to only call this once 
+def download_llms():
+    global flag
+    for model in config_index["models"]: #For each model in the config index 
+        if flag == False: #If this function hasn't been called install each model
+            if model["backend"] == "ctransformers":
+                global llm
+                llm = AutoModelForCausalLM.from_pretrained(model["name"]) #These all download to the hub
+                api_model_status(True, model["name"]) #Return true to api_model_status to confirm the model is done installing
+            else:
+                #Download the model (ctranslate2)
+                global model_folder
+                global tok_config
+                model_folder = snapshot_download(repo_id=model["name"]) #These all download to the hub
+                tok_config = hf_hub_download(model["name"], "tokenizer.json") #These all download to the hub
+                api_model_status(True, model["name"]) #Return true to api_model_status to confirm the model is done installing
+
+#Before the request, will call function and check if the models are downloaded
+@app.before_request  
+def intialized():
+    global flag
+    if not flag:
+        download_llms()
+        flag = True
+
+global selected_model
 selected_model = config_index["models"][5]
-# Dynamically load the appropriate model based on the selected backend
-if selected_model["backend"] == "ctransformers":
-    llm = AutoModelForCausalLM.from_pretrained(selected_model["name"])
-else:
-    # Download the model (ctranslate2)
-    model_folder = snapshot_download(repo_id=selected_model["name"])
-    tok_config = hf_hub_download(selected_model["name"], "tokenizer.json")
 
 
 # Loading page
@@ -56,3 +73,8 @@ def api():
     else:
         tokens = generate_response_ctranslate2(query, model_folder)
         return Response(tokens, content_type="text/plain")
+
+#@app.route("/api/model-status")
+def api_model_status(flag, model_name): #needs to keep track of 
+    if flag:
+        print(model_name, " is done downloading")
