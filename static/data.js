@@ -17,19 +17,11 @@ input.addEventListener('keydown', function (e) {
 // Function to check selected model
 function checkModelType() {
   let modelNumber = 1
-  if (modelSelect.value == 'Llama-2-7B-Chat-GGUF') {
+  if (modelSelect.value == 'jncraton/LaMini-Flan-T5-783M-ct2-int8') {
     modelNumber = 0
-  } else if (modelSelect.value == 'LaMini-Flan-T5-783M-ct2-int8') {
+  } else if (modelSelect.value == 'marella/gpt-2-ggml') {
     modelNumber = 1
-  } else if (modelSelect.value == 'Llama-2-7B-Chat-GGML') {
-    modelNumber = 2
-  } else if (modelSelect.value == 'Nous-Capybara-7B-v1.9-GGUF') {
-    modelNumber = 3
-  } else if (modelSelect.value == 'TinyLlama-1.1B-1T-OpenOrca-GGUF') {
-    modelNumber = 4
-  } else if (modelSelect.value == 'gpt-2-ggml') {
-    modelNumber = 5
-  }
+  } 
   return modelNumber
 }
 
