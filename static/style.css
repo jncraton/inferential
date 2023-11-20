@@ -91,3 +91,9 @@ input {
 .header-sec {
   font-size: 18px;
 }
+
+.left {
+  word-wrap: break-word;
+  max-width: 100%;
+  text-align: left;
+}
