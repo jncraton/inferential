@@ -59,6 +59,6 @@ def api():
         reply = generate_response_ctransformers(query, llm)
         return Response(reply, content_type="text/plain")
     else:
-        # Download the model (ctranslate2)
+        # Generate response from the model (ctranslate2)
         tokens = generate_response_ctranslate2(query, model_folder)
         return Response(tokens, content_type="text/plain")
