@@ -16,7 +16,7 @@ input.addEventListener('keydown', function (e) {
 
 // Function to check selected model
 function checkModelType() {
-  let modelNumber = 1
+  let modelNumber = 0
   if (modelSelect.value == 'jncraton/LaMini-Flan-T5-783M-ct2-int8') {
     modelNumber = 0
   } else if (modelSelect.value == 'marella/gpt-2-ggml') {
