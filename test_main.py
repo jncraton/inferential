@@ -85,9 +85,9 @@ def test_query_too_big(page: Page):
 def test_query_too_big_api(client):
     """This will test verify status code for a too big query"""
     response = client.get(
-        "/api?input=" +
-        ("".join(choice(ascii_lowercase) for i in range(250))) +
-        "&model=1"
+        "/api?input="
+        + ("".join(choice(ascii_lowercase) for i in range(250)))
+        + "&model=1"
     )
     assert response.status_code == 413
 
