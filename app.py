@@ -36,15 +36,15 @@ def favicon():
 @app.route("/api")
 def api():
     query = request.args.get("input", "")
-    model = int(request.args.get("model", ""))
+    if request.args.get("model", ""):
+        model = int(request.args.get("model", ""))
+    else:
+        model = 0
 
     if query == "":
         return "Error: No prompt was provided.", 400  # 400 Bad Request
     if len(query) >= 250:
         return "Error: The prompt was too long.", 413  # 413 Content Too Large
-
-    if model == -1:  # If no model is picked change to default
-        selected_model = config_index["models"][0]
 
     selected_model = config_index["models"][model]
     # Dynamically load the appropriate model based on the selected backend
