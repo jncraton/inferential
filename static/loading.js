@@ -1,5 +1,3 @@
-let booted = false
-
 function initializePlayground() {
   document.getElementById('status').textContent = 'Starting up web server'
   setTimeout(function () {
