@@ -2,10 +2,10 @@
 const button = document.getElementById('submitButton')
 const output = document.getElementById('outputResponse')
 const input = document.getElementById('input')
+const modelSelect = document.getElementById('modelSelect')
 
 // Event Listners
 button.addEventListener('click', submitButton)
-
 input.addEventListener('keydown', function (e) {
   if (e.key === 'Enter' && !e.shiftKey) {
     e.preventDefault()
@@ -13,11 +13,13 @@ input.addEventListener('keydown', function (e) {
   }
 })
 
-// Function calls fetch API upon promptSubmition
+// Function calls fetch API upon promptSubmition`
 function submitButton() {
   output.innerText = 'Loading...'
-
-  fetch('/api?' + new URLSearchParams({ input: input.value }))
+  fetch(
+    '/api?' +
+      new URLSearchParams({ input: input.value, model: modelSelect.value }),
+  )
     .then(response => {
       const textStream = response.body.getReader()
       let accumulatedData = '' // To accumulate the data
