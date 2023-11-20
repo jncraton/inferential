@@ -13,7 +13,7 @@ def client():
 
 def test_paris_query_api(client):
     """This will test to verify a status for a normal query"""
-    response = client.get("/api?input=Where is Paris&model=1")
+    response = client.get("/api?input=Where is Paris")
     assert response.status_code == 200
 
 
@@ -42,7 +42,7 @@ def test_empty_query(page: Page):
 
 def test_empty_query_api(client):
     """This will test to verify a status for empty query"""
-    response = client.get("/api?input=&model=1")
+    response = client.get("/api?input=")
     assert response.status_code == 400
 
 
@@ -63,7 +63,6 @@ def test_query_too_big_api(client):
     response = client.get(
         "/api?input="
         + ("".join(choice(ascii_lowercase) for i in range(250)))
-        + "&model=1"
     )
     assert response.status_code == 413
 
@@ -90,7 +89,7 @@ def test_enter(page: Page):
 
 def test_streaming(client):
     """This test will confirm that the response is streamed"""
-    response = client.get("/api?input=" + "hielo" + "&model=1")
+    response = client.get("/api?input=hielo")
     assert response.is_streamed == True
 
 
