@@ -1,4 +1,5 @@
 import pytest
+import time
 from app import *
 from playwright.sync_api import *
 from random import choice
@@ -93,9 +94,13 @@ def test_streaming(client):
 
 
 def test_redirect(browser):
-    """This test will test to see if the page will redirect to the playground after a certain amount of time and properly load"""
+    """This test will test to see if the status page will allow you to go to the playground"""
     page = browser.new_page()
     page.goto("http://127.0.0.1:5000/")
     # Wait for 5 seconds, adjust based on potential wait times
-    page.wait_for_url("http://127.0.0.1:5000/playground", timeout=5000)
+    time.sleep(3)
+
+    header_element = page.query_selector("#Header")
+    header_element.click()
+    time.sleep(1)
     assert page.url == "http://127.0.0.1:5000/playground"
