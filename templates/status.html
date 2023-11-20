@@ -4,32 +4,24 @@
     <title>Inferential...</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    {% if selected_logo %}
         <link 
           rel="icon"
           type="image/png" 
           sizes="32x32" 
           href="{{ url_for('static', filename=selected_logo.path) }}">
-    {% endif %}
-    {% if selected_logo %}
         <link 
           rel="icon"
           type="image/png" 
           sizes="192x192" 
           href="{{ url_for('static', filename=selected_logo.path) }}">
-    {% endif %}
-    {% if selected_logo %}
         <link 
           rel="icon"
           type="image/png" 
           sizes="16x16" 
           href="{{ url_for('static', filename=selected_logo.path) }}">
-    {% endif %}
-    {% if selected_logo %}
         <link 
           rel="icon"
           href="{{ url_for('static', filename=selected_logo.path) }}">
-    {% endif %}
     <meta name="theme-color" content="#00ff00" />
     <link rel="stylesheet" type="text/css" href="/static/style.css" />
     <script src="/static/loading.js" defer></script>
