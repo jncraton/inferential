@@ -4,5 +4,6 @@ models:
   - name: marella/gpt-2-ggml
     backend: ctransformers
 
-logo:
-  path: /logos/ravens.ico
+logos:
+  - default: /static/logos/Anderson_University_Logo.ico
+

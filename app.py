@@ -21,8 +21,9 @@ else:
     model_folder = snapshot_download(repo_id=selected_model["name"])
     tok_config = hf_hub_download(selected_model["name"], "tokenizer.json")
 
-selected_logo = config_index["logo"]
-logo_path = selected_logo["path"]
+selected_logo = config_index["logos"][0]["default"]
+
+
 
 
 # Loading page
@@ -37,10 +38,10 @@ def playground():
     return render_template("index.html", selected_logo=selected_logo)
 
 
-@app.route(logo_path)
+@app.route(selected_logo)
 def favicon():
     return send_from_directory(
-        app.root_path, f"static{logo_path}", mimetype="image/vnd.microsoft.icon"
+        app.root_path, f"static{selected_logo}", mimetype="image/vnd.microsoft.icon"
     )
 
 
