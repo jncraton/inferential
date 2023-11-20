@@ -24,16 +24,17 @@ else:
 selected_logo = config_index["logo"]
 logo_path = selected_logo["path"]
 
+
 # Loading page
 @app.route("/")
 def loading_page():
-    return render_template("status.html", selected_logo = selected_logo)
+    return render_template("status.html", selected_logo=selected_logo)
 
 
 # API Front End
 @app.route("/playground")
 def playground():
-    return render_template("index.html", selected_logo = selected_logo)
+    return render_template("index.html", selected_logo=selected_logo)
 
 
 @app.route(logo_path)

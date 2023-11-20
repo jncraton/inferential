@@ -4,24 +4,28 @@
     <title>Inferential...</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link 
-          rel="icon"
-          type="image/png" 
-          sizes="32x32" 
-          href="{{ url_for('static', filename=selected_logo.path) }}">
-        <link 
-          rel="icon"
-          type="image/png" 
-          sizes="192x192" 
-          href="{{ url_for('static', filename=selected_logo.path) }}">
-        <link 
-          rel="icon"
-          type="image/png" 
-          sizes="16x16" 
-          href="{{ url_for('static', filename=selected_logo.path) }}">
-        <link 
-          rel="icon"
-          href="{{ url_for('static', filename=selected_logo.path) }}">
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="{{ url_for('static', filename=selected_logo.path) }}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="{{ url_for('static', filename=selected_logo.path) }}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="{{ url_for('static', filename=selected_logo.path) }}"
+    />
+    <link
+      rel="icon"
+      href="{{ url_for('static', filename=selected_logo.path) }}"
+    />
     <meta name="theme-color" content="#00ff00" />
     <link rel="stylesheet" type="text/css" href="/static/style.css" />
     <script src="/static/loading.js" defer></script>
@@ -30,6 +34,11 @@
   <body>
     <main>
       <h1>Inferential</h1>
+      <img
+        src="{{ url_for('static', filename=selected_logo.path) }}"
+        alt="logo"
+        class="body_logo"
+      />
       <h2>Loading</h2>
       <p id="status">Starting up web server</p>
     </main>
