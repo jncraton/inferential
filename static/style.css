@@ -79,3 +79,9 @@ textarea,
 input {
   font: inherit;
 }
+
+.left {
+  word-wrap: break-word;
+  max-width: 100%;
+  text-align: left;
+}
