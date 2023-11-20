@@ -21,7 +21,7 @@ function checkModelType() {
     modelNumber = 0
   } else if (modelSelect.value == 'marella/gpt-2-ggml') {
     modelNumber = 1
-  } 
+  }
   return modelNumber
 }
 
