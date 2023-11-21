@@ -34,6 +34,7 @@ for model in config_models:
 
 selected_logo = config_logos[0]
 logo_path = selected_logo["path"]
+logo_url = selected_logo.get("web", "")
 
 
 # Loading page
@@ -48,7 +49,7 @@ def loading_page():
 @app.route("/playground")
 def playground():
     return render_template(
-        "index.html", models=config_models, selected_logo=selected_logo
+        "index.html", models=config_models, selected_logo=selected_logo, logo_url=logo_url
     )
 
 

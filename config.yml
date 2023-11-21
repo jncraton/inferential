@@ -7,3 +7,9 @@ models:
 logos:
   - default: Ravens
     path: /logos/ravens.ico
+
+  - custom_url: Orange Ravens
+    path: https://a.espncdn.com/combiner/i?img=/i/teamlogos/ncaa/500/2023.png
+  
+  - custom_file_path:
+    path:
