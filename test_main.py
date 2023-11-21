@@ -99,10 +99,8 @@ def test_streaming(client):
     assert response.is_streamed == True
 
 
-def test_redirect(browser):
-    """This test will test to see if the page will redirect to the playground after a certain amount of time and properly load"""
-    page = browser.new_page()
-    page.goto("http://127.0.0.1:5000/")
-    # Wait for 5 seconds, adjust based on potential wait times
-    page.wait_for_url("http://127.0.0.1:5000/playground", timeout=5000)
-    assert page.url == "http://127.0.0.1:5000/playground"
+def test_redirect(page: Page):
+    """This test makes sure the nav bar works by testing the first navigation link on the playground"""
+    page.goto("http://127.0.0.1:5000/playground")
+    page.query_selector("nav li:first-child a").click()
+    assert page.url == "http://127.0.0.1:5000/"
