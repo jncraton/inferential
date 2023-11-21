@@ -19,9 +19,13 @@
         {% endfor %}
       </select>
       {% if logo %}
-        <img src="{{ logo }}" alt="logo" class="body_logo" />
+      <img src="{{ logo }}" alt="logo" class="body_logo" />
       {% else %}
-        <img src="{{ url_for('static', filename=logo) }}" alt="logo" class="body_logo" />
+      <img
+        src="{{ url_for('static', filename=logo) }}"
+        alt="logo"
+        class="body_logo"
+      />
       {% endif %}
 
       <h2><label for="input">Prompt</label></h2>
