@@ -1,23 +1,38 @@
 from flask import *
 from markupsafe import escape
 from inference import generate_response_ctranslate2, generate_response_ctransformers
-from huggingface_hub import hf_hub_download, snapshot_download
-from ctransformers import AutoModelForCausalLM
-import yaml
 from download import download_llms
+import yaml
+
 app = Flask(__name__)
 
-def create_app():
-    download_llms()
-
-
+# Opens the config file and assigns it to config_index
 with open("config.yml", "r") as f:
     config_root = yaml.safe_load(f)
     config_models = config_root["models"]
 
+models = {}
+
+# # Dynamically load the appropriate model based on the selected backend
+# for model in config_models:
+#     name = model["name"]
+#     if model["backend"] == "ctransformers":
+#         models[name] = {
+#             "backend": "ctransformers",
+#             "auto-model": AutoModelForCausalLM.from_pretrained(name),
+#         }
+#     elif model["backend"] == "ctranslate2":
+#         # Download the model (ctranslate2)
+#         model_path = snapshot_download(repo_id=name)
+#         models[name] = {"backend": "ctranslate2", "model-path": model_path}
+#     else:
+#         raise ValueError(
+#             "Invalid backend in config file for model named '" + name + "'"
+#         )
+
+
 # Loading page
 
-selected_model = config_models[1]
 
 @app.route("/")
 def loading_page():
@@ -45,9 +60,9 @@ def api():
         model_name = request.args.get("model", "")
     else:
         model_name = config_models[0]["name"]
-    if not model_name in selected_model:
+    if not model_name in models:
         return "Error: Unknown model name '" + model_name + "'.", 400  # 400 Bad Request
-    model_config = selected_model[model_name]
+    model_config = models[model_name]
 
     if query == "":
         return "Error: No prompt was provided.", 400  # 400 Bad Request
@@ -60,14 +75,12 @@ def api():
         reply = generate_response_ctranslate2(query, model_config["model-path"])
     else:
         raise ValueError(
-            "Invalid backend in loaded models list for model named '" + model_config["name"] + "'"
+            "Invalid backend in loaded models list for model named '" + name + "'"
         )
     return Response(reply, content_type="text/plain")
 
-
-@app.route("/api/model-status")
-def api_model_status(): #needs to keep track of
+@app.route("/api-status-page")
+def api_status_page():
     flag = download_llms()
     if flag:
-        print("Model is done downloading")
-
+        print("Model is downloaded")
