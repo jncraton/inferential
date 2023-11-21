@@ -36,9 +36,6 @@ selected_logo = config_logos[0]
 logo_path = selected_logo["path"]
 
 
-
-
-
 # Loading page
 
 
@@ -50,7 +47,9 @@ def loading_page():
 # API Front End
 @app.route("/playground")
 def playground():
-    return render_template("index.html", models=config_models, selected_logo=selected_logo)
+    return render_template(
+        "index.html", models=config_models, selected_logo=selected_logo
+    )
 
 
 @app.route("/favicon.ico")
@@ -58,6 +57,7 @@ def favicon():
     return send_from_directory(
         app.root_path, "static/favicon.ico", mimetype="image/vnd.microsoft.icon"
     )
+
 
 # Backend
 @app.route("/api")
