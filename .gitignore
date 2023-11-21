@@ -4,3 +4,6 @@ node_modules/
 /test-results/
 /playwright-report/
 /playwright/.cache/
+.gitignore
+package-lock.json
+package.json
