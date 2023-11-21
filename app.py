@@ -36,8 +36,6 @@ for model in config_models:
 #logo_path = selected_logo["path"]
 #logo_url = selected_logo.get("web", "")
 
-if logo[0:5] == "/logos":
-    renaming(logo, new_name)
 
 
 # Loading page
@@ -45,7 +43,7 @@ if logo[0:5] == "/logos":
 
 @app.route("/")
 def loading_page():
-    return render_template("status.html", if logo[0:5] == "/logos": logo=logo)
+    return render_template("status.html", logo=logo)
 
 
 # API Front End
