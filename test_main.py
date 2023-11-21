@@ -101,7 +101,7 @@ def test_streaming(client):
 
 
 def test_redirect(page: Page):
-    """This test that the """
+    """This test makes sure the nav bar works by testing the first navigation link on the playground"""
     page.goto("http://127.0.0.1:5000/playground")
     page.query_selector("nav li:first-child a").click()
     time.sleep(1)
