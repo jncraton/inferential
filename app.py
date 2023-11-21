@@ -11,7 +11,7 @@ app = Flask(__name__)
 with open("config.yml", "r") as f:
     config_root = yaml.safe_load(f)
     config_models = config_root["models"]
-    config_logos = config_root["logos"]
+    logo = config_root["logo"]
 
 models = {}
 
@@ -32,9 +32,12 @@ for model in config_models:
             "Invalid backend in config file for model named '" + name + "'"
         )
 
-selected_logo = config_logos[0]
-logo_path = selected_logo["path"]
-logo_url = selected_logo.get("web", "")
+#selected_logo = config_logos[0]
+#logo_path = selected_logo["path"]
+#logo_url = selected_logo.get("web", "")
+
+if logo[0:5] == "/logos":
+    renaming(logo, new_name)
 
 
 # Loading page
@@ -42,14 +45,14 @@ logo_url = selected_logo.get("web", "")
 
 @app.route("/")
 def loading_page():
-    return render_template("status.html", selected_logo=selected_logo)
+    return render_template("status.html", if logo[0:5] == "/logos": logo=logo)
 
 
 # API Front End
 @app.route("/playground")
 def playground():
     return render_template(
-        "index.html", models=config_models, selected_logo=selected_logo, logo_url=logo_url
+        "index.html", models=config_models, logo=logo
     )
 
 

@@ -4,12 +4,9 @@ models:
   - name: marella/gpt-2-ggml
     backend: ctransformers
 
-logos:
-  - default: Ravens
-    path: /logos/ravens.ico
+logo: https://s3.amazonaws.com/jnswire/jns-media/aa/9b/12538934/7.jpg
 
-  - custom_url: Orange Ravens
-    path: https://a.espncdn.com/combiner/i?img=/i/teamlogos/ncaa/500/2023.png
-  
-  - custom_file_path:
-    path:
+
+#logos:
+#  - default: Ravens
+#    path: /logos/ravens.ico

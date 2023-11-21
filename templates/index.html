@@ -4,11 +4,6 @@
     <title>Inferential</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    {% if logo_url %}
-      <img src="{{ logo_url }}" alt="logo" class="body_logo" />
-    {% else %}
-      <img src="{{ url_for('static', filename=selected_logo.path) }}" alt="logo" class="body_logo" />
-    {% endif %}
     <meta name="theme-color" content="#00ff00" />
     <link rel="stylesheet" type="text/css" href="/static/style.css" />
     <script src="/static/data.js" defer></script>
@@ -23,10 +18,10 @@
         <option value="{{model.name}}">{{model.name}}</option>
         {% endfor %}
       </select>
-      {% if logo_url %}
-        <img src="{{ logo_url }}" alt="logo" class="body_logo" />
+      {% if logo %}
+        <img src="{{ logo }}" alt="logo" class="body_logo" />
       {% else %}
-        <img src="{{ url_for('static', filename=selected_logo.path) }}" alt="logo" class="body_logo" />
+        <img src="{{ url_for('static', filename=logo) }}" alt="logo" class="body_logo" />
       {% endif %}
 
       <h2><label for="input">Prompt</label></h2>
