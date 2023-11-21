@@ -17,22 +17,26 @@ body {
   overflow: auto;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
-body > * {
+main,
+footer {
   padding: 0.5em 0.7em;
+}
+
+main {
+  flex-grow: 1;
 }
 
 footer {
   border-top: 2px solid;
 }
 
-h1,
 p {
   margin: 0;
 }
 
+h1,
 h2,
 h3,
 h4,
@@ -80,20 +84,32 @@ input {
   font: inherit;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 2px solid #ccc;
-  padding: 10px;
+nav {
+  background-color: #ccc;
 }
 
-.header-sec {
-  font-size: 18px;
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
-.left {
-  word-wrap: break-word;
-  max-width: 100%;
-  text-align: left;
+nav ul > li {
+  float: left;
+}
+
+nav ul > li a {
+  display: block;
+  color: inherit;
+  text-align: center;
+  padding: 16px;
+  text-decoration: none;
+}
+
+nav ul > li a:hover {
+  background-color: #eee;
+}
+
+nav ul > li a.nav-active {
+  font-weight: bold;
 }
