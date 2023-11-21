@@ -3,37 +3,18 @@ from markupsafe import escape
 from inference import generate_response_ctranslate2, generate_response_ctransformers
 from download import download_llms
 import yaml
+import threading
 
 app = Flask(__name__)
-
 # Opens the config file and assigns it to config_index
 with open("config.yml", "r") as f:
     config_root = yaml.safe_load(f)
     config_models = config_root["models"]
 
-models = {}
-
-# # Dynamically load the appropriate model based on the selected backend
-# for model in config_models:
-#     name = model["name"]
-#     if model["backend"] == "ctransformers":
-#         models[name] = {
-#             "backend": "ctransformers",
-#             "auto-model": AutoModelForCausalLM.from_pretrained(name),
-#         }
-#     elif model["backend"] == "ctranslate2":
-#         # Download the model (ctranslate2)
-#         model_path = snapshot_download(repo_id=name)
-#         models[name] = {"backend": "ctranslate2", "model-path": model_path}
-#     else:
-#         raise ValueError(
-#             "Invalid backend in config file for model named '" + name + "'"
-#         )
-
+#On load
+threading.Thread(target = download_llms).start()
 
 # Loading page
-
-
 @app.route("/")
 def loading_page():
     return render_template("status.html")
@@ -60,9 +41,9 @@ def api():
         model_name = request.args.get("model", "")
     else:
         model_name = config_models[0]["name"]
-    if not model_name in models:
+    if not model_name in model_config:
         return "Error: Unknown model name '" + model_name + "'.", 400  # 400 Bad Request
-    model_config = models[model_name]
+    model_config = config_models[model_name]
 
     if query == "":
         return "Error: No prompt was provided.", 400  # 400 Bad Request
@@ -75,7 +56,7 @@ def api():
         reply = generate_response_ctranslate2(query, model_config["model-path"])
     else:
         raise ValueError(
-            "Invalid backend in loaded models list for model named '" + name + "'"
+            "Invalid backend in loaded models list for model named '" + model_config["name"] + "'"
         )
     return Response(reply, content_type="text/plain")
 
