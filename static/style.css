@@ -17,22 +17,26 @@ body {
   overflow: auto;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
-body > * {
+main,
+footer {
   padding: 0.5em 0.7em;
+}
+
+main {
+  flex-grow: 1;
 }
 
 footer {
   border-top: 2px solid;
 }
 
-h1,
 p {
   margin: 0;
 }
 
+h1,
 h2,
 h3,
 h4,
@@ -91,4 +95,34 @@ input {
   word-wrap: break-word;
   max-width: 100%;
   text-align: left;
+=======
+nav {
+  background-color: #ccc;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul > li {
+  float: left;
+}
+
+nav ul > li a {
+  display: block;
+  color: inherit;
+  text-align: center;
+  padding: 16px;
+  text-decoration: none;
+}
+
+nav ul > li a:hover {
+  background-color: #eee;
+}
+
+nav ul > li a.nav-active {
+  font-weight: bold;
+
 }

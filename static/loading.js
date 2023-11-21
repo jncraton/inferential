@@ -1,17 +1,15 @@
-function initializePlayground() {
+function placeholderPlaygroundInitialization() {
   document.getElementById('status').textContent = 'Starting up web server'
   setTimeout(function () {
     document.getElementById('status').textContent = 'Downloading assets'
     setTimeout(function () {
       document.getElementById('status').textContent = 'Initializing server'
-      setTimeout(function () {
-        document.getElementById('status').textContent = 'Redirecting'
-        setTimeout(function () {
-          window.location.href = '/playground'
-        }, 12)
-      }, 600)
+      setTimeout(loaded, 600)
     }, 1500)
   }, 450)
 }
+placeholderPlaygroundInitialization()
 
-initializePlayground()
+function loaded() {
+  document.getElementById('status').textContent = 'Assets loaded'
+}
