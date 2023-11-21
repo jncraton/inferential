@@ -4,7 +4,4 @@ models:
   - name: marella/gpt-2-ggml
     backend: ctransformers
 
-logo: https://s3.amazonaws.com/jnswire/jns-media/aa/9b/12538934/7.jpg
-#logos:
-#  - default: Ravens
-#    path: /logos/ravens.ico
+logo: /logos/ravens.ico

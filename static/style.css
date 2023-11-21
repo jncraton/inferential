@@ -84,18 +84,6 @@ input {
   font: inherit;
 }
 
-.body_logo {
-  float: right;
-  width: 150px;
-  height: 70px;
-  margin-top: -30px;
-}
-
-.left {
-  word-wrap: break-word;
-  max-width: 100%;
-  text-align: left;
-=======
 nav {
   background-color: #ccc;
 }
@@ -124,5 +112,11 @@ nav ul > li a:hover {
 
 nav ul > li a.nav-active {
   font-weight: bold;
+}
 
+.body_logo {
+  float: right;
+  width: 55px;
+  height: 30px;
+  margin: 10px;
 }

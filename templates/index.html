@@ -4,16 +4,6 @@
     <title>Inferential</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    {% if logo[0:5] == "/logos" %}
-    <link
-      rel="icon"
-      href="{{ url_for('static', filename=logo) }}"
-    />
-    {% else %}
-      <img src="{{ logo }}" alt="logo" class="body_logo" />
-    {% endif %}
-
-
     <meta name="theme-color" content="#00ff00" />
     <link rel="stylesheet" type="text/css" href="/static/style.css" />
     <script src="/static/data.js" defer></script>
@@ -24,6 +14,15 @@
       <ul>
         <li><a href="/">Status</a></li>
         <li><a href="/playground" class="nav-active">Playground</a></li>
+        {% if logo[0:6] == "/logos" %}
+        <img
+          src="{{ url_for('static', filename=logo) }}"
+          alt="logo"
+          class="body_logo"
+        />
+        {% else %}
+        <img src="{{ logo }}" alt="logo" class="body_logo" />
+        {% endif %}
       </ul>
     </nav>
 
@@ -35,15 +34,6 @@
         <option value="{{model.name}}">{{model.name}}</option>
         {% endfor %}
       </select>
-      {% if logo %}
-      <img src="{{ logo }}" alt="logo" class="body_logo" />
-      {% else %}
-      <img
-        src="{{ url_for('static', filename=logo) }}"
-        alt="logo"
-        class="body_logo"
-      />
-      {% endif %}
 
       <h2><label for="input">Prompt</label></h2>
       <textarea id="input" name="input" autofocus></textarea>

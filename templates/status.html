@@ -14,16 +14,20 @@
       <ul>
         <li><a href="/" class="nav-active">Status</a></li>
         <li><a href="/playground">Playground</a></li>
+        {% if logo[0:6] == "/logos" %}
+        <img
+          src="{{ url_for('static', filename=logo) }}"
+          alt="logo"
+          class="body_logo"
+        />
+        {% else %}
+        <img src="{{ logo }}" alt="logo" class="body_logo" />
+        {% endif %}
       </ul>
     </nav>
 
     <main>
       <h1>Inferential</h1>
-      <img
-        src="{{ url_for('static', filename=logo) }}"
-        alt="logo"
-        class="body_logo"
-      />
       <h2>Loading</h2>
       <p id="status">Starting up web server</p>
     </main>
