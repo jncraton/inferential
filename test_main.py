@@ -100,14 +100,9 @@ def test_streaming(client):
     assert response.is_streamed == True
 
 
-def test_redirect(browser):
-    """This test will test to see if the status page will allow you to go to the playground"""
-    page = browser.new_page()
-    page.goto("http://127.0.0.1:5000/")
-    # Wait for 5 seconds, adjust based on potential wait times
-    time.sleep(3)
-
-    header_element = page.query_selector("#Header")
-    header_element.click()
+def test_redirect(page: Page):
+    """This test that the """
+    page.goto("http://127.0.0.1:5000/playground")
+    page.query_selector("nav li:first-child a").click()
     time.sleep(1)
-    assert page.url == "http://127.0.0.1:5000/playground"
+    assert page.url == "http://127.0.0.1:5000/"
