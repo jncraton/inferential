@@ -66,6 +66,13 @@ def test_query_too_big_api(client):
     assert response.status_code == 413
 
 
+def test_invalid_model_name_api(client):
+    """This will test to verify the status code and response text for an invalid model name in an API request"""
+    response = client.get("/api?input=Hello&model=example-invalid-model-name")
+    assert response.text == "Error: Unknown model name 'example-invalid-model-name'."
+    assert response.status_code == 400
+
+
 def test_shift_enter(page: Page):
     """This will test if shift+enter creates a new line"""
     page.goto("http://127.0.0.1:5000/playground")
@@ -88,7 +95,7 @@ def test_enter(page: Page):
 
 def test_streaming(client):
     """This test will confirm that the response is streamed"""
-    response = client.get("/api?input=" + "hielo")
+    response = client.get("/api?input=hielo")
     assert response.is_streamed == True
 
 
