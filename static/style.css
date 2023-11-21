@@ -86,3 +86,9 @@ input {
   height: 70px;
   margin-top: -30px;
 }
+
+.left {
+  word-wrap: break-word;
+  max-width: 100%;
+  text-align: left;
+}

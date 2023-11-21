@@ -16,6 +16,12 @@
   <body>
     <main>
       <h1>Inferential</h1>
+      <h2><label for="modelSelect">Choose Model</label></h2>
+      <select id="modelSelect">
+        {% for model in models %}
+        <option value="{{model.name}}">{{model.name}}</option>
+        {% endfor %}
+      </select>
       <img
         src="{{ url_for('static', filename=selected_logo.path) }}"
         alt="logo"
