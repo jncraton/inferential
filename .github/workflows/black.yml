@@ -2,7 +2,8 @@ name: Black
 
 on:
   push:
-    branches: '!main'
+    branches-ignore:
+      - 'main'
   pull_request:
     branches: '**'
   workflow_dispatch:
