@@ -17,7 +17,6 @@ def test_model_download_api(client):
         config_root = yaml.safe_load(f)
         config_models = config_root["models"]
     response = client.get("/api/status")
-    print("Response text: ", response.text)
     while response.text != str(len(config_models)):
         response = client.get("/api/status")
     assert response.text == str(len(config_models))
