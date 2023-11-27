@@ -1,9 +1,9 @@
 from flask import *
 from markupsafe import escape
-from inference import generate_response_ctranslate2, generate_response_ctransformers
-from download import download_llms
+from inference import generate_response_ctranslate2, generate_response_ctransformers,download_llms
 import yaml
 import threading
+import yaml
 
 app = Flask(__name__)
 # Opens the config file and assigns it to config_index
@@ -11,8 +11,9 @@ with open("config.yml", "r") as f:
     config_root = yaml.safe_load(f)
     config_models = config_root["models"]
 
+models = {}
 #On load
-threading.Thread(target = download_llms).start()
+threading.Thread(target = download_llms, args= (config_models , models)).start()
 
 # Loading page
 @app.route("/")
@@ -41,9 +42,9 @@ def api():
         model_name = request.args.get("model", "")
     else:
         model_name = config_models[0]["name"]
-    if not model_name in model_config:
+    if not model_name in models:
         return "Error: Unknown model name '" + model_name + "'.", 400  # 400 Bad Request
-    model_config = config_models[model_name]
+    model_config = models[model_name]
 
     if query == "":
         return "Error: No prompt was provided.", 400  # 400 Bad Request
@@ -56,12 +57,10 @@ def api():
         reply = generate_response_ctranslate2(query, model_config["model-path"])
     else:
         raise ValueError(
-            "Invalid backend in loaded models list for model named '" + model_config["name"] + "'"
+            "Invalid backend in loaded models list for model named '" + model_name + "'"
         )
     return Response(reply, content_type="text/plain")
 
-@app.route("/api-status-page")
+@app.route("/api/status")
 def api_status_page():
-    flag = download_llms()
-    if flag:
-        print("Model is downloaded")
+    return str(len(models)) + " of " + str(len(config_models)) + " loaded" 
