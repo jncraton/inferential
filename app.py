@@ -1,5 +1,4 @@
 from flask import *
-from markupsafe import escape
 from inference import generate_response_ctranslate2, generate_response_ctransformers
 from huggingface_hub import hf_hub_download, snapshot_download
 from ctransformers import AutoModelForCausalLM
