@@ -13,9 +13,14 @@ def client():
 
 def test_model_download_api(client):
     """This test will confirm all of the models are downloaded"""
+    with open("config.yml", "r") as f:
+        config_root = yaml.safe_load(f)
+        config_models = config_root["models"]
     response = client.get("/api/status")
-    while response != 2:
-        assert response.status_code == 400
+    print("Response text: ", response.text)
+    while response.text != str(len(config_models)):
+        response = client.get("/api/status")
+    assert response.text == str(len(config_models))
 
 
 def test_paris_query_api(client):
