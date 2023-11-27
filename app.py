@@ -1,9 +1,7 @@
 from flask import *
-from markupsafe import escape
 from inference import generate_response_ctranslate2, generate_response_ctransformers,download_llms
 import yaml
 import threading
-import yaml
 
 app = Flask(__name__)
 # Opens the config file and assigns it to config_index
