@@ -1,5 +1,9 @@
 from flask import *
-from inference import generate_response_ctranslate2, generate_response_ctransformers,download_llms
+from inference import (
+    generate_response_ctranslate2,
+    generate_response_ctransformers,
+    download_llms,
+)
 import yaml
 import threading
 
@@ -10,8 +14,9 @@ with open("config.yml", "r") as f:
     config_models = config_root["models"]
 
 models = {}
-#On load
-threading.Thread(target = download_llms, args= (config_models , models)).start()
+# On load
+threading.Thread(target=download_llms, args=(config_models, models)).start()
+
 
 # Loading page
 @app.route("/")
@@ -58,6 +63,7 @@ def api():
             "Invalid backend in loaded models list for model named '" + model_name + "'"
         )
     return Response(reply, content_type="text/plain")
+
 
 @app.route("/api/status")
 def api_status_page():

@@ -24,6 +24,7 @@ def download_llms(config_models, models):
             )
     return models
 
+
 def generate_response_ctranslate2(prompt, model_folder):
     # Tokenize the input
     tokenizer = Tokenizer.from_file(os.path.join(model_folder, "tokenizer.json"))

@@ -11,6 +11,13 @@ def client():
     return app.test_client()
 
 
+def test_model_download_api(client):
+    """This test will confirm all of the models are downloaded"""
+    response = client.get("/api/status")
+    while response != 2:
+        assert response.status_code == 400
+
+
 def test_paris_query_api(client):
     """This will test to verify a status for a normal query"""
     response = client.get("/api?input=Where is Paris")
