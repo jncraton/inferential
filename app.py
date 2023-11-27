@@ -61,4 +61,4 @@ def api():
 
 @app.route("/api/status")
 def api_status_page():
-    return str(len(models)) + " of " + str(len(config_models)) + " loaded" 
+    return str(len(models))
