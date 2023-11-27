@@ -73,6 +73,17 @@ def test_invalid_model_name_api(client):
     assert response.status_code == 400
 
 
+def test_all_models_name_api(client):
+    """This will test to verify all models in config file return valid status code"""
+    # Opens the config file and assigns it to config_index
+    with open("config.yml", "r") as f:
+        config_root = yaml.safe_load(f)
+        config_models = config_root["models"]
+    for model in config_models:
+        response = client.get("/api?input=Where is Paris&model="+model["name"])
+        assert response.status_code == 200
+
+
 def test_shift_enter(page: Page):
     """This will test if shift+enter creates a new line"""
     page.goto("http://127.0.0.1:5000/playground")
