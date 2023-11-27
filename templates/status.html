@@ -6,13 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     {% if logo[0:6] == "/logos" %}
     <link
-      src="{{ url_for('static', filename=logo) }}"
+      rel="icon"
+      href="{{ url_for('static', filename=logo) }}"
       alt="logo"
-      class="body_logo"
-      rel = icon
+      class="icon"
     />
     {% else %}
-    <link rel="icon" type="image/png" href="{{ logo }}" />
+    <link 
+      rel="icon" 
+      type="image/png" 
+      href="{{ logo }}" 
+      class="icon" 
+    />
     {% endif %}
     <meta name="theme-color" content="#00ff00" />
     <link rel="stylesheet" type="text/css" href="/static/style.css" />
@@ -31,7 +36,11 @@
           class="body_logo"
         />
         {% else %}
-        <img src="{{ logo }}" alt="logo" class="body_logo" />
+        <img 
+          src="{{ logo }}"
+          alt="logo"
+          class="body_logo" 
+        />
         {% endif %}
       </ul>
     </nav>

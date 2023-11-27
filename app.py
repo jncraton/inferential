@@ -32,10 +32,6 @@ for model in config_models:
             "Invalid backend in config file for model named '" + name + "'"
         )
 
-# selected_logo = config_logos[0]
-# logo_path = selected_logo["path"]
-# logo_url = selected_logo.get("web", "")
-
 
 # Loading page
 

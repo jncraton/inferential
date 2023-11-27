@@ -116,7 +116,12 @@ nav ul > li a.nav-active {
 
 .body_logo {
   float: right;
-  width: 55px;
+  width: 30px;
   height: 30px;
   margin: 10px;
+}
+
+.icon{
+  height: 16px;
+  width: 16px;
 }

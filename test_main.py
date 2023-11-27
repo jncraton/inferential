@@ -104,3 +104,11 @@ def test_redirect(page: Page):
     page.goto("http://127.0.0.1:5000/playground")
     page.query_selector("nav li:first-child a").click()
     assert page.url == "http://127.0.0.1:5000/"
+
+def test_logo_appears(page: Page):
+    """This will test if the logo appears on the main playground page."""
+    page.goto("http://127.0.0.1:5000/playground")
+    nav_logo = page.locator("nav .body_logo")
+    expect(nav_logo).to_be_visible()
+    body_logo = page.locator(".body_logo")
+    expect(body_logo).to_be_visible()

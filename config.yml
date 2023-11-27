@@ -4,9 +4,7 @@ models:
   - name: marella/gpt-2-ggml
     backend: ctransformers
 
-# To change the favicon, make a copy of the file and change the name to favicon.ico
-logo: /logos/ravens.ico
+# When changing the logo, be sure to resize it to 30px by 30px for the best quality
+logo: /logos/default.pngs
 
 
-#https://pbs.twimg.com/profile_images/1656713838253817888/zgt-dQ9n_400x400.jpg https://pbs.twimg.com/profile_images/1656713838253817888/zgt-dQ9n_400x400.jpg
-# /logos/ravens.ico 
