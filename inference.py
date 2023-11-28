@@ -6,16 +6,18 @@ from ctransformers import AutoModelForCausalLM
 from huggingface_hub import hf_hub_download, snapshot_download
 import yaml
 
-models = {}
-
 with open("config.yml", "r") as f:
     config = yaml.safe_load(f)
 
+models = {m["name"]: m for m in config["models"]}
+
+for model in models:
+    models[model]["loaded"] = False
+
+print(models)
 
 def download_llms():
-    for model in config["models"]:
-        name = model["name"]
-        models[name] = {"backend": model["backend"]}
+    for name, model in models.items():
         if model["backend"] == "ctransformers":
             models[name]["model"] = AutoModelForCausalLM.from_pretrained(name)
         elif model["backend"] == "ctranslate2":
