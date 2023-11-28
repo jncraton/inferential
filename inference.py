@@ -18,16 +18,16 @@ for model in models:
 def download_llms():
     for name, model in models.items():
         if model["backend"] == "ctransformers":
-            models[name]["model"] = AutoModelForCausalLM.from_pretrained(name)
-            models[name]["loaded"] = True
+            model["model"] = AutoModelForCausalLM.from_pretrained(name)
+            model["loaded"] = True
         elif model["backend"] == "ctranslate2":
             path = snapshot_download(repo_id=name)
 
-            models[name]["model"] = ctranslate2.Translator(path, compute_type="int8")
-            models[name]["tokenizer"] = Tokenizer.from_file(
+            model["model"] = ctranslate2.Translator(path, compute_type="int8")
+            model["tokenizer"] = Tokenizer.from_file(
                 os.path.join(path, "tokenizer.json")
             )
-            models[name]["loaded"] = True
+            model["loaded"] = True
         else:
             raise ValueError(
                 "Invalid backend in config file for model named '" + name + "'"
