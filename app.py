@@ -49,4 +49,4 @@ def api():
 
 @app.route("/api/status")
 def api_status_page():
-    return str(sum([models[m]["loaded"] for m in models]))
+    return str(sum([1 for m in models.values() if "model" in m]))
