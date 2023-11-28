@@ -41,9 +41,10 @@ def api():
     if len(query) >= 250:
         return "Error: The prompt was too long.", 413  # 413 Content Too Large
 
-    reply = generate(query, model_name)
+    if not model_name in models:
+        return f"Error: Unknown model name '{model_name}'.", 400  # 400 Bad Request
 
-    return Response(reply, content_type="text/plain")
+    return Response(generate(query, model_name), content_type="text/plain")
 
 
 @app.route("/api/status")
