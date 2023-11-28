@@ -18,7 +18,7 @@ def test_model_download_api(client):
     while response.text != "All Models downloaded":
         print("Repsonse text: ", response.text)
         response = client.get("/api/status")
-        time.sleep(5) #Waits 5 seconds
+        time.sleep(5)  # Waits 5 seconds
     assert response.text == "All Models downloaded"
 
 
