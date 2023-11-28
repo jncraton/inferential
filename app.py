@@ -1,6 +1,6 @@
 import yaml
 from flask import Flask, Response, request, render_template, send_from_directory
-from inference import generate
+from inference import generate, models
 
 app = Flask(__name__)
 
@@ -48,4 +48,4 @@ def api():
 
 @app.route("/api/status")
 def api_status_page():
-    return str(len(models))
+    return str(sum([models[m]["loaded"] for m in models]))
