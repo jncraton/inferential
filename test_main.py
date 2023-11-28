@@ -1,5 +1,5 @@
 import pytest
-from app import yaml,app
+from app import yaml, app
 from playwright.sync_api import Page, expect
 from random import choice
 from string import ascii_lowercase
