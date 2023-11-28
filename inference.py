@@ -13,18 +13,18 @@ with open("config.yml", "r") as f:
 
 
 def download_llms():
-    # Opens the config file and assigns it to config_index
     for model in config["models"]:
         name = model["name"]
+        models[name] = {"backend": model["backend"]}
         if model["backend"] == "ctransformers":
-            models[name] = {
-                "backend": "ctransformers",
-                "auto-model": AutoModelForCausalLM.from_pretrained(name),
-            }
+            models[name]["model"] = AutoModelForCausalLM.from_pretrained(name)
         elif model["backend"] == "ctranslate2":
-            # Download the model (ctranslate2)
-            model_path = snapshot_download(repo_id=name)
-            models[name] = {"backend": "ctranslate2", "model-path": model_path}
+            path = snapshot_download(repo_id=name)
+
+            models[name]["model"] = ctranslate2.Translator(path, compute_type="int8")
+            models[name]["tokenizer"] = Tokenizer.from_file(
+                os.path.join(path, "tokenizer.json")
+            )
         else:
             raise ValueError(
                 "Invalid backend in config file for model named '" + name + "'"
@@ -38,29 +38,23 @@ def generate(prompt, model):
     model_config = models[model]
 
     if model_config["backend"] == "ctransformers":
-        reply = generate_response_ctransformers(prompt, model_config["auto-model"])
+        reply = generate_response_ctransformers(prompt, model)
     elif model_config["backend"] == "ctranslate2":
-        reply = generate_response_ctranslate2(prompt, model_config["model-path"])
+        reply = generate_response_ctranslate2(prompt, model)
     else:
         raise ValueError(
-            "Invalid backend in loaded models list for model named '" + model_name + "'"
+            "Invalid backend in loaded models list for model named '" + model + "'"
         )
 
     return reply
 
 
-def generate_response_ctranslate2(prompt, model_folder):
+def generate_response_ctranslate2(prompt, model):
     # Tokenize the input
-    tokenizer = Tokenizer.from_file(os.path.join(model_folder, "tokenizer.json"))
-    input_tokens = tokenizer.encode(prompt).tokens
-
-    model_base_path = model_folder
-
-    # Initialize the translator
-    model = ctranslate2.Translator(model_base_path, compute_type="int8")
+    input_tokens = models[model]["tokenizer"].encode(prompt).tokens
 
     # Translate the tokens
-    results = model.generate_tokens(input_tokens, disable_unk=True)
+    results = models[model]["model"].generate_tokens(input_tokens, disable_unk=True)
 
     accumlated_results = []
     current_length = 0
@@ -68,12 +62,12 @@ def generate_response_ctranslate2(prompt, model_folder):
         if item.is_last:
             break
         accumlated_results.append(item.token_id)
-        decoded_string = tokenizer.decode(accumlated_results)
+        decoded_string = models[model]["tokenizer"].decode(accumlated_results)
         new_text = decoded_string[current_length - len(decoded_string) :]
         current_length = len(decoded_string)
         yield new_text
 
 
 def generate_response_ctransformers(prompt, model):
-    for text in model(prompt, stream=True):
+    for text in models[model]["model"](prompt, stream=True):
         yield text
