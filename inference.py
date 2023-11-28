@@ -14,10 +14,12 @@ models = {m["name"]: m for m in config["models"]}
 for model in models:
     models[model]["loaded"] = False
 
+
 def download_llms():
     for name, model in models.items():
         if model["backend"] == "ctransformers":
             models[name]["model"] = AutoModelForCausalLM.from_pretrained(name)
+            models[name]["loaded"] = True
         elif model["backend"] == "ctranslate2":
             path = snapshot_download(repo_id=name)
 
@@ -25,6 +27,7 @@ def download_llms():
             models[name]["tokenizer"] = Tokenizer.from_file(
                 os.path.join(path, "tokenizer.json")
             )
+            models[name]["loaded"] = True
         else:
             raise ValueError(
                 "Invalid backend in config file for model named '" + name + "'"
@@ -36,6 +39,9 @@ threading.Thread(target=download_llms).start()
 
 def generate(prompt, model_name):
     model = models[model_name]
+
+    if not model["loaded"]:
+        return
 
     if model["backend"] == "ctransformers":
         reply = generate_response_ctransformers(prompt, model)
