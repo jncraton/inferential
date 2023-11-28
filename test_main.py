@@ -11,6 +11,17 @@ def client():
     return app.test_client()
 
 
+def test_model_download_api(client):
+    """This test will confirm all of the models are downloaded"""
+    with open("config.yml", "r") as f:
+        config_root = yaml.safe_load(f)
+        config_models = config_root["models"]
+    response = client.get("/api/status")
+    while response.text != str(len(config_models)):
+        response = client.get("/api/status")
+    assert response.text == str(len(config_models))
+
+
 def test_paris_query_api(client):
     """This will test to verify a status for a normal query"""
     response = client.get("/api?input=Where is Paris")
@@ -71,6 +82,32 @@ def test_invalid_model_name_api(client):
     response = client.get("/api?input=Hello&model=example-invalid-model-name")
     assert response.text == "Error: Unknown model name 'example-invalid-model-name'."
     assert response.status_code == 400
+
+
+def test_all_models_name_api(client):
+    """This will test to verify all models in config file return valid status code"""
+    # Opens the config file and assigns it to config_index
+    with open("config.yml", "r") as f:
+        config_root = yaml.safe_load(f)
+        config_models = config_root["models"]
+    for model in config_models:
+        response = client.get("/api?input=Where is Paris&model=" + model["name"])
+        assert response.status_code == 200
+
+
+def test_dropdown_input(page: Page):
+    """This will test the dropdown inputs"""
+    # Opens the config file and assigns it to config_index
+    with open("config.yml", "r") as f:
+        config_root = yaml.safe_load(f)
+        config_models = config_root["models"]
+    page.goto("http://127.0.0.1:5000/playground")
+    dropdown = page.locator("select[id='modelSelect']")
+    i = 0
+    for model in config_models:
+        dropdown.select_option(index=i)
+        expect(dropdown).to_contain_text(model["name"])
+        i += 1
 
 
 def test_shift_enter(page: Page):
