@@ -67,4 +67,6 @@ def api():
 
 @app.route("/api/status")
 def api_status_page():
-    return str(len(models))
+    while len(models) != len(config_models):
+        return Response(config_models[len(models)]["name"])
+    return Response("All Models downloaded")

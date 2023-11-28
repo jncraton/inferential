@@ -3,6 +3,7 @@ from app import *
 from playwright.sync_api import *
 from random import choice
 from string import ascii_lowercase
+import time
 
 
 @pytest.fixture()
@@ -13,13 +14,12 @@ def client():
 
 def test_model_download_api(client):
     """This test will confirm all of the models are downloaded"""
-    with open("config.yml", "r") as f:
-        config_root = yaml.safe_load(f)
-        config_models = config_root["models"]
     response = client.get("/api/status")
-    while response.text != str(len(config_models)):
+    while response.text != "All Models downloaded":
+        print("Repsonse text: ", response.text)
         response = client.get("/api/status")
-    assert response.text == str(len(config_models))
+        time.sleep(5) #Waits 5 seconds
+    assert response.text == "All Models downloaded"
 
 
 def test_paris_query_api(client):
