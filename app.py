@@ -1,39 +1,24 @@
 from flask import *
-from inference import generate_response_ctranslate2, generate_response_ctransformers
-from huggingface_hub import hf_hub_download, snapshot_download
-from ctransformers import AutoModelForCausalLM
+from inference import (
+    generate_response_ctranslate2,
+    generate_response_ctransformers,
+    download_llms,
+)
 import yaml
+import threading
 
 app = Flask(__name__)
-
 # Opens the config file and assigns it to config_index
 with open("config.yml", "r") as f:
     config_root = yaml.safe_load(f)
     config_models = config_root["models"]
 
 models = {}
-
-# Dynamically load the appropriate model based on the selected backend
-for model in config_models:
-    name = model["name"]
-    if model["backend"] == "ctransformers":
-        models[name] = {
-            "backend": "ctransformers",
-            "auto-model": AutoModelForCausalLM.from_pretrained(name),
-        }
-    elif model["backend"] == "ctranslate2":
-        # Download the model (ctranslate2)
-        model_path = snapshot_download(repo_id=name)
-        models[name] = {"backend": "ctranslate2", "model-path": model_path}
-    else:
-        raise ValueError(
-            "Invalid backend in config file for model named '" + name + "'"
-        )
+# On load
+threading.Thread(target=download_llms, args=(config_models, models)).start()
 
 
 # Loading page
-
-
 @app.route("/")
 def loading_page():
     return render_template("status.html")
@@ -75,6 +60,11 @@ def api():
         reply = generate_response_ctranslate2(query, model_config["model-path"])
     else:
         raise ValueError(
-            "Invalid backend in loaded models list for model named '" + name + "'"
+            "Invalid backend in loaded models list for model named '" + model_name + "'"
         )
     return Response(reply, content_type="text/plain")
+
+
+@app.route("/api/status")
+def api_status_page():
+    return str(len(models))

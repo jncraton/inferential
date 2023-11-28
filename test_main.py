@@ -11,6 +11,17 @@ def client():
     return app.test_client()
 
 
+def test_model_download_api(client):
+    """This test will confirm all of the models are downloaded"""
+    with open("config.yml", "r") as f:
+        config_root = yaml.safe_load(f)
+        config_models = config_root["models"]
+    response = client.get("/api/status")
+    while response.text != str(len(config_models)):
+        response = client.get("/api/status")
+    assert response.text == str(len(config_models))
+
+
 def test_paris_query_api(client):
     """This will test to verify a status for a normal query"""
     response = client.get("/api?input=Where is Paris")
