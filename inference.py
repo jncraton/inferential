@@ -14,8 +14,6 @@ models = {m["name"]: m for m in config["models"]}
 for model in models:
     models[model]["loaded"] = False
 
-print(models)
-
 def download_llms():
     for name, model in models.items():
         if model["backend"] == "ctransformers":
@@ -36,16 +34,16 @@ def download_llms():
 threading.Thread(target=download_llms).start()
 
 
-def generate(prompt, model):
-    model_config = models[model]
+def generate(prompt, model_name):
+    model = models[model_name]
 
-    if model_config["backend"] == "ctransformers":
+    if model["backend"] == "ctransformers":
         reply = generate_response_ctransformers(prompt, model)
-    elif model_config["backend"] == "ctranslate2":
+    elif model["backend"] == "ctranslate2":
         reply = generate_response_ctranslate2(prompt, model)
     else:
         raise ValueError(
-            "Invalid backend in loaded models list for model named '" + model + "'"
+            "Invalid backend in loaded models list for model named '" + model_name + "'"
         )
 
     return reply
@@ -53,10 +51,10 @@ def generate(prompt, model):
 
 def generate_response_ctranslate2(prompt, model):
     # Tokenize the input
-    input_tokens = models[model]["tokenizer"].encode(prompt).tokens
+    input_tokens = model["tokenizer"].encode(prompt).tokens
 
     # Translate the tokens
-    results = models[model]["model"].generate_tokens(input_tokens, disable_unk=True)
+    results = model["model"].generate_tokens(input_tokens, disable_unk=True)
 
     accumlated_results = []
     current_length = 0
@@ -64,12 +62,12 @@ def generate_response_ctranslate2(prompt, model):
         if item.is_last:
             break
         accumlated_results.append(item.token_id)
-        decoded_string = models[model]["tokenizer"].decode(accumlated_results)
+        decoded_string = model["tokenizer"].decode(accumlated_results)
         new_text = decoded_string[current_length - len(decoded_string) :]
         current_length = len(decoded_string)
         yield new_text
 
 
 def generate_response_ctransformers(prompt, model):
-    for text in models[model]["model"](prompt, stream=True):
+    for text in model["model"](prompt, stream=True):
         yield text
