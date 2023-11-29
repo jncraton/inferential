@@ -39,36 +39,24 @@ def generate(prompt, model_name):
         return
 
     if model["backend"] == "ctransformers":
-        reply = generate_response_ctransformers(prompt, model)
+        for text in model["model"](prompt, stream=True):
+            yield text
     elif model["backend"] == "ctranslate2":
-        reply = generate_response_ctranslate2(prompt, model)
+        # Tokenize the input
+        input_tokens = model["tokenizer"].encode(prompt).tokens
+
+        # Translate the tokens
+        results = model["model"].generate_tokens(input_tokens, disable_unk=True)
+
+        accumlated_results = []
+        bytes_sent = 0
+        for item in results:
+            accumlated_results.append(item.token_id)
+            decoded_string = model["tokenizer"].decode(accumlated_results)
+            new_text = decoded_string[bytes_sent - len(decoded_string) :]
+            bytes_sent = len(decoded_string)
+            yield new_text
     else:
         raise ValueError(
             "Invalid backend in loaded models list for model named '" + model_name + "'"
         )
-
-    return reply
-
-
-def generate_response_ctranslate2(prompt, model):
-    # Tokenize the input
-    input_tokens = model["tokenizer"].encode(prompt).tokens
-
-    # Translate the tokens
-    results = model["model"].generate_tokens(input_tokens, disable_unk=True)
-
-    accumlated_results = []
-    current_length = 0
-    for item in results:
-        if item.is_last:
-            break
-        accumlated_results.append(item.token_id)
-        decoded_string = model["tokenizer"].decode(accumlated_results)
-        new_text = decoded_string[current_length - len(decoded_string) :]
-        current_length = len(decoded_string)
-        yield new_text
-
-
-def generate_response_ctransformers(prompt, model):
-    for text in model["model"](prompt, stream=True):
-        yield text
