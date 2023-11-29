@@ -104,3 +104,23 @@ def test_redirect(page: Page):
     page.goto("http://127.0.0.1:5000/playground")
     page.query_selector("nav li:first-child a").click()
     assert page.url == "http://127.0.0.1:5000/"
+
+def test_disable_api_during_request(page: Page):
+    """This will test if the submit button is disabled during the API request."""
+    page.goto("http://127.0.0.1:5000/playground")
+    prompt_box = page.get_by_label("Prompt")
+    submit_button = page.get_by_role("button", name="Submit")
+
+    # Type a query into the prompt box
+    prompt_box.click()
+    prompt_box.fill("Where is Paris")
+
+    # Click the submit button and check if it is disabled
+    submit_button.click()
+    expect(submit_button).to_be_disabled()
+
+    # Wait for the API response to complete
+    page.wait_for_selector("#outputResponse:not(:empty)")
+
+    # Check if the submit button is enabled again
+    expect(submit_button).not_to_be_disabled()
