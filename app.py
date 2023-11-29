@@ -1,21 +1,26 @@
-from flask import *
+import threading
+import yaml
+from flask import Flask, Response, request, render_template, send_from_directory
 from inference import (
     generate_response_ctranslate2,
     generate_response_ctransformers,
     download_llms,
 )
-import yaml
-import threading
 
 app = Flask(__name__)
-# Opens the config file and assigns it to config_index
-with open("config.yml", "r") as f:
-    config_root = yaml.safe_load(f)
-    config_models = config_root["models"]
 
+# Opens the config file and sets up config_models
+models_status = {"models": [], "loadedAll": False}
+with open("config.yml", "r") as f:
+    config_models = yaml.safe_load(f)["models"]
+for model in config_models:
+    models_status["models"].append({"name": model["name"], "loaded": False})
+
+# Start a new thread to load the models asynchronously
 models = {}
-# On load
-threading.Thread(target=download_llms, args=(config_models, models)).start()
+threading.Thread(
+    target=download_llms, args=(config_models, models, models_status)
+).start()
 
 
 # Loading page
@@ -67,4 +72,4 @@ def api():
 
 @app.route("/api/status")
 def api_status_page():
-    return str(len(models))
+    return models_status

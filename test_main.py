@@ -1,8 +1,9 @@
 import pytest
-from app import *
-from playwright.sync_api import *
+from app import yaml, app
+from playwright.sync_api import Page, expect
 from random import choice
 from string import ascii_lowercase
+import time
 
 
 @pytest.fixture()
@@ -12,14 +13,13 @@ def client():
 
 
 def test_model_download_api(client):
-    """This test will confirm all of the models are downloaded"""
-    with open("config.yml", "r") as f:
-        config_root = yaml.safe_load(f)
-        config_models = config_root["models"]
+    """This test will confirm all of the models are ready"""
     response = client.get("/api/status")
-    while response.text != str(len(config_models)):
+    print(response.json)
+    while not response.json["loadedAll"]:
+        time.sleep(5)  # Waits 5 seconds
         response = client.get("/api/status")
-    assert response.text == str(len(config_models))
+    assert response.json["loadedAll"]
 
 
 def test_paris_query_api(client):
@@ -88,8 +88,7 @@ def test_all_models_name_api(client):
     """This will test to verify all models in config file return valid status code"""
     # Opens the config file and assigns it to config_index
     with open("config.yml", "r") as f:
-        config_root = yaml.safe_load(f)
-        config_models = config_root["models"]
+        config_models = yaml.safe_load(f)["models"]
     for model in config_models:
         response = client.get("/api?input=Where is Paris&model=" + model["name"])
         assert response.status_code == 200
@@ -99,8 +98,7 @@ def test_dropdown_input(page: Page):
     """This will test the dropdown inputs"""
     # Opens the config file and assigns it to config_index
     with open("config.yml", "r") as f:
-        config_root = yaml.safe_load(f)
-        config_models = config_root["models"]
+        config_models = yaml.safe_load(f)["models"]
     page.goto("http://127.0.0.1:5000/playground")
     dropdown = page.locator("select[id='modelSelect']")
     i = 0
@@ -141,3 +139,16 @@ def test_redirect(page: Page):
     page.goto("http://127.0.0.1:5000/playground")
     page.query_selector("nav li:first-child a").click()
     assert page.url == "http://127.0.0.1:5000/"
+
+
+def test_disable_api_during_request(page: Page):
+    """This will test if the submit button is disabled during the API request."""
+    page.goto("http://127.0.0.1:5000/playground")
+    prompt_box = page.get_by_label("Prompt")
+    submit_button = page.get_by_role("button", name="Submit")
+    prompt_box.click()
+    prompt_box.fill("Where is Paris")
+    submit_button.click()
+    expect(submit_button).to_be_disabled()
+    page.wait_for_selector("#outputResponse:not(:empty)")
+    expect(submit_button).not_to_be_disabled()
