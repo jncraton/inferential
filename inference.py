@@ -53,7 +53,7 @@ def generate(prompt, model_name):
         for item in results:
             accumlated_results.append(item.token_id)
             decoded_string = model["tokenizer"].decode(accumlated_results)
-            new_text = decoded_string[bytes_sent - len(decoded_string) :]
+            new_text = decoded_string[bytes_sent:]
             bytes_sent = len(decoded_string)
             yield new_text
     else:
