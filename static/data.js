@@ -24,7 +24,7 @@ function submitButton() {
   }
 
   isWaiting = true // Set flag to indicate waiting for API response
-  document.getElementById("submitButton").disabled=true;
+  document.getElementById('submitButton').disabled = true
   output.innerText = 'Loading...'
 
   fetch(
@@ -40,7 +40,7 @@ function submitButton() {
         textStream.read().then(({ done, value }) => {
           if (done) {
             isWaiting = false // Reset flag when API response is complete
-            document.getElementById("submitButton").disabled=false;
+            document.getElementById('submitButton').disabled = false
             return // All tokens have been received
           }
           accumulatedData += decoder.decode(value) // Accumulate the received text

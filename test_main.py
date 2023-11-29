@@ -105,6 +105,7 @@ def test_redirect(page: Page):
     page.query_selector("nav li:first-child a").click()
     assert page.url == "http://127.0.0.1:5000/"
 
+
 def test_disable_api_during_request(page: Page):
     """This will test if the submit button is disabled during the API request."""
     page.goto("http://127.0.0.1:5000/playground")
