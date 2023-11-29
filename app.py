@@ -1,11 +1,11 @@
-from flask import *
+import threading
+import yaml
+from flask import Flask, Response, request, render_template, send_from_directory
 from inference import (
     generate_response_ctranslate2,
     generate_response_ctransformers,
     download_llms,
 )
-import yaml
-import threading
 
 app = Flask(__name__)
 # Opens the config file and assigns it to config_index
