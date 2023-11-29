@@ -1,6 +1,28 @@
 import os
 from tokenizers import Tokenizer
 import ctranslate2
+from ctransformers import AutoModelForCausalLM
+from huggingface_hub import hf_hub_download, snapshot_download
+import yaml
+
+
+def download_llms(config_models, models):
+    for model in config_models:
+        name = model["name"]
+        if model["backend"] == "ctransformers":
+            models[name] = {
+                "backend": "ctransformers",
+                "auto-model": AutoModelForCausalLM.from_pretrained(name),
+            }
+        elif model["backend"] == "ctranslate2":
+            # Download the model (ctranslate2)
+            model_path = snapshot_download(repo_id=name)
+            models[name] = {"backend": "ctranslate2", "model-path": model_path}
+        else:
+            raise ValueError(
+                "Invalid backend in config file for model named '" + name + "'"
+            )
+    return models
 
 
 def generate_response_ctranslate2(prompt, model_folder):
