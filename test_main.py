@@ -91,8 +91,7 @@ def test_all_models_name_api(client):
         config_root = yaml.safe_load(f)
         config_models = config_root["models"]
     for model in config_models:
-        response = client.get(
-            "/api?input=Where is Paris&model=" + model["name"])
+        response = client.get("/api?input=Where is Paris&model=" + model["name"])
         assert response.status_code == 200
 
 
