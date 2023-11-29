@@ -12,7 +12,9 @@ app = Flask(__name__)
 # Opens the config file and sets up config_models
 models_status = {"models": [], "loadedAll": False}
 with open("config.yml", "r") as f:
-    config_models = yaml.safe_load(f)["models"]
+    config_root = yaml.safe_load(f)
+    config_models = config_root["models"]
+    logo = config_root["logo"]
 for model in config_models:
     models_status["models"].append({"name": model["name"], "loaded": False})
 
@@ -26,13 +28,13 @@ threading.Thread(
 # Loading page
 @app.route("/")
 def loading_page():
-    return render_template("status.html")
+    return render_template("status.html", logo=logo)
 
 
 # API Front End
 @app.route("/playground")
 def playground():
-    return render_template("index.html", models=config_models)
+    return render_template("index.html", models=config_models, logo=logo)
 
 
 @app.route("/favicon.ico")

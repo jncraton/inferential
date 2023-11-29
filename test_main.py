@@ -141,6 +141,15 @@ def test_redirect(page: Page):
     assert page.url == "http://127.0.0.1:5000/"
 
 
+def test_logo_appears(page: Page):
+    """This will test if the logo appears on the main playground page."""
+    page.goto("http://127.0.0.1:5000/playground")
+    nav_logo = page.locator("nav .body_logo")
+    expect(nav_logo).to_be_visible()
+    body_logo = page.locator(".body_logo")
+    expect(body_logo).to_be_visible()
+
+
 def test_disable_api_during_request(page: Page):
     """This will test if the submit button is disabled during the API request."""
     page.goto("http://127.0.0.1:5000/playground")
