@@ -13,13 +13,13 @@ def client():
 
 
 def test_model_download_api(client):
-    """This test will confirm all of the models are downloaded"""
+    """This test will confirm all of the models are ready"""
     response = client.get("/api/status")
-    while response.text != "All Models downloaded":
-        print("Repsonse text: ", response.text)
-        response = client.get("/api/status")
+    print(response.json)
+    while not response.json["loadedAll"]:
         time.sleep(5)  # Waits 5 seconds
-    assert response.text == "All Models downloaded"
+        response = client.get("/api/status")
+    assert response.json["loadedAll"]
 
 
 def test_paris_query_api(client):
@@ -88,8 +88,7 @@ def test_all_models_name_api(client):
     """This will test to verify all models in config file return valid status code"""
     # Opens the config file and assigns it to config_index
     with open("config.yml", "r") as f:
-        config_root = yaml.safe_load(f)
-        config_models = config_root["models"]
+        config_models = yaml.safe_load(f)["models"]
     for model in config_models:
         response = client.get("/api?input=Where is Paris&model=" + model["name"])
         assert response.status_code == 200
@@ -99,8 +98,7 @@ def test_dropdown_input(page: Page):
     """This will test the dropdown inputs"""
     # Opens the config file and assigns it to config_index
     with open("config.yml", "r") as f:
-        config_root = yaml.safe_load(f)
-        config_models = config_root["models"]
+        config_models = yaml.safe_load(f)["models"]
     page.goto("http://127.0.0.1:5000/playground")
     dropdown = page.locator("select[id='modelSelect']")
     i = 0
