@@ -4,20 +4,6 @@ const output = document.getElementById('outputResponse')
 const input = document.getElementById('input')
 const modelSelect = document.getElementById('modelSelect')
 
-async function checkModelStatus() {
-  let models_status = await fetch('/api/status').then(response =>
-    response.json(),
-  )
-  if (models_status.loadedAll) {
-    input.innerText = ''
-    input.disabled = false
-    button.disabled = false
-  } else {
-    setTimeout(checkModelStatus, 5000)
-  }
-}
-checkModelStatus()
-
 let isWaiting = false // Flag to track if waiting for API response
 
 // Event Listeners
@@ -38,7 +24,7 @@ function submitButton() {
   }
 
   isWaiting = true // Set flag to indicate waiting for API response
-  button.disabled = true
+  document.getElementById('submitButton').disabled = true
   output.innerText = 'Loading...'
 
   fetch(
@@ -54,7 +40,7 @@ function submitButton() {
         textStream.read().then(({ done, value }) => {
           if (done) {
             isWaiting = false // Reset flag when API response is complete
-            button.disabled = false
+            document.getElementById('submitButton').disabled = false
             return // All tokens have been received
           }
           accumulatedData += decoder.decode(value) // Accumulate the received text
