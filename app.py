@@ -12,6 +12,7 @@ app = Flask(__name__)
 with open("config.yml", "r") as f:
     config_root = yaml.safe_load(f)
     config_models = config_root["models"]
+    logo = config_root["logo"]
 
 models = {}
 # On load
@@ -21,13 +22,13 @@ threading.Thread(target=download_llms, args=(config_models, models)).start()
 # Loading page
 @app.route("/")
 def loading_page():
-    return render_template("status.html")
+    return render_template("status.html", logo=logo)
 
 
 # API Front End
 @app.route("/playground")
 def playground():
-    return render_template("index.html", models=config_models)
+    return render_template("index.html", models=config_models, logo=logo)
 
 
 @app.route("/favicon.ico")
@@ -55,9 +56,11 @@ def api():
         return "Error: The prompt was too long.", 413  # 413 Content Too Large
 
     if model_config["backend"] == "ctransformers":
-        reply = generate_response_ctransformers(query, model_config["auto-model"])
+        reply = generate_response_ctransformers(
+            query, model_config["auto-model"])
     elif model_config["backend"] == "ctranslate2":
-        reply = generate_response_ctranslate2(query, model_config["model-path"])
+        reply = generate_response_ctranslate2(
+            query, model_config["model-path"])
     else:
         raise ValueError(
             "Invalid backend in loaded models list for model named '" + model_name + "'"

@@ -4,25 +4,16 @@
     <title>Inferential...</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% if logo[0:6] == "/logos" %}
     <link
       rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="static/favicon-32x32.png"
+      href="{{ url_for('static', filename=logo) }}"
+      alt="logo"
+      class="icon"
     />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="192x192"
-      href="static/android-chrome-192x192.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="static/favicon-16x16.png"
-    />
-    <link rel="icon" href="favicon.ico" />
+    {% else %}
+    <link rel="icon" type="image/png" href="{{ logo }}" class="icon" />
+    {% endif %}
     <meta name="theme-color" content="#00ff00" />
     <link rel="stylesheet" type="text/css" href="/static/style.css" />
     <script src="/static/loading.js" defer></script>
@@ -33,6 +24,15 @@
       <ul>
         <li><a href="/" class="nav-active">Status</a></li>
         <li><a href="/playground">Playground</a></li>
+        {% if logo[0:6] == "/logos" %}
+        <img
+          src="{{ url_for('static', filename=logo) }}"
+          alt="logo"
+          class="body_logo"
+        />
+        {% else %}
+        <img src="{{ logo }}" alt="logo" class="body_logo" />
+        {% endif %}
       </ul>
     </nav>
 
