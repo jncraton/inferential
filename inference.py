@@ -34,7 +34,6 @@ threading.Thread(target=download_llms).start()
 
 
 def generate(prompt, model_name):
-    print(models)
     model_data = models[model_name]
 
     if not model_data["model"]:
