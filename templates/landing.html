@@ -11,7 +11,6 @@
     {% endif %}
     <meta name="theme-color" content="#00ff00" />
     <link rel="stylesheet" type="text/css" href="/static/style.css" />
-    <script src="/static/landing.js" defer></script>
   </head>
 
   <body>
@@ -34,8 +33,14 @@
     <main>
       <h1>Inferential</h1>
       <h2>What is Inferential?</h2>
-      <button onclick="getInfo()">What is Inferential?</button>
-      <p id="info"></p>
+      <br>
+      <details>
+        <summary><b>What is Inferential?</b></summary>
+        Inferential is a web application that houses several large language models to run Large Language Models locally
+        <br>
+        <br>
+        This project helps those at a beginner programming level understand the fundamentals of large language models, tokenization, and API's. This web application follows an encoder-decoder format where a query is sent to the API where it will encode the query into tokens, generate a response in tokens, and then decode those tokens into readable text.
+      </details>
     </main>
 
     <footer>Made by students of Anderson University</footer>
