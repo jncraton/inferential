@@ -24,6 +24,12 @@ If pip install does not work here is the alternative
 python -m pip install requirements.txt
 ```
 
+If you use python3
+
+```sh
+pip3 install requirements.txt
+```
+
 Run the web application
 
 ```sh
@@ -34,6 +40,12 @@ If this does not work here is the alternative
 
 ```sh
 python -m flask run
+```
+
+If you use python3
+
+```sh
+pip3 flask run
 ```
 
 Basic python script to communicate with the API
