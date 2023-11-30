@@ -44,3 +44,24 @@ print(requests.get("http://127.0.0.1:5000/api?input=Where is Paris").text)
 # Returns a json object with the following response
 '{"data":"Paris is located in France."}'
 ```
+
+## Production Deployment
+
+While using the built in "flask run" command is useful for developing,It is not ideal for a production environment.
+You will need to deploy the application to a server that isn't locally hosted. This process is started by creating
+a wheel (.whl) file. To do this, you need to install the "build" python  package.
+
+Install the build package
+
+```sh
+pip install build
+```
+
+Run build to create the wheel file
+
+```sh
+python -m build --wheel
+```
+
+Once you have run those commands, you can find the file in "dist/flaskr-1.0.0-py3-none-any.whl" which follows
+the format {project name}-{version}-{python tag} -{abi tag}-{platform tag}. Then 
