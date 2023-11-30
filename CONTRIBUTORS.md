@@ -82,3 +82,12 @@ If this does not work here is the alternative
 ```sh
 python -m pytest
 ```
+
+## Error Codes
+
+| Error Code | Message |
+|------------|---------|
+|    400     | Bad Request |
+|    413     | Content was to large |
+
+
