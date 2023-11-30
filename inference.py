@@ -73,6 +73,4 @@ def generate(prompt, model_name):
             bytes_sent = len(decoded_string)
             yield new_text
     else:
-        raise ValueError(
-            "Invalid backend in loaded models list for model named '" + model_name + "'"
-        )
+        raise ValueError(f"Invalid backend for {model_name}")
