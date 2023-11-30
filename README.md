@@ -42,7 +42,6 @@ If your using python3 run it with this command
 python3 -m flask run
 ```
 
-
 Basic python script to communicate with the API
 
 ```python

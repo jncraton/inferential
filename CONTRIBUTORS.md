@@ -67,7 +67,6 @@ python -m flask run
 
 If your using python3 run it with this command
 
-
 ```sh
 python3 -m flask run
 ```
@@ -89,7 +88,6 @@ If this does not work here is the alternative
 ```sh
 python -m pytest
 ```
-
 
 ## Steps to add your own changes
 
