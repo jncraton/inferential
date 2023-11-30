@@ -1,23 +1,41 @@
 import yaml
 from flask import Flask, Response, request, render_template, send_from_directory
-from inference import generate, models
-
+from inference import generate, models,download_llms
+import threading
 app = Flask(__name__)
+
 
 with open("config.yml", "r") as f:
     config = yaml.safe_load(f)
 
 
+# Opens the config file and sets up config_models
+models_status = {"models": [], "loadedAll": False}
+with open("config.yml", "r") as f:
+    config_root = yaml.safe_load(f)
+    config_models = config_root["models"]
+    logo = config_root["logo"]
+for model in config_models:
+    models_status["models"].append({"name": model["name"], "loaded": False})
+
+# Start a new thread to load the models asynchronously
+models = {}
+threading.Thread(
+    target=download_llms, args=(config_models, models, models_status)
+).start()
+
+
+
 # Loading page
 @app.route("/")
 def loading_page():
-    return render_template("status.html")
+    return render_template("status.html", logo=logo)
 
 
 # API Front End
 @app.route("/playground")
 def playground():
-    return render_template("index.html", models=config["models"])
+    return render_template("index.html", models=config_models, logo=logo)
 
 
 @app.route("/favicon.ico")
@@ -49,4 +67,4 @@ def api():
 
 @app.route("/api/status")
 def api_status_page():
-    return str(sum([1 for m in models.values() if "model" in m]))
+    return models_status

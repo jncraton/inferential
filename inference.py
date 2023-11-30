@@ -3,17 +3,19 @@ import os
 from tokenizers import Tokenizer
 import ctranslate2
 from ctransformers import AutoModelForCausalLM
-from huggingface_hub import hf_hub_download, snapshot_download
+from huggingface_hub import snapshot_download
 import yaml
-
 with open("config.yml", "r") as f:
     config = yaml.safe_load(f)
 
+
 models = {m["name"]: m for m in config["models"]}
 
+def download_llms(config_models, models, models_status):
+    for model in config_models:
+        name = model["name"]
+        print(f"Loading model {name}")
 
-def download_llms():
-    for name, model in models.items():
         if model["backend"] == "ctransformers":
             model["model"] = AutoModelForCausalLM.from_pretrained(name)
         elif model["backend"] == "ctranslate2":
@@ -27,6 +29,13 @@ def download_llms():
             raise ValueError(
                 "Invalid backend in config file for model named '" + name + "'"
             )
+        for entry in models_status["models"]:
+            if entry["name"] == name:
+                entry["loaded"] = True
+                break
+    models_status["loadedAll"] = True
+    return models
+
 
 
 threading.Thread(target=download_llms).start()

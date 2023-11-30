@@ -113,3 +113,10 @@ nav ul > li a:hover {
 nav ul > li a.nav-active {
   font-weight: bold;
 }
+
+.body_logo {
+  float: right;
+  width: 30px;
+  height: 30px;
+  margin: 10px;
+}

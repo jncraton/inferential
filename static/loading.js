@@ -1,15 +1,17 @@
-function placeholderPlaygroundInitialization() {
-  document.getElementById('status').textContent = 'Starting up web server'
-  setTimeout(function () {
-    document.getElementById('status').textContent = 'Downloading assets'
-    setTimeout(function () {
-      document.getElementById('status').textContent = 'Initializing server'
-      setTimeout(loaded, 600)
-    }, 1500)
-  }, 450)
-}
-placeholderPlaygroundInitialization()
+let statusElement = document.getElementById('status')
 
-function loaded() {
-  document.getElementById('status').textContent = 'Assets loaded'
+async function updateData() {
+  let models_status = await fetch('/api/status').then(response =>
+    response.json(),
+  )
+
+  // TODO (PR#57): Make the data in models_status more readable for the status page.
+  statusElement.innerText = JSON.stringify(
+    models_status,
+    undefined,
+    2,
+  ).replaceAll(' ', '\u00a0')
+
+  if (!models_status.loadedAll) window.setTimeout(updateData, 5000)
 }
+updateData()
