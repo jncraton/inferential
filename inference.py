@@ -1,5 +1,5 @@
 import threading
-import os
+from os.path import join
 from tokenizers import Tokenizer
 import ctranslate2
 from ctransformers import AutoModelForCausalLM
@@ -14,23 +14,19 @@ models = {m["name"]: m for m in config["models"]}
 
 
 def download_llms():
-    for model_config in config["models"]:
-        name = model_config["name"]
+    for name, model in models.items():
         print(f"Loading model {name}")
 
-        if model_config["backend"] == "ctransformers":
-            models[name]["model"] = AutoModelForCausalLM.from_pretrained(name)
-        elif model_config["backend"] == "ctranslate2":
+        if model["backend"] == "ctransformers":
+            model["model"] = AutoModelForCausalLM.from_pretrained(name)
+        elif model["backend"] == "ctranslate2":
             path = snapshot_download(repo_id=name)
 
-            models[name]["model"] = ctranslate2.Translator(path, compute_type="int8")
-            models[name]["tokenizer"] = Tokenizer.from_file(
-                os.path.join(path, "tokenizer.json")
-            )
+            model["model"] = ctranslate2.Translator(path, compute_type="int8")
+            model["tokenizer"] = Tokenizer.from_file(join(path, "tokenizer.json"))
         else:
-            raise ValueError(
-                "Invalid backend in config file for model named '" + name + "'"
-            )
+            raise ValueError(f"Invalid backend for {name}")
+
     print("All models loaded")
 
 
