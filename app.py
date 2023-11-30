@@ -8,19 +8,18 @@ app = Flask(__name__)
 # Read the config file
 with open("config.yml", "r") as f:
     config = yaml.safe_load(f)
-    logo = config["logo"]
 
 
 # Loading page
 @app.route("/")
 def loading_page():
-    return render_template("status.html", logo=logo)
+    return render_template("status.html", logo=config["logo"])
 
 
 # API Front End
 @app.route("/playground")
 def playground():
-    return render_template("index.html", models=config["models"], logo=logo)
+    return render_template("index.html", models=config["models"], logo=config["logo"])
 
 
 @app.route("/favicon.ico")
