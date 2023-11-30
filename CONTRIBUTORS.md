@@ -65,6 +65,13 @@ If this does not work here is the alternative
 python -m flask run
 ```
 
+If your using python3 run it with this command
+
+
+```sh
+python3 -m flask run
+```
+
 Ctrl click on the url, should look something like this "http://127.0.0.1:5000"
 
 Now you can start running inference using the different models selected
@@ -82,3 +89,11 @@ If this does not work here is the alternative
 ```sh
 python -m pytest
 ```
+
+
+## Steps to add your own changes
+
+1. Add what you want
+2. Do style checks with npm Black/Lint+Commands
+3. Do the commit command
+4. push it

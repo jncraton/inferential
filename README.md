@@ -36,6 +36,13 @@ If this does not work here is the alternative
 python -m flask run
 ```
 
+If your using python3 run it with this command
+
+```sh
+python3 -m flask run
+```
+
+
 Basic python script to communicate with the API
 
 ```python
