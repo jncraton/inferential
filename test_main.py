@@ -63,8 +63,7 @@ def test_query_too_big(page: Page):
         config_promptLen = yaml.safe_load(f)["promptLength"]
     page.goto("http://127.0.0.1:5000/playground")
     page.get_by_label("Prompt").click()
-    query = "a".join(choice(ascii_lowercase)
-                     for i in range(int(config_promptLen)))
+    query = "a".join(choice(ascii_lowercase) for i in range(int(config_promptLen)))
     page.get_by_label("Prompt").fill(query)
     page.get_by_role("button", name="Submit").click()
     chat_reply = page.locator("#outputResponse")
@@ -92,8 +91,7 @@ def test_all_models_name_api(client):
     with open("config.yml", "r") as f:
         config_models = yaml.safe_load(f)["models"]
     for model in config_models:
-        response = client.get(
-            "/api?input=Where is Paris&model=" + model["name"])
+        response = client.get("/api?input=Where is Paris&model=" + model["name"])
         assert response.status_code == 200
 
 

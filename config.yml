@@ -8,4 +8,4 @@ models:
 logo: /logos/default.png
 
 # Max prompt length
-promptLength: "250"
+promptLength: '250'
