@@ -47,6 +47,12 @@ def api():
     if not model_name in models:
         return f"Error: Unknown model name '{model_name}'.", 400  # 400 Bad Request
 
+    if not "model" in models[model_name]:
+        return (
+            f"Error: Model '{model_name}' is not yet loaded.",
+            503,
+        )  # 503 Service Unavailable
+
     return Response(generate(query, model_name), content_type="text/plain")
 
 
