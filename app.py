@@ -25,7 +25,7 @@ threading.Thread(
 ).start()
 
 
-# Loading page
+# Landing page
 @app.route("/")
 def landing_page():
     return render_template("landing.html", logo=logo)
