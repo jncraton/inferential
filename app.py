@@ -15,6 +15,7 @@ with open("config.yml", "r") as f:
     config_root = yaml.safe_load(f)
     config_models = config_root["models"]
     logo = config_root["logo"]
+    maxPromptLen = config_root["promptLength"]
 for model in config_models:
     models_status["models"].append({"name": model["name"], "loaded": False})
 
@@ -58,13 +59,15 @@ def api():
 
     if query == "":
         return "Error: No prompt was provided.", 400  # 400 Bad Request
-    if len(query) >= 250:
+    if len(query) >= int(maxPromptLen):
         return "Error: The prompt was too long.", 413  # 413 Content Too Large
 
     if model_config["backend"] == "ctransformers":
-        reply = generate_response_ctransformers(query, model_config["auto-model"])
+        reply = generate_response_ctransformers(
+            query, model_config["auto-model"])
     elif model_config["backend"] == "ctranslate2":
-        reply = generate_response_ctranslate2(query, model_config["model-path"])
+        reply = generate_response_ctranslate2(
+            query, model_config["model-path"])
     else:
         raise ValueError(
             "Invalid backend in loaded models list for model named '" + model_name + "'"
