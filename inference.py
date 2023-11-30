@@ -10,11 +10,7 @@ import yaml
 with open("config.yml", "r") as f:
     config = yaml.safe_load(f)
 
-models = {m["name"]: {} for m in config["models"]}
-models_status = {
-    "models": [{"name": m["name"], "loaded": False} for m in config["models"]],
-    "loadedAll": False,
-}
+models = {m["name"]: m for m in config["models"]}
 
 
 def download_llms():
@@ -22,7 +18,6 @@ def download_llms():
         name = model_config["name"]
         print(f"Loading model {name}")
 
-        models[name]["backend"] = model_config["backend"]
         if model_config["backend"] == "ctransformers":
             models[name]["model"] = AutoModelForCausalLM.from_pretrained(name)
         elif model_config["backend"] == "ctranslate2":
@@ -36,11 +31,6 @@ def download_llms():
             raise ValueError(
                 "Invalid backend in config file for model named '" + name + "'"
             )
-        for entry in models_status["models"]:
-            if entry["name"] == name:
-                entry["loaded"] = True
-                break
-    models_status["loadedAll"] = True
     print("All models loaded")
 
 
