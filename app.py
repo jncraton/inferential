@@ -38,16 +38,12 @@ def api():
     else:
         model_name = config["models"][0]["name"]
 
-    for model in config_models:
-        if model["name"] == model_name:
-            maxPrompt = model["maxPromptToken"]
     if query == "":
         return "Error: No prompt was provided.", 400  # 400 Bad Request
-    if len(query) >= maxPrompt:
-        return "Error: The prompt was too long.", 413  # 413 Content Too Large
-
     if not model_name in models:
         return f"Error: Unknown model name '{model_name}'.", 400  # 400 Bad Request
+    if len(query) >= models[model_name]["maxPromptToken"]:
+        return "Error: The prompt was too long.", 413  # 413 Content Too Large
 
     return Response(generate(query, model_name), content_type="text/plain")
 
