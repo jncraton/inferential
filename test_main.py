@@ -2,8 +2,6 @@ import yaml
 import pytest
 from app import app
 from playwright.sync_api import Page, expect
-from random import choice
-from string import ascii_lowercase
 import time
 
 
@@ -63,8 +61,7 @@ def test_query_too_big(page: Page):
     n = 250
     page.goto("http://127.0.0.1:5000/playground")
     page.get_by_label("Prompt").click()
-    query = "a".join(choice(ascii_lowercase) for i in range(n))
-    page.get_by_label("Prompt").fill(query)
+    page.get_by_label("Prompt").fill("a " * n)
     page.get_by_role("button", name="Submit").click()
     chat_reply = page.locator("#outputResponse")
     expect(chat_reply).to_contain_text("Error: The prompt was too long.")
@@ -72,9 +69,7 @@ def test_query_too_big(page: Page):
 
 def test_query_too_big_api(client):
     """This will test verify status code for a too big query"""
-    response = client.get(
-        "/api?input=" + ("".join(choice(ascii_lowercase) for i in range(250)))
-    )
+    response = client.get(f"/api?input={'a ' * 250}")
     assert response.status_code == 413
 
 
