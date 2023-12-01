@@ -59,10 +59,13 @@ def test_empty_query_api(client):
 
 def test_query_too_big(page: Page):
     """This will test if the query of a user is to big"""
-    n = 250
+    with open("config.yml", "r") as f:
+        config_models = yaml.safe_load(f)["models"]
     page.goto("http://127.0.0.1:5000/playground")
     page.get_by_label("Prompt").click()
-    query = "a".join(choice(ascii_lowercase) for i in range(n))
+    query = "a".join(
+        choice(ascii_lowercase) for i in range(config_models[0]["maxPromptToken"])
+    )
     page.get_by_label("Prompt").fill(query)
     page.get_by_role("button", name="Submit").click()
     chat_reply = page.locator("#outputResponse")
@@ -71,10 +74,14 @@ def test_query_too_big(page: Page):
 
 def test_query_too_big_api(client):
     """This will test verify status code for a too big query"""
-    response = client.get(
-        "/api?input=" + ("".join(choice(ascii_lowercase) for i in range(250)))
-    )
-    assert response.status_code == 413
+    with open("config.yml", "r") as f:
+        config_models = yaml.safe_load(f)["models"]
+    for model in config_models:
+        response = client.get(
+            "/api?input="
+            + ("".join(choice(ascii_lowercase) for i in range(model["maxPromptToken"])))
+        )
+        assert response.status_code == 413
 
 
 def test_invalid_model_name_api(client):
