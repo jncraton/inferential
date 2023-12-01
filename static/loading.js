@@ -5,12 +5,9 @@ async function updateData() {
     response.json(),
   )
 
-  // TODO (PR#57): Make the data in models_status more readable for the status page.
-  statusElement.innerText = JSON.stringify(
-    models_status,
-    undefined,
-    2,
-  ).replaceAll(' ', '\u00a0')
+  statusElement.innerHTML = models_status.models
+    .map(model => `${model.name}: ${model.loaded ? 'Ready' : 'Not ready'}`)
+    .join('<br>')
 
   if (!models_status.loadedAll) window.setTimeout(updateData, 5000)
 }
