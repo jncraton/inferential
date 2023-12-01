@@ -64,4 +64,8 @@ python -m build --wheel
 ```
 
 Once you have run those commands, you can find the file in "dist/flaskr-1.0.0-py3-none-any.whl" which follows
-the format {project name}-{version}-{python tag} -{abi tag}-{platform tag}. Then 
+the format {project name}-{version}-{python tag} -{abi tag}-{platform tag}. Copy that file to another machine, setup a new virtual environment, then install the file.
+
+```sh
+pip install flaskr-1.0.0-py3-none-any.whl
+```
