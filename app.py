@@ -56,9 +56,12 @@ def api():
         return "Error: Unknown model name '" + model_name + "'.", 400  # 400 Bad Request
     model_config = models[model_name]
 
+    for model in config_models:
+        if model["name"] == model_name:
+            maxPrompt = model["maxPromptToken"]
     if query == "":
         return "Error: No prompt was provided.", 400  # 400 Bad Request
-    if len(query) >= 250:
+    if len(query) >= maxPrompt:
         return "Error: The prompt was too long.", 413  # 413 Content Too Large
 
     if model_config["backend"] == "ctransformers":
