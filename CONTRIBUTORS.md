@@ -107,3 +107,32 @@ python3 pytest
 | ---------- | -------------------- |
 | 400        | Bad Request          |
 | 413        | Content was to large |
+
+## Add your Own Changes
+
+If you wish to contribute to Inferential:
+
+In your command line type
+```sh
+git checkout -b "Branch Name"
+```
+
+Make desired changes to the files.
+
+To add changes to GitHub, use the following commands:
+
+```sh
+git add .
+```
+
+```sh
+git commit -a -m "Commit Message"
+```
+
+```sh
+git push --set-upstream origin BranchName
+```
+
+```sh
+git push -a
+```

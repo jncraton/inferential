@@ -1,3 +1,5 @@
+// This script interacts with an API to perform natural language processing using pre-trained models. It includes functions to check the availability of models, handle user input, and display the API response dynamically on the HTML page.
+
 // Get elements from html
 const button = document.getElementById('submitButton')
 const output = document.getElementById('outputResponse')

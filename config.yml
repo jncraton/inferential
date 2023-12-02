@@ -1,3 +1,5 @@
+# Configuration file for the "Inferential" web app. Specifies models, their backends, and the logo used in the application.
+
 models:
   - name: jncraton/LaMini-Flan-T5-783M-ct2-int8
     backend: ctranslate2
