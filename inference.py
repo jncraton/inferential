@@ -1,5 +1,5 @@
 import threading
-import os
+from os.path import join
 from tokenizers import Tokenizer
 import ctranslate2
 from ctransformers import AutoModelForCausalLM
@@ -10,37 +10,23 @@ import yaml
 with open("config.yml", "r") as f:
     config = yaml.safe_load(f)
 
-models = {m["name"]: {} for m in config["models"]}
-models_status = {
-    "models": [{"name": m["name"], "loaded": False} for m in config["models"]],
-    "loadedAll": False,
-}
+models = {m["name"]: m for m in config["models"]}
 
 
 def download_llms():
-    for model_config in config["models"]:
-        name = model_config["name"]
+    for name, model in models.items():
         print(f"Loading model {name}")
 
-        models[name]["backend"] = model_config["backend"]
-        if model_config["backend"] == "ctransformers":
-            models[name]["model"] = AutoModelForCausalLM.from_pretrained(name)
-        elif model_config["backend"] == "ctranslate2":
+        if model["backend"] == "ctransformers":
+            model["model"] = AutoModelForCausalLM.from_pretrained(name)
+        elif model["backend"] == "ctranslate2":
             path = snapshot_download(repo_id=name)
 
-            models[name]["model"] = ctranslate2.Translator(path, compute_type="int8")
-            models[name]["tokenizer"] = Tokenizer.from_file(
-                os.path.join(path, "tokenizer.json")
-            )
+            model["model"] = ctranslate2.Translator(path, compute_type="int8")
+            model["tokenizer"] = Tokenizer.from_file(join(path, "tokenizer.json"))
         else:
-            raise ValueError(
-                "Invalid backend in config file for model named '" + name + "'"
-            )
-        for entry in models_status["models"]:
-            if entry["name"] == name:
-                entry["loaded"] = True
-                break
-    models_status["loadedAll"] = True
+            raise ValueError(f"Invalid backend for {name}")
+
     print("All models loaded")
 
 
@@ -48,7 +34,6 @@ threading.Thread(target=download_llms).start()
 
 
 def generate(prompt, model_name):
-    print(models)
     model_data = models[model_name]
 
     if not model_data["model"]:
@@ -73,6 +58,4 @@ def generate(prompt, model_name):
             bytes_sent = len(decoded_string)
             yield new_text
     else:
-        raise ValueError(
-            "Invalid backend in loaded models list for model named '" + model_name + "'"
-        )
+        raise ValueError(f"Invalid backend for {model_name}")
