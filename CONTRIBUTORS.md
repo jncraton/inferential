@@ -113,6 +113,7 @@ python3 pytest
 If you wish to contribute to Inferential:
 
 In your command line type
+
 ```sh
 git checkout -b "Branch Name"
 ```
