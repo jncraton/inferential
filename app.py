@@ -40,12 +40,10 @@ def api():
 
     if query == "":
         return "Error: No prompt was provided.", 400  # 400 Bad Request
-    if len(query) >= models[model_name]["maxPromptToken"]:
-        return "Error: The prompt was too long.", 413  # 413 Content Too Large
-
     if not model_name in models:
         return f"Error: Unknown model name '{model_name}'.", 400  # 400 Bad Request
-
+    if len(query) >= models[model_name]["maxPromptToken"]:
+        return "Error: The prompt was too long.", 413  # 413 Content Too Large
     if not "model" in models[model_name]:
         return (
             f"Error: Model '{model_name}' is not yet loaded.",
