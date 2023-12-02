@@ -4,7 +4,7 @@ Inferential [![tests](https://github.com/jncraton/inferential/actions/workflows/
 
 Inferential is a web application that houses several large language models to run inference locally
 
-This project helps those at a beginner programming level understand the fundamentals of large language models, tokenization, and API's. This web application follows an encoder-decoder format where a query is sent to the API where it will encode the query into tokens, generate a response in tokens, and then decode those tokens into readable text. For more information on this process ![Attention is All You Need](https://arxiv.org/pdf/1706.03762.pdf)
+This project helps those at a beginner programming level understand the fundamentals of large language models, tokenization, and API's. This web application follows an encoder-decoder format where a query is sent to the API where it will encode the query into tokens, generate a response in tokens, and then decode those tokens into readable text. For more information on this process [Attention is All You Need](https://arxiv.org/pdf/1706.03762.pdf)
 
 ## QuickStart
 
@@ -24,6 +24,12 @@ If pip install does not work here is the alternative
 python -m pip install requirements.txt
 ```
 
+If you use python3
+
+```sh
+pip3 install requirements.txt
+```
+
 Run the web application
 
 ```sh
@@ -34,6 +40,12 @@ If this does not work here is the alternative
 
 ```sh
 python -m flask run
+```
+
+If you use python3
+
+```sh
+pip3 flask run
 ```
 
 Basic python script to communicate with the API

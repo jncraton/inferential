@@ -4,7 +4,7 @@
 
 ### Flask
 
-Flask is a python package that is used to build lightweight web applications using the Python programming language, as well as using HTML, JavaScript, and CSS. In this project, flask is used to host the web application locally on a server. In addition, flask is also used to create the API used for running inference.![Flask Documentation](https://pypi.org/project/Flask/)
+Flask is a python package that is used to build lightweight web applications using the Python programming language, as well as using HTML, JavaScript, and CSS. In this project, flask is used to host the web application locally on a server. In addition, flask is also used to create the API used for running inference.[Flask Documentation](https://pypi.org/project/Flask/)
 
 ```python
 >>> from flask import Flask
@@ -18,11 +18,11 @@ Flask is a python package that is used to build lightweight web applications usi
 
 ### Ctranslate2
 
-Ctranslate2 us a C++ and Python Library that helps run efficient inference with transformer models. This package is used for running inference on compatible modles found in the ![Ctranslate2](https://github.com/OpenNMT/CTranslate2) Documentation
+Ctranslate2 us a C++ and Python Library that helps run efficient inference with transformer models. This package is used for running inference on compatible modles found in the [Ctranslate2](https://github.com/OpenNMT/CTranslate2) Documentation
 
 ### CTransformers
 
-CTransformers is another Python library used for running inference on supported large language models. The difference between this and Ctranslate2 is CTransformers runs the encoding of tokens and decoding of tokens on the backend. ![Ctransformers](https://github.com/marella/ctransformers)
+CTransformers is another Python library used for running inference on supported large language models. The difference between this and Ctranslate2 is CTransformers runs the encoding of tokens and decoding of tokens on the backend.[Ctransformers](https://github.com/marella/ctransformers)
 
 ```python
 >>> from ctransformers import AutoModelForCausalLM
@@ -37,8 +37,8 @@ CTransformers is another Python library used for running inference on supported 
 
 ### Requirements for installation:
 
-- Must have git installed ![Git Install](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-- Must have python version 3.11 installed ![Python Install](https://www.python.org/downloads/)
+- Must have git installed [Git Install](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+- Must have python version 3.11 installed [Python Install](https://www.python.org/downloads/)
 - Must have x(This will change depending on the models) RAM available
 
 Install requirements.txt after
@@ -53,6 +53,12 @@ If pip install does not work here is the alternative
 python -m pip install requirements.txt
 ```
 
+If you use python3
+
+```sh
+pip3 install requirements.txt
+```
+
 After everything is installed, now you can run the command to turn on the server
 
 ```sh
@@ -63,6 +69,12 @@ If this does not work here is the alternative
 
 ```sh
 python -m flask run
+```
+
+If you use python3
+
+```sh
+python3 flask run
 ```
 
 Ctrl click on the url, should look something like this "http://127.0.0.1:5000"
@@ -82,3 +94,16 @@ If this does not work here is the alternative
 ```sh
 python -m pytest
 ```
+
+If you use python3
+
+```sh
+python3 pytest
+```
+
+## Error Codes
+
+| Error Code | Message              |
+| ---------- | -------------------- |
+| 400        | Bad Request          |
+| 413        | Content was to large |
