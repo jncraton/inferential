@@ -49,7 +49,7 @@ print(requests.get("http://127.0.0.1:5000/api?input=Where is Paris").text)
 
 While using the built in "flask run" command is useful for developing, it is not ideal for a production environment.
 You will need to deploy the application to a server that isn't locally hosted. This process is started by creating
-a wheel (.whl) file. To do this, you need to install the "build" python  package.
+a wheel (.whl) file. To do this, you need to install the "build" python package.
 
 Install the build package
 
@@ -74,7 +74,7 @@ Now run this command to create the database in this new instance folder
 
 ```sh
 flask --app flaskr init-db
-``` 
+```
 
 Now you should be able to configure your secret key to random bytes so it will be harder for hackers to
 modify the session cookie.
@@ -100,4 +100,3 @@ The final step is to call the app with waitress and your server should be up and
 ```sh
 waitress-serve --call 'flaskr:create_app'
 ```
-
