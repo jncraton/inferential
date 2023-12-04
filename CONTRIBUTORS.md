@@ -33,7 +33,47 @@ CTransformers is another Python library used for running inference on supported 
        print(text, end="", flush=True)
 ```
 
-## Setup and Installation
+## Setup virtual environment
+
+If you need a virtual environment use these commands this may be needed if you are on a mac.
+
+Open your terminal 
+
+We will use homebrew to install the newest version of python.
+
+```sh
+$ brew install python
+```
+
+To verify the successful installation of the Python 3.x version, run the "python3" command, and the IDLE should start in your terminal.
+
+To create the virtual environment type
+
+```sh
+python3 -m venv my_env
+```
+
+This will create a virtual environment for you with the following files in the virtual environment directory my_env:
+
+* bin
+* include
+* lib
+* pip-selfcheck.json
+* pyvenv.cfg
+
+To activate the virtual environment, run the following command:
+
+```sh
+source my_env/bin/activate
+```
+This will start the virtual environment and you should see the name of the virtual environment added before the directory name.
+
+Now you can install anything in it, by running the "pip3 install" command, for example to install the requests module, run the following command:
+
+```sh
+pip3 install requests
+```
+To get out of the virtual environment, run the "exit" command.
 
 ### Requirements for installation:
 
