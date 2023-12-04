@@ -1,8 +1,10 @@
 models:
   - name: jncraton/LaMini-Flan-T5-783M-ct2-int8
     backend: ctranslate2
+    maxPromptToken: 250
   - name: marella/gpt-2-ggml
     backend: ctransformers
+    maxPromptToken: 250
 
 # When changing the logo, be sure to resize it to 30px by 30px for the best quality
 logo: /logos/default.png
