@@ -1,13 +1,8 @@
 import yaml
 from flask import Flask, Response, request, render_template, send_from_directory
-from inference import generate, models
+from inference import generate, models, config
 
 app = Flask(__name__)
-
-
-# Read the config file
-with open("config.yml", "r") as f:
-    config = yaml.safe_load(f)
 
 
 # Loading page
