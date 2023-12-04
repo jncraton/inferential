@@ -45,7 +45,7 @@ python -m flask run
 If you use python3
 
 ```sh
-pip3 flask run
+python3 flask run
 ```
 
 Basic python script to communicate with the API
