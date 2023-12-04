@@ -52,7 +52,7 @@ Basic python script to communicate with the API
 
 ```python
 import requests
-print(requests.get("http://127.0.0.1:5000/api?input=Where is Paris").text)
+print(requests.get("http://127.0.0.1:5000/api?input=Where is Paris,model=jncraton/LaMini-Flan-T5-783M-ct2-int8").text)
 # Returns a json object with the following response
 '{"data":"Paris is located in France."}'
 ```
