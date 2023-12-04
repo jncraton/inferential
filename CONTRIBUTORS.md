@@ -37,7 +37,7 @@ CTransformers is another Python library used for running inference on supported 
 
 If you need a virtual environment use these commands this may be needed if you are on a mac.
 
-Open your terminal 
+Open your terminal
 
 We will use homebrew to install the newest version of python.
 
@@ -55,17 +55,18 @@ python3 -m venv my_env
 
 This will create a virtual environment for you with the following files in the virtual environment directory my_env:
 
-* bin
-* include
-* lib
-* pip-selfcheck.json
-* pyvenv.cfg
+- bin
+- include
+- lib
+- pip-selfcheck.json
+- pyvenv.cfg
 
 To activate the virtual environment, run the following command:
 
 ```sh
 source my_env/bin/activate
 ```
+
 This will start the virtual environment and you should see the name of the virtual environment added before the directory name.
 
 Now you can install anything in it, by running the "pip3 install" command, for example to install the requests module, run the following command:
@@ -73,6 +74,7 @@ Now you can install anything in it, by running the "pip3 install" command, for e
 ```sh
 pip3 install requests
 ```
+
 To get out of the virtual environment, run the "exit" command.
 
 ### Requirements for installation:
@@ -99,7 +101,7 @@ If you use python3
 pip3 install requirements.txt
 ```
 
-Install Pytest-Playwright 
+Install Pytest-Playwright
 
 ```sh
 pip install pytest-playwright
@@ -124,16 +126,19 @@ playwright install
 ```
 
 Installing Pytest
+
 ```sh
 pip install -U pytest
 ```
 
 If pip install does not work here is the alternative
+
 ```sh
 python -m pip install -U pytest
 ```
 
 Here is the python3 alternative
+
 ```sh
 pip3 install -U pytest
 ```
@@ -216,3 +221,27 @@ git push --set-upstream origin BranchName
 ```sh
 git push -a
 ```
+
+## API Endpoints
+
+### /api
+
+This endpoint is where the inference and model selection is done. Data from the frontend is passed as a query parameter where the endpoint expects a value called input and models. From here it uses decision logic to figure out which model has been selected. This information gets passed to a function where the return value is a query. This query gets returned to the frontend as plaintext.
+
+### /api/status
+
+This endpoint returns a python dictionary featuring all of the models and the corresponding status if each model. The current download state of the model is represented by a boolean value.
+
+## Set Inferential Web App Logo
+
+### How Logo Gets Generated
+
+In the config file, there is a the statr of a python dictionary called logo and it features a relative file path that calls a logo in the /logos/default.png. In app.py, two routes call a the logo dictionary from the config file.
+
+### Steps to change logo
+
+1.) Go into the [/logos](https://github.com/jncraton/inferential/tree/main/static/logos) folder and add your image
+
+2.) In the [config file](https://github.com/jncraton/inferential/blob/main/config.yml) change the path of the logo to your new image
+
+3.) Run the application and see the new logo
