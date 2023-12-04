@@ -59,6 +59,45 @@ If you use python3
 pip3 install requirements.txt
 ```
 
+Install Pytest-Playwright 
+
+```sh
+pip install pytest-playwright
+```
+
+If pip install does not work here is the alternative
+
+```sh
+python -m pip install pytest-playwright
+```
+
+If you use python3
+
+```sh
+pip3 install pytest pytest-playwright
+```
+
+Install the required browers
+
+```sh
+playwright install
+```
+
+Installing Pytest
+```sh
+pip install -U pytest
+```
+
+If pip install does not work here is the alternative
+```sh
+python -m pip install -U pytest
+```
+
+Here is the python3 alternative
+```sh
+pip3 install -U pytest
+```
+
 After everything is installed, now you can run the command to turn on the server
 
 ```sh
