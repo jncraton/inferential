@@ -47,6 +47,7 @@ print(requests.get("http://127.0.0.1:5000/api?input=Where is Paris").text)
 
 ## Production Deployment
 
+
 While using the built in "flask run" command is useful for developing, it is not ideal for a production environment.
 You will need to deploy the application to a server that isn't locally hosted. This process is started by creating
 a wheel (.whl) file. To do this, you need to install the "build" python package.
@@ -100,3 +101,6 @@ The final step is to call the app with waitress and your server should be up and
 ```sh
 waitress-serve --call 'flaskr:create_app'
 ```
+
+information is from https://flask.palletsprojects.com/en/2.3.x/tutorial/deploy/.
+For further help, refer to the Flask website.
