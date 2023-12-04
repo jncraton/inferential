@@ -33,10 +33,7 @@ def favicon():
 @app.route("/api")
 def api():
     query = request.args.get("input", "")
-    if request.args.get("model", ""):
-        model_name = request.args.get("model", "")
-    else:
-        model_name = config["models"][0]["name"]
+    model_name = request.args.get("model", config["models"][0]["name"])
 
     if query == "":
         return "Error: No prompt was provided.", 400  # 400 Bad Request
