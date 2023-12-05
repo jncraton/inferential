@@ -23,13 +23,6 @@ def playground():
     return render_template("index.html", models=config["models"], logo=config["logo"])
 
 
-@app.route("/favicon.ico")
-def favicon():
-    return send_from_directory(
-        app.root_path, "static/favicon.ico", mimetype="image/vnd.microsoft.icon"
-    )
-
-
 # Backend
 @app.route("/api")
 def api():
