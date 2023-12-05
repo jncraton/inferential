@@ -120,20 +120,23 @@ nav ul > li a.nav-active {
   height: 30px;
   margin: 10px;
 }
-#responseContainer {
-  display: flex;
-  align-items: center; /* Vertical align the elements to the center */
-}
 
 #loadingSpinner {
-  border: 4px solid rgba(0, 0, 0, 0.1);
-  border-left: 4px solid #3498db;
+  display: inline-block;
+  border: 0.17em solid rgba(0, 0, 0, 0.1);
+  border-left-color: #3498db;
   border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  margin-top: 1.3em;
-  margin-left: 0.5em; /* Adjust the margin-top as needed */
+  width: 0.8em;
+  height: 0.8em;
+  vertical-align: middle;
   animation: spin 1s linear infinite;
+}
+
+#loadingSpinner.spinner-hidden {
+  /* The selector uses the element ID
+  in addition to the class so that
+  it has sufficient specificity. */
+  display: none;
 }
 
 @keyframes spin {

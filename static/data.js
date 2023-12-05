@@ -3,6 +3,7 @@ const button = document.getElementById('submitButton')
 const output = document.getElementById('outputResponse')
 const input = document.getElementById('input')
 const modelSelect = document.getElementById('modelSelect')
+const loadingSpinner = document.getElementById('loadingSpinner')
 
 async function checkModelStatus() {
   let models_status = await fetch('/api/status').then(response =>
@@ -30,7 +31,7 @@ input.addEventListener('keydown', function (e) {
     }
   }
 })
-const loadingSpinner = document.getElementById('loadingSpinner')
+
 // Function calls fetch API upon prompt submission
 function submitButton() {
   if (isWaiting) {
@@ -39,7 +40,7 @@ function submitButton() {
 
   isWaiting = true // Set flag to indicate waiting for API response
   button.disabled = true
-  loadingSpinner.style.display = 'block'
+  loadingSpinner.classList.remove('spinner-hidden')
 
   fetch(
     '/api?' +
@@ -55,7 +56,7 @@ function submitButton() {
           if (done) {
             isWaiting = false // Reset flag when API response is complete
             button.disabled = false
-            loadingSpinner.style.display = 'none'
+            loadingSpinner.classList.add('spinner-hidden')
             return // All tokens have been received
           }
           accumulatedData += decoder.decode(value) // Accumulate the received text
@@ -68,6 +69,6 @@ function submitButton() {
     })
     .catch(err => {
       console.error(err)
-      loadingSpinner.style.display = 'none' // Hide loading spinner on error
+      loadingSpinner.classList.add('spinner-hidden') // Hide loading spinner on error
     })
 }

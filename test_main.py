@@ -172,3 +172,4 @@ def test_loading_spinner(page: Page):
     loading_spinner = page.locator("#loadingSpinner")
     expect(loading_spinner).to_be_visible()
     page.wait_for_selector("#loadingSpinner", state="hidden")
+    expect(loading_spinner).to_be_hidden()

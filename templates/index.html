@@ -42,19 +42,15 @@
       </select>
 
       <h2><label for="input">Prompt</label></h2>
+      <!-- Do not indent the contents of the textarea. -->
       <textarea id="input" name="input" autofocus disabled>
-        Waiting for models to load on the server...
-        Visit the status page for more information on model loading progress.
+Waiting for models to load on the server...
+Visit the status page for more information on model loading progress.
       </textarea>
 
       <input id="submitButton" type="button" value="Submit" disabled />
 
-      <div id="responseContainer">
-        <div class="response-header">
-          <h2>Response</h2>
-        </div>
-        <div id="loadingSpinner" style="display: none"></div>
-      </div>
+      <h2>Response <div id="loadingSpinner" class="spinner-hidden"></div></h2>
       <div id="outputResponse"></div>
     </main>
 
