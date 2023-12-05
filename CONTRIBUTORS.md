@@ -69,6 +69,12 @@ source my_env/bin/activate
 
 This will start the virtual environment and you should see the name of the virtual environment added before the directory name.
 
+After you succesfully run the previous, your terminal should look similar to this
+
+```sh
+(myenv) filepath@filepath-MacBook ~ %
+```
+
 Now you can install anything in it, by running the "pip3 install" command, for example to install the requests module, run the following command:
 
 ```sh
