@@ -34,7 +34,7 @@ def api():
     if not model_name in models:
         # 400 Bad Request
         return f"Error: Unknown model name '{model_name}'.", 400
-    if len(query) >= models[model_name]["maxPromptToken"]:
+    if len(query) >= models[model_name]["maxPromptLength"]:
         return "Error: The prompt was too long.", 413  # 413 Content Too Large
     if not "model" in models[model_name]:
         return (

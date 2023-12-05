@@ -62,7 +62,7 @@ def test_query_too_big(page: Page):
         config_models = yaml.safe_load(f)["models"]
     page.goto("http://127.0.0.1:5000/playground")
     page.get_by_label("Prompt").click()
-    page.get_by_label("Prompt").fill("a " * config_models[0]["maxPromptToken"])
+    page.get_by_label("Prompt").fill("a " * config_models[0]["maxPromptLength"])
     page.get_by_role("button", name="Submit").click()
     chat_reply = page.locator("#outputResponse")
     expect(chat_reply).to_contain_text("Error: The prompt was too long.")
@@ -73,7 +73,7 @@ def test_query_too_big_api(client):
     with open("config.yml", "r") as f:
         config_models = yaml.safe_load(f)["models"]
     for model in config_models:
-        response = client.get(f"/api?input={'a ' * model['maxPromptToken']}")
+        response = client.get(f"/api?input={'a ' * model['maxPromptLength']}")
         assert response.status_code == 413
 
 
