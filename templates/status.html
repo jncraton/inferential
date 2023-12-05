@@ -19,15 +19,19 @@
       <ul>
         <li><a href="/status" class="nav-active">Status</a></li>
         <li><a href="/playground">Playground</a></li>
-        {% if logo[0:6] == "/logos" %}
-        <img
-          src="{{ url_for('static', filename=logo) }}"
-          alt="logo"
-          class="body_logo"
-        />
-        {% else %}
-        <img src="{{ logo }}" alt="logo" class="body_logo" />
-        {% endif %}
+        <nav>
+          <a href="/">
+            {% if logo[0:6] == "/logos" %}
+            <img
+              src="{{ url_for('static', filename=logo) }}"
+              alt="logo"
+              class="body_logo"
+            />
+            {% else %}
+            <img src="{{ logo }}" alt="logo" class="body_logo" />
+            {% endif %}
+          </a>
+        </nav>
       </ul>
     </nav>
 
