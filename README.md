@@ -100,3 +100,6 @@ The final step is to call the app with waitress and your server should be up and
 ```sh
 waitress-serve --call 'flaskr:create_app'
 ```
+
+information is from https://flask.palletsprojects.com/en/2.3.x/tutorial/deploy/.
+For further help, refer to the Flask website.
