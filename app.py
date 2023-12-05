@@ -1,28 +1,8 @@
-import threading
 import yaml
 from flask import Flask, Response, request, render_template, send_from_directory
-from inference import (
-    generate_response_ctranslate2,
-    generate_response_ctransformers,
-    download_llms,
-)
+from inference import generate, models, config
 
 app = Flask(__name__)
-
-# Opens the config file and sets up config_models
-models_status = {"models": [], "loadedAll": False}
-with open("config.yml", "r") as f:
-    config_root = yaml.safe_load(f)
-    config_models = config_root["models"]
-    logo = config_root["logo"]
-for model in config_models:
-    models_status["models"].append({"name": model["name"], "loaded": False})
-
-# Start a new thread to load the models asynchronously
-models = {}
-threading.Thread(
-    target=download_llms, args=(config_models, models, models_status)
-).start()
 
 
 # Landing page
@@ -40,7 +20,7 @@ def loading_page():
 # API Front End
 @app.route("/playground")
 def playground():
-    return render_template("index.html", models=config_models, logo=logo)
+    return render_template("index.html", models=config["models"], logo=config["logo"])
 
 
 @app.route("/favicon.ico")
@@ -54,30 +34,25 @@ def favicon():
 @app.route("/api")
 def api():
     query = request.args.get("input", "")
-    if request.args.get("model", ""):
-        model_name = request.args.get("model", "")
-    else:
-        model_name = config_models[0]["name"]
-    if not model_name in models:
-        return "Error: Unknown model name '" + model_name + "'.", 400  # 400 Bad Request
-    model_config = models[model_name]
+    model_name = request.args.get("model", config["models"][0]["name"])
 
     if query == "":
         return "Error: No prompt was provided.", 400  # 400 Bad Request
-    if len(query) >= 250:
+    if not model_name in models:
+        return f"Error: Unknown model name '{model_name}'.", 400  # 400 Bad Request
+    if len(query) >= models[model_name]["maxPromptToken"]:
         return "Error: The prompt was too long.", 413  # 413 Content Too Large
+    if not "model" in models[model_name]:
+        return (
+            f"Error: Model '{model_name}' is not yet loaded.",
+            503,
+        )  # 503 Service Unavailable
 
-    if model_config["backend"] == "ctransformers":
-        reply = generate_response_ctransformers(query, model_config["auto-model"])
-    elif model_config["backend"] == "ctranslate2":
-        reply = generate_response_ctranslate2(query, model_config["model-path"])
-    else:
-        raise ValueError(
-            "Invalid backend in loaded models list for model named '" + model_name + "'"
-        )
-    return Response(reply, content_type="text/plain")
+    return Response(generate(query, model_name), content_type="text/plain")
 
 
 @app.route("/api/status")
 def api_status_page():
-    return models_status
+    status = [{"name": m["name"], "loaded": "model" in m} for m in models.values()]
+
+    return {"models": status, "loadedAll": all(m["loaded"] for m in status)}
