@@ -20,15 +20,15 @@
         <li><a href="/status">Status</a></li>
         <li><a href="/playground" class="nav-active">Playground</a></li>
         <a href="/">
-            {% if logo[0:6] == "/logos" %}
-            <img
-              src="{{ url_for('static', filename=logo) }}"
-              alt="logo"
-              class="body_logo"
-            />
-            {% else %}
-            <img src="{{ logo }}" alt="logo" class="body_logo" />
-            {% endif %}
+          {% if logo[0:6] == "/logos" %}
+          <img
+            src="{{ url_for('static', filename=logo) }}"
+            alt="logo"
+            class="body_logo"
+          />
+          {% else %}
+          <img src="{{ logo }}" alt="logo" class="body_logo" />
+          {% endif %}
         </a>
       </ul>
     </nav>
