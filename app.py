@@ -8,7 +8,7 @@ app = Flask(__name__)
 # Landing page
 @app.route("/")
 def landing_page():
-    return render_template("landing.html", logo=logo)
+    return render_template("landing.html", logo=config["logo"])
 
 
 # Loading page
@@ -39,7 +39,8 @@ def api():
     if query == "":
         return "Error: No prompt was provided.", 400  # 400 Bad Request
     if not model_name in models:
-        return f"Error: Unknown model name '{model_name}'.", 400  # 400 Bad Request
+        # 400 Bad Request
+        return f"Error: Unknown model name '{model_name}'.", 400
     if len(query) >= models[model_name]["maxPromptToken"]:
         return "Error: The prompt was too long.", 413  # 413 Content Too Large
     if not "model" in models[model_name]:
