@@ -1,5 +1,5 @@
-# This module contains test cases using Pytest and Playwright for the "Inferential" web app.
-# The tests cover various aspects including API responses, user interactions, form validations, navigation, and visual elements.
+""" This module contains test cases using Pytest and Playwright for the "Inferential" web app.
+ The tests cover various aspects including API responses, user interactions, form validations, navigation, and visual elements."""
 
 import yaml
 import pytest

@@ -1,8 +1,8 @@
-# This Flask application serves as the backend for the "Inferential" web app. It includes routes for accessing model status, rendering the loading page, providing the API endpoint for model inference, and serving the main playground page.
+""" This Flask application serves as the backend for the "Inferential" web app. It includes routes for accessing model status, rendering the loading page, providing the API endpoint for model inference, and serving the main playground page.
 
-# Configuration and Model Loading:
-# - Reads configuration from 'config.yml' to set up model information and logos.
-
+Configuration and Model Loading:
+    - Reads configuration from 'config.yml' to set up model information and logos.
+"""
 
 import yaml
 from flask import Flask, Response, request, render_template, send_from_directory
