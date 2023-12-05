@@ -5,8 +5,14 @@ from inference import generate, models, config
 app = Flask(__name__)
 
 
-# Loading page
+# Landing page
 @app.route("/")
+def landing_page():
+    return render_template("landing.html", logo=config["logo"])
+
+
+# Loading page
+@app.route("/status")
 def loading_page():
     return render_template("status.html", logo=config["logo"])
 
@@ -15,13 +21,6 @@ def loading_page():
 @app.route("/playground")
 def playground():
     return render_template("index.html", models=config["models"], logo=config["logo"])
-
-
-@app.route("/favicon.ico")
-def favicon():
-    return send_from_directory(
-        app.root_path, "static/favicon.ico", mimetype="image/vnd.microsoft.icon"
-    )
 
 
 # Backend
@@ -33,7 +32,8 @@ def api():
     if query == "":
         return "Error: No prompt was provided.", 400  # 400 Bad Request
     if not model_name in models:
-        return f"Error: Unknown model name '{model_name}'.", 400  # 400 Bad Request
+        # 400 Bad Request
+        return f"Error: Unknown model name '{model_name}'.", 400
     if len(query) >= models[model_name]["maxPromptToken"]:
         return "Error: The prompt was too long.", 413  # 413 Content Too Large
     if not "model" in models[model_name]:
