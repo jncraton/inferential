@@ -19,26 +19,24 @@
       <ul>
         <li><a href="/status" class="nav-active">Status</a></li>
         <li><a href="/playground">Playground</a></li>
-        <nav>
-          <a href="/">
-            {% if logo[0:6] == "/logos" %}
-            <img
-              src="{{ url_for('static', filename=logo) }}"
-              alt="logo"
-              class="body_logo"
-            />
-            {% else %}
-            <img src="{{ logo }}" alt="logo" class="body_logo" />
-            {% endif %}
-          </a>
-        </nav>
+        <a href="/">
+          {% if logo[0:6] == "/logos" %}
+          <img
+            src="{{ url_for('static', filename=logo) }}"
+            alt="logo"
+            class="body_logo"
+          />
+          {% else %}
+          <img src="{{ logo }}" alt="logo" class="body_logo" />
+          {% endif %}
+        </a>
       </ul>
     </nav>
 
     <main>
       <h1>Inferential</h1>
       <h2>Model Status</h2>
-      <p id="status">Awaiting model status data...</p>
+      <p id="status" class="no-margin">Awaiting model status data...</p>
     </main>
 
     <footer>Made by students of Anderson University</footer>

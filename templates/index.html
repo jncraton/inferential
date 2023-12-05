@@ -19,8 +19,7 @@
       <ul>
         <li><a href="/status">Status</a></li>
         <li><a href="/playground" class="nav-active">Playground</a></li>
-        <nav>
-          <a href="/">
+        <a href="/">
             {% if logo[0:6] == "/logos" %}
             <img
               src="{{ url_for('static', filename=logo) }}"
@@ -30,8 +29,7 @@
             {% else %}
             <img src="{{ logo }}" alt="logo" class="body_logo" />
             {% endif %}
-          </a>
-        </nav>
+        </a>
       </ul>
     </nav>
 

@@ -18,102 +18,31 @@
       <ul>
         <li><a href="/status">Status</a></li>
         <li><a href="/playground">Playground</a></li>
-        <nav>
-          <a href="/">
-            {% if logo[0:6] == "/logos" %}
-            <img
-              src="{{ url_for('static', filename=logo) }}"
-              alt="logo"
-              class="body_logo"
-            />
-            {% else %}
-            <img src="{{ logo }}" alt="logo" class="body_logo" />
-            {% endif %}
-          </a>
-        </nav>
+        <a href="/">
+          {% if logo[0:6] == "/logos" %}
+          <img
+            src="{{ url_for('static', filename=logo) }}"
+            alt="logo"
+            class="body_logo"
+          />
+          {% else %}
+          <img src="{{ logo }}" alt="logo" class="body_logo" />
+          {% endif %}
+        </a>
       </ul>
     </nav>
 
     <main>
       <h1>Inferential</h1>
-      <h2>What is Inferential?</h2>
-      <br />
-      <details>
-        <summary><b>What is Inferential?</b></summary>
-        Inferential is a web application that houses several large language
-        models to run them locally.
-        <br />
-        <br />
-        This project helps those at a beginner programming level understand the
-        fundamentals of large language models, tokenization, and API's. This web
-        application follows an encoder-decoder format where a query is sent to
-        the API where it will encode the query into tokens, generate a response
-        in tokens, and then decode those tokens into readable text.
-      </details>
-      <br />
-      <details>
-        <summary><b>How do I run inferential locally?</b></summary>
-        Clone the git repository
-        <br />
-        <br />
-        ```sh
-        <br />
-        git clone git@github.com:jncraton/inferential.git
-        <br />
-        ```
-        <br />
-        <br />
-        ```sh
-        <br />
-        pip install requirements.txt
-        <br />
-        ```
-        <br />
-        <br />
-        If pip install does not work here is the alternative
-        <br />
-        <br />
-        ```sh
-        <br />
-        python -m pip install requirements.txt
-        <br />
-        ```
-        <br />
-        <br />
-        Run the web application
-        <br />
-        <br />
-        ```sh
-        <br />
-        flask run
-        <br />
-        ```
-        <br />
-        <br />
-        If this does not work here is the alternative
-        <br />
-        <br />
-        ```sh
-        <br />
-        python -m flask run
-        <br />
-        ```
-        <br />
-        <br />
-        Basic python script to communicate with the API
-        <br />
-        <br />
-        ```python
-        <br />
-        import requests
-        <br />
-        print(requests.get("http://127.0.0.1:5000/api?input=Where is
-        Paris").text)
-        <br />
-        # Returns a json object with the following response
-        <br />
-        '{"data":"Paris is located in France."}'
-      </details>
+      <h2>About</h2>
+      <p>Inferential is a web application that houses several large language
+      models to run them locally.</p>
+      <p>This project helps those at a beginner programming level understand the
+      fundamentals of large language models, tokenization, and APIs. This web
+      application follows an encoder-decoder format where a query is sent to
+      the API where it will encode the query into tokens, generate a response
+      in tokens, and then decode those tokens into readable text.</p>
+      <p>More information can be found in the <a href="https://github.com/jncraton/inferential">GitHub Repository</a>.</p>
     </main>
 
     <footer>Made by students of Anderson University</footer>
