@@ -33,29 +33,27 @@
 
     <main>
       <h1>Inferential</h1>
-    
+
       <h2><label for="modelSelect">Choose Model</label></h2>
       <select id="modelSelect">
         {% for model in models %}
         <option value="{{model.name}}">{{model.name}}</option>
         {% endfor %}
       </select>
-    
+
       <h2><label for="input">Prompt</label></h2>
       <textarea id="input" name="input" autofocus disabled>
         Waiting for models to load on the server...
         Visit the status page for more information on model loading progress.
       </textarea>
-    
+
       <input id="submitButton" type="button" value="Submit" disabled />
-    
+
       <div id="responseContainer">
         <div class="response-header">
           <h2>Response</h2>
-          
         </div>
-        <div id="loadingSpinner" style="display: none;"></div>
-        
+        <div id="loadingSpinner" style="display: none"></div>
       </div>
       <div id="outputResponse"></div>
     </main>

@@ -30,7 +30,7 @@ input.addEventListener('keydown', function (e) {
     }
   }
 })
-const loadingSpinner = document.getElementById('loadingSpinner');
+const loadingSpinner = document.getElementById('loadingSpinner')
 // Function calls fetch API upon prompt submission
 function submitButton() {
   if (isWaiting) {
@@ -39,8 +39,7 @@ function submitButton() {
 
   isWaiting = true // Set flag to indicate waiting for API response
   button.disabled = true
-  loadingSpinner.style.display = 'block';
-
+  loadingSpinner.style.display = 'block'
 
   fetch(
     '/api?' +
@@ -56,7 +55,7 @@ function submitButton() {
           if (done) {
             isWaiting = false // Reset flag when API response is complete
             button.disabled = false
-            loadingSpinner.style.display = 'none';
+            loadingSpinner.style.display = 'none'
             return // All tokens have been received
           }
           accumulatedData += decoder.decode(value) // Accumulate the received text
@@ -68,7 +67,7 @@ function submitButton() {
       readAndDisplay() // Start the process
     })
     .catch(err => {
-      console.error(err);
-      loadingSpinner.style.display = 'none'; // Hide loading spinner on error
-    });
+      console.error(err)
+      loadingSpinner.style.display = 'none' // Hide loading spinner on error
+    })
 }

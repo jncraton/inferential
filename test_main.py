@@ -36,7 +36,7 @@ def test_text_appears(page: Page):
     page.get_by_role("button", name="Submit").click()
 
     # Wait for the output to appear, adjust the selector accordingly
-    chat_reply = page.locator("#outputResponse")
+    chat_reply = page.wait_for_selector("#outputResponse")
 
     # Check if the generated text is not empty
     generated_text = chat_reply.inner_text()
@@ -161,3 +161,14 @@ def test_disable_api_during_request(page: Page):
     expect(submit_button).to_be_disabled()
     page.wait_for_selector("#outputResponse:not(:empty)")
     expect(submit_button).not_to_be_disabled()
+
+
+def test_loading_spinner(page: Page):
+    """Test if the loading spinner is visible when a response is being generated."""
+    page.goto("http://127.0.0.1:5000/playground")
+    page.get_by_label("Prompt").click()
+    page.get_by_label("Prompt").fill("Where is Paris")
+    page.get_by_role("button", name="Submit").click()
+    loading_spinner = page.locator("#loadingSpinner")
+    expect(loading_spinner).to_be_visible()
+    page.wait_for_selector("#loadingSpinner", state="hidden")
