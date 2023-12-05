@@ -14,7 +14,7 @@ def landing_page():
 # Loading page
 @app.route("/status")
 def loading_page():
-    return render_template("status.html", logo=logo)
+    return render_template("status.html", logo=config["logo"])
 
 
 # API Front End
