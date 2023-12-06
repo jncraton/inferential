@@ -1,3 +1,5 @@
+""" This module provides functions for downloading and generating responses using pre-trained language models for the "Inferential" web app."""
+
 import threading
 from os.path import join
 from tokenizers import Tokenizer

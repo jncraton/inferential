@@ -1,3 +1,9 @@
+""" This Flask application serves as the backend for the "Inferential" web app. It includes routes for accessing model status, rendering the loading page, providing the API endpoint for model inference, and serving the main playground page.
+
+Configuration and Model Loading:
+    - Reads configuration from 'config.yml' to set up model information and logos.
+"""
+
 import yaml
 from flask import Flask, Response, request, render_template, send_from_directory
 from inference import generate, models, config
@@ -37,7 +43,10 @@ def api():
         # 400 Bad Request
         return f"Error: Unknown model name '{model_name}'.", 400
     if len(query) >= models[model_name]["max_prompt_length"]:
-        return "Error: The prompt was too long.", 413  # 413 Content Too Large
+        return (
+            f"Error: The prompt exceeded maximum length of {models[model_name]['max_prompt_length']} .",
+            413,
+        )  # 413 Content Too Large
     if not "model" in models[model_name]:
         return (
             f"Error: Model '{model_name}' is not yet loaded.",
