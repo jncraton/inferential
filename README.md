@@ -4,7 +4,7 @@ Inferential [![tests](https://github.com/jncraton/inferential/actions/workflows/
 
 Inferential is a web application that houses several large language models to run inference locally
 
-This project helps those at a beginner programming level understand the fundamentals of large language models, tokenization, and API's. This web application follows an encoder-decoder format where a query is sent to the API where it will encode the query into tokens, generate a response in tokens, and then decode those tokens into readable text. For more information on this process [Attention is All You Need](https://arxiv.org/pdf/1706.03762.pdf)
+This project helps those at a beginner programming level understand the fundamentals of large language models, tokenization, and API's. This web application follows an encoder-decoder format where a query is sent to the API where it will encode the query into tokens, generate a response in tokens, and then decode those tokens into readable text. For more information on this process ![Attention is All You Need](https://arxiv.org/pdf/1706.03762.pdf)
 
 ## QuickStart
 
@@ -24,12 +24,6 @@ If pip install does not work here is the alternative
 python -m pip install requirements.txt
 ```
 
-If you use python3
-
-```sh
-pip3 install requirements.txt
-```
-
 Run the web application
 
 ```sh
@@ -42,17 +36,11 @@ If this does not work here is the alternative
 python -m flask run
 ```
 
-If you use python3
-
-```sh
-python3 flask run
-```
-
 Basic python script to communicate with the API
 
 ```python
 import requests
-print(requests.get("http://127.0.0.1:5000/api?input=Where is Paris,model=jncraton/LaMini-Flan-T5-783M-ct2-int8").text)
+print(requests.get("http://127.0.0.1:5000/api?input=Where is Paris").text)
 # Returns a json object with the following response
 '{"data":"Paris is located in France."}'
 ```
@@ -60,58 +48,39 @@ print(requests.get("http://127.0.0.1:5000/api?input=Where is Paris,model=jncrato
 ## Production Deployment
 
 While using the built in "flask run" command is useful for developing, it is not ideal for a production environment.
-You will need to deploy the application to a server that isn't locally hosted. This process is started by creating
-a wheel (.whl) file. To do this, you need to install the "build" python package.
+You will need to deploy the application to a server that is safer for production use. One way you can deploy is using the gunicorn package. Gunicorn only works on Unix based machines so if you use this method be sure to use a
+Unix machine. To start the process, clone the git repository onto your Unix machine.
 
-Install the build package
-
-```sh
-pip install build
-```
-
-Run build to create the wheel file
+Clone the repository
 
 ```sh
-python -m build --wheel
+git clone git@github.com:jncraton/inferential.git
 ```
 
-Once you have run those commands, you can find the file in "dist/flaskr-1.0.0-py3-none-any.whl" which follows
-the format {project name}-{version}-{python tag} -{abi tag}-{platform tag}. Copy that file to another machine, setup a new virtual environment, then install the file.
+Then you will need to create a new virtual environment. Navigate to the project folder and enter the following command.
 
 ```sh
-pip install flaskr-1.0.0-py3-none-any.whl
+python3 -m venv venv
 ```
 
-Now run this command to create the database in this new instance folder
+Then activate the environment
 
 ```sh
-flask --app flaskr init-db
+source venv/bin/activate
 ```
 
-Now you should be able to configure your secret key to random bytes so it will be harder for hackers to
-modify the session cookie.
-
-Generate a random key
+Once you have activated your environment, you need to install all the requirements if you haven't already installed them.
 
 ```sh
-python -c 'import secrets; print(secrets.token_hex())'
+pip install -r requirements.txt
+pip install gunicorn
 ```
 
-Create the config.py file in the instance folder and copy the generated key to the value "SECRET_KEY".
-Then you are ready to push your application to a server. There are many different production servers
-you can use, but we will use waitress.
-
-Install waitress
+Then all that is left is to start the server using gunicorn using the following command
 
 ```sh
-pip install waitress
+gunicorn -w 4 -b 0.0.0.0:8000 app:app
 ```
 
-The final step is to call the app with waitress and your server should be up and running!
-
-```sh
-waitress-serve --call 'flaskr:create_app'
-```
-
-information is from https://flask.palletsprojects.com/en/2.3.x/tutorial/deploy/.
-For further help, refer to the Flask website.
+Once you have run that command you should be able to connect to your server on 0.0.0.0:8000
+For further help, refer to the Gunicorn documentation. (https://gunicorn.org/)
