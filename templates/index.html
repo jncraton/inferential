@@ -4,11 +4,7 @@
     <title>Inferential</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    {% if logo[0:6] == "/logos" %}
-    <link rel="icon" href="{{ url_for('static', filename=logo) }}" />
-    {% else %}
     <link rel="icon" type="image/png" href="{{ logo }}" class="icon" />
-    {% endif %}
     <meta name="theme-color" content="#00ff00" />
     <link rel="stylesheet" type="text/css" href="/static/style.css" />
     <script src="/static/data.js" defer></script>
@@ -19,19 +15,7 @@
       <ul>
         <li><a href="/status">Status</a></li>
         <li><a href="/playground" class="nav-active">Playground</a></li>
-        <nav>
-          <a href="/">
-            {% if logo[0:6] == "/logos" %}
-            <img
-              src="{{ url_for('static', filename=logo) }}"
-              alt="logo"
-              class="body_logo"
-            />
-            {% else %}
-            <img src="{{ logo }}" alt="logo" class="body_logo" />
-            {% endif %}
-          </a>
-        </nav>
+        <img src="{{ logo }}" alt="logo" class="body_logo" />
       </ul>
     </nav>
 
