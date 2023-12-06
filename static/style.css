@@ -1,3 +1,6 @@
+/* Applies a common box-sizing model to all elements and defines the overall layout, styling, and responsiveness of the web page. */
+/* Styling for HTML, body, main, footer, headings, form elements, and navigation, including hover and focus effects for interactive elements. */
+
 * {
   box-sizing: border-box;
 }
