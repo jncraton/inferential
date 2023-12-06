@@ -35,7 +35,7 @@ footer {
   border-top: 2px solid;
 }
 
-p {
+.no-margin {
   margin: 0;
 }
 
