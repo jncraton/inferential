@@ -68,7 +68,9 @@ def test_query_too_big(page: Page):
     page.get_by_label("Prompt").fill("a " * config_models[0]["max_prompt_length"])
     page.get_by_role("button", name="Submit").click()
     chat_reply = page.locator("#outputResponse")
-    expect(chat_reply).to_contain_text("Error: The prompt was too long.")
+    expect(chat_reply).to_contain_text(
+        f"Error: The prompt exceeded maximum length of {config_models[0]['max_prompt_length']} ."
+    )
 
 
 def test_query_too_big_api(client):
