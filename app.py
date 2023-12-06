@@ -36,7 +36,7 @@ def api():
         return f"Error: Unknown model name '{model_name}'.", 400
     if len(query) >= models[model_name]["max_prompt_length"]:
         return (
-            f"Error: The prompt exceeded length of {models[model_name]['max_prompt_length']} .",
+            f"Error: The prompt exceeded maximum length of {models[model_name]['max_prompt_length']} .",
             413,
         )  # 413 Content Too Large
     if not "model" in models[model_name]:
