@@ -120,3 +120,30 @@ nav ul > li a.nav-active {
   height: 30px;
   margin: 10px;
 }
+
+#loadingSpinner {
+  display: inline-block;
+  border: 0.17em solid rgba(0, 0, 0, 0.1);
+  border-left-color: #3498db;
+  border-radius: 50%;
+  width: 0.8em;
+  height: 0.8em;
+  vertical-align: middle;
+  animation: spin 1s linear infinite;
+}
+
+#loadingSpinner.spinner-hidden {
+  /* The selector uses the element ID
+  in addition to the class so that
+  it has sufficient specificity. */
+  display: none;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
