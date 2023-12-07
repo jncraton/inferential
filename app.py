@@ -26,7 +26,9 @@ def loading_page():
 # API Front End
 @app.route("/playground")
 def playground():
-    return render_template("index.html", models=config["models"], logo=config["logo"])
+    return render_template(
+        "playground.html", models=config["models"], logo=config["logo"]
+    )
 
 
 # Backend
