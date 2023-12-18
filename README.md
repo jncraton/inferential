@@ -18,22 +18,10 @@ git clone git@github.com:jncraton/inferential.git
 pip install requirements.txt
 ```
 
-If pip install does not work here is the alternative
-
-```sh
-python -m pip install requirements.txt
-```
-
 Run the web application
 
 ```sh
 flask run
-```
-
-If this does not work here is the alternative
-
-```sh
-python -m flask run
 ```
 
 Basic python script to communicate with the API
