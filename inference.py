@@ -24,7 +24,10 @@ def download_llms():
         elif model["backend"] == "ctranslate2":
             path = snapshot_download(repo_id=name)
 
-            model["model"] = ctranslate2.Translator(path, compute_type="int8")
+            try:
+                model["model"] = ctranslate2.Translator(path, compute_type="int8")
+            except RuntimeError:
+                model["model"] = ctranslate2.Generator(path, compute_type="int8")
             model["tokenizer"] = Tokenizer.from_file(join(path, "tokenizer.json"))
         else:
             raise ValueError(f"Invalid backend for {name}")

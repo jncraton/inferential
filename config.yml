@@ -4,6 +4,9 @@ models:
   - name: jncraton/LaMini-Flan-T5-248M-ct2-int8
     backend: ctranslate2
     max_prompt_length: 250
+  - name: jncraton/LaMini-GPT-124M-ct2-int8
+    backend: ctranslate2
+    max_prompt_length: 250
   - name: marella/gpt-2-ggml
     backend: ctransformers
     max_prompt_length: 250
