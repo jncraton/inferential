@@ -1,4 +1,4 @@
-# Contributor
+# Contributing
 
 ## Introduction to Packages
 
