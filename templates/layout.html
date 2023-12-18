@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Inferential</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="{{ logo }}" class="icon" />
+    <meta name="theme-color" content="#00ff00" />
+    <link rel="stylesheet" type="text/css" href="/static/style.css" />
+    {% block scripts %}{% endblock %}
+  </head>
+
+  <body>
+    <nav>
+      <ul>
+        <li><a href="/status" class="nav-active">Status</a></li>
+        <li><a href="/playground">Playground</a></li>
+        <a href="/">
+          <img src="{{ logo }}" alt="logo" class="body_logo" />
+        </a>
+      </ul>
+    </nav>
+
+    <main>{% block main %}{% endblock %}</main>
+
+    <footer>Made by students of Anderson University</footer>
+  </body>
+</html>

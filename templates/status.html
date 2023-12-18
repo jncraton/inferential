@@ -1,34 +1,7 @@
-<!-- Defines the structure of the web page for the "Inferential" application's status page, including metadata, links to external resources, and placeholders for dynamic content. -->
-
-<!doctype html>
-<html>
-  <head>
-    <title>Inferential - Status</title>
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="{{ logo }}" class="icon" />
-    <meta name="theme-color" content="#00ff00" />
-    <link rel="stylesheet" type="text/css" href="/static/style.css" />
-    <script src="/static/loading.js" defer></script>
-  </head>
-
-  <body>
-    <nav>
-      <ul>
-        <li><a href="/status" class="nav-active">Status</a></li>
-        <li><a href="/playground">Playground</a></li>
-        <a href="/">
-          <img src="{{ logo }}" alt="logo" class="body_logo" />
-        </a>
-      </ul>
-    </nav>
-
-    <main>
-      <h1>Inferential</h1>
-      <h2>Model Status</h2>
-      <section id="status"><div id="loadingSpinner"></div></section>
-    </main>
-
-    <footer>Made by students of Anderson University</footer>
-  </body>
-</html>
+{% extends "layout.html" %} {% block scripts %}
+<script src="/static/loading.js" defer></script>
+{% endblock %} {% block main %}
+<h1>Inferential</h1>
+<h2>Model Status</h2>
+<section id="status"><div id="loadingSpinner"></div></section>
+{% endblock %}

@@ -1,54 +1,27 @@
-<!-- Defines the structure of the web page for the "Inferential" application, including metadata, links to external resources, and placeholders for dynamic content. -->
+{% extends "layout.html" %} {% block scripts %}
+<script src="/static/data.js" defer></script>
+{% endblock %} {% block main %}
+<h1>Inferential</h1>
 
-<!doctype html>
-<html>
-  <head>
-    <title>Inferential</title>
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="{{ logo }}" class="icon" />
-    <meta name="theme-color" content="#00ff00" />
-    <link rel="stylesheet" type="text/css" href="/static/style.css" />
-    <script src="/static/data.js" defer></script>
-  </head>
+<h2><label for="modelSelect">Choose Model</label></h2>
+<select id="modelSelect">
+  {% for model in models %}
+  <option value="{{model.name}}">{{model.name}}</option>
+  {% endfor %}
+</select>
 
-  <body>
-    <nav>
-      <ul>
-        <li><a href="/status">Status</a></li>
-        <li><a href="/playground" class="nav-active">Playground</a></li>
-        <a href="/">
-          <img src="{{ logo }}" alt="logo" class="body_logo" />
-        </a>
-      </ul>
-    </nav>
-
-    <main>
-      <h1>Inferential</h1>
-
-      <h2><label for="modelSelect">Choose Model</label></h2>
-      <select id="modelSelect">
-        {% for model in models %}
-        <option value="{{model.name}}">{{model.name}}</option>
-        {% endfor %}
-      </select>
-
-      <h2><label for="input">Prompt</label></h2>
-      <!-- Do not indent the contents of the textarea. -->
-      <textarea id="input" name="input" autofocus disabled>
+<h2><label for="input">Prompt</label></h2>
+<!-- Do not indent the contents of the textarea. -->
+<textarea id="input" name="input" autofocus disabled>
 Waiting for models to load on the server...
 Visit the status page for more information on model loading progress.
-      </textarea>
+</textarea>
 
-      <input id="submitButton" type="button" value="Submit" disabled />
+<input id="submitButton" type="button" value="Submit" disabled />
 
-      <h2>
-        Response
-        <div id="loadingSpinner" class="spinner-hidden"></div>
-      </h2>
-      <div id="outputResponse"></div>
-    </main>
-
-    <footer>Made by students of Anderson University</footer>
-  </body>
-</html>
+<h2>
+  Response
+  <div id="loadingSpinner" class="spinner-hidden"></div>
+</h2>
+<div id="outputResponse"></div>
+{% endblock %}
