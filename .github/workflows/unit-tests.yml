@@ -18,8 +18,8 @@ jobs:
         with:
           python-version: '3.11.6'
       - run: python -m pip install --upgrade pip
+      - run: cat schema.sql | sqlite3 data.db
       - run: pip install -r requirements.txt
-      - run: pip install pytest-playwright
+      - run: pip install pytest pytest-playwright
       - run: python -m playwright install
-      - run: pip install pytest
       - run: python -m flask run & python -m pytest
