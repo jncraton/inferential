@@ -5,6 +5,7 @@ Configuration and Model Loading:
 """
 
 import yaml
+import sqlite3
 from flask import Flask, Response, request, render_template, send_from_directory
 from inference import generate, models, config
 
@@ -58,6 +59,16 @@ def api():
 
 @app.route("/api/status")
 def api_status_page():
-    status = [{"name": m["name"], "loaded": "model" in m} for m in models.values()]
+    conn = sqlite3.connect("data.db")
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+    cursor.execute("select model, sum(1) as count from requests")
+
+    reqs = {m["model"]: m["count"] for m in cursor.fetchall()}
+
+    status = [
+        {"name": m["name"], "loaded": "model" in m, "requests": reqs.get(m["name"], 0)}
+        for m in models.values()
+    ]
 
     return {"models": status, "loadedAll": all(m["loaded"] for m in status)}

@@ -30,6 +30,19 @@ def test_paris_query_api(client):
     assert response.status_code == 200
 
 
+def test_status_req_count(client):
+    """Verify that request count increase in the status endpoint"""
+    response = client.get("/api/status")
+    previous = response.json["models"][0]["requests"]
+
+    response = client.get("/api?input=What is the capital of France?")
+    assert response.status_code == 200
+    assert response.text == "Paris."
+
+    response = client.get("/api/status")
+    assert response.json["models"][0]["requests"] == previous + 1
+
+
 def test_text_appears(page: Page):
     """This will test a basic query."""
     page.goto("http://127.0.0.1:5000/playground")
