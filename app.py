@@ -62,7 +62,7 @@ def api_status_page():
     conn = sqlite3.connect("data.db")
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
-    cursor.execute("select model, sum(1) as count from requests")
+    cursor.execute("select model, sum(1) as count from requests group by model")
 
     reqs = {m["model"]: m["count"] for m in cursor.fetchall()}
 
