@@ -61,8 +61,11 @@ def generate(prompt, model_name):
         return
 
     if model_data["backend"] == "ctransformers":
+        num_tokens_generated = 0
         for text in model_data["model"](prompt, stream=True):
+            num_tokens_generated += 1
             yield text
+        log(model_name, None, num_tokens_generated)
     elif model_data["backend"] == "ctranslate2":
         # Tokenize the input
         input_tokens = model_data["tokenizer"].encode(prompt).tokens
