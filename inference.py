@@ -5,7 +5,7 @@ from os.path import join
 from tokenizers import Tokenizer
 import ctranslate2
 from ctransformers import AutoModelForCausalLM
-from huggingface_hub import snapshot_download
+from huggingface_hub import snapshot_download, hf_hub_download
 import yaml
 import sqlite3
 import requests
@@ -32,7 +32,9 @@ def download_llms():
                 model["model"] = ctranslate2.Generator(path, compute_type="int8")
             model["tokenizer"] = Tokenizer.from_file(join(path, "tokenizer.json"))
         elif model["backend"] == "vllm":
+            path = hf_hub_download(repo_id=name, filename="tokenizer.json")
             model["model"] = True
+            model["tokenizer"] = Tokenizer.from_file(path)
         else:
             raise ValueError(f"Invalid backend for {name}")
 
@@ -40,6 +42,16 @@ def download_llms():
 
 
 threading.Thread(target=download_llms).start()
+
+
+def log(model, input_toks, output_toks):
+    conn = sqlite3.connect("data.db")
+    cursor = conn.cursor()
+    cursor.execute(
+        "insert into requests(model,input_tokens,output_tokens) " "values (?,?,?)",
+        (model, input_toks, output_toks),
+    )
+    conn.commit()
 
 
 def generate(prompt, model_name):
@@ -67,13 +79,8 @@ def generate(prompt, model_name):
             bytes_sent = len(decoded_string)
             yield new_text
 
-        conn = sqlite3.connect("data.db")
-        cursor = conn.cursor()
-        cursor.execute(
-            "insert into requests(model,input_tokens,output_tokens) " "values (?,?,?)",
-            (model_name, len(input_tokens), len(output_tokens)),
-        )
-        conn.commit()
+        log(model_name, len(input_tokens), len(output_tokens))
+
     elif model_data["backend"] == "vllm":
         headers = {"User-Agent": "Test Client"}
         pload = {
@@ -95,5 +102,9 @@ def generate(prompt, model_name):
                 output = data["text"]
                 yield output[-1][len(last) :]
                 last = output[-1]
+
+        input_toks = model_data["tokenizer"].encode(prompt).tokens
+        output_toks = model_data["tokenizer"].encode(output[-1][len(prompt) :]).tokens
+        log(model_name, len(input_toks), len(output_toks))
     else:
         raise ValueError(f"Invalid backend for {model_name}")
