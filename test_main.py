@@ -26,8 +26,9 @@ def test_model_download_api(client):
 
 def test_paris_query_api(client):
     """This will test to verify a status for a normal query"""
-    response = client.get("/api?input=Where is Paris")
+    response = client.get("/api?input=What is the capital of France?")
     assert response.status_code == 200
+    assert response.text == "Paris."
 
 
 def test_status_req_count(client):
@@ -36,7 +37,6 @@ def test_status_req_count(client):
     previous = response.json["models"][0]["requests"]
 
     response = client.get("/api?input=What is the capital of France?")
-    assert response.status_code == 200
     assert response.text == "Paris."
 
     response = client.get("/api/status")
