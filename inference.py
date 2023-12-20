@@ -8,6 +8,8 @@ from ctransformers import AutoModelForCausalLM
 from huggingface_hub import snapshot_download
 import yaml
 import sqlite3
+import requests
+import json
 
 with open("config.yml", "r") as f:
     config = yaml.safe_load(f)
@@ -29,6 +31,8 @@ def download_llms():
             except RuntimeError:
                 model["model"] = ctranslate2.Generator(path, compute_type="int8")
             model["tokenizer"] = Tokenizer.from_file(join(path, "tokenizer.json"))
+        elif model["backend"] == "vllm":
+            model["model"] = True
         else:
             raise ValueError(f"Invalid backend for {name}")
 
@@ -70,5 +74,26 @@ def generate(prompt, model_name):
             (model_name, len(input_tokens), len(output_tokens)),
         )
         conn.commit()
+    elif model_data["backend"] == "vllm":
+        headers = {"User-Agent": "Test Client"}
+        pload = {
+            "prompt": prompt,
+            "temperature": 0.0,
+            "max_tokens": 2048,
+            "stream": True,
+        }
+        response = requests.post(
+            model_data["url"], headers=headers, json=pload, stream=True
+        )
+
+        last = prompt
+        for chunk in response.iter_lines(
+            chunk_size=8192, decode_unicode=False, delimiter=b"\0"
+        ):
+            if chunk:
+                data = json.loads(chunk.decode("utf-8"))
+                output = data["text"]
+                yield output[-1][len(last) :]
+                last = output[-1]
     else:
         raise ValueError(f"Invalid backend for {model_name}")
