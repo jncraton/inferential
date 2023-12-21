@@ -26,20 +26,14 @@ def create_app(test_config=None):
         model_name = request.args.get("model", config["models"][0]["name"])
 
         if query == "":
-            return "Error: No prompt was provided.", 400  # 400 Bad Request
+            return "Error: No prompt was provided.", 400
         if not model_name in models:
-            # 400 Bad Request
             return f"Error: Unknown model name '{model_name}'.", 400
-        if len(query) >= models[model_name]["max_prompt_length"]:
-            return (
-                f"Error: The prompt exceeded maximum length of {models[model_name]['max_prompt_length']} .",
-                413,
-            )  # 413 Content Too Large
+        max_len = models[model_name]["max_prompt_length"]
+        if len(query) >= max_len:
+            return f"Error: The prompt exceeded maximum length of {max_len}.", 413
         if not "model" in models[model_name]:
-            return (
-                f"Error: Model '{model_name}' is not yet loaded.",
-                503,
-            )  # 503 Service Unavailable
+            return f"Error: Model '{model_name}' is not yet loaded.", 503
 
         return Response(generate(query, model_name), content_type="text/plain")
 
