@@ -1,5 +1,4 @@
-""" This module contains test cases using Pytest and Playwright for the "Inferential" web app.
- The tests cover various aspects including API responses, user interactions, form validations, navigation, and visual elements."""
+"""Test UI of web application. Requires running application."""
 
 import pytest
 from playwright.sync_api import Page, expect
