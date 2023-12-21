@@ -20,13 +20,13 @@ def test_paris_query_api(client):
 def test_status_req_count(client):
     """Verify that request count increase in the status endpoint"""
     response = client.get("/api/status")
-    previous = response.json["models"][0]["requests"]
+    previous = response.json["models"][0]["requests_per_min"][0]
 
     response = client.get("/api?input=What is the capital of France?")
     assert response.text == "Paris."
 
     response = client.get("/api/status")
-    assert response.json["models"][0]["requests"] == previous + 1
+    assert response.json["models"][0]["requests_per_min"][0] == previous + 1
 
 
 def test_empty_query_api(client):
