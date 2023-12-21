@@ -6,13 +6,10 @@ from tokenizers import Tokenizer
 import ctranslate2
 from ctransformers import AutoModelForCausalLM
 from huggingface_hub import snapshot_download, hf_hub_download
-import yaml
 import requests
 import json
 from inferential.stats import log
-
-with open("config.yml", "r") as f:
-    config = yaml.safe_load(f)
+from inferential.stats import config
 
 models = {m["name"]: m for m in config["models"]}
 

@@ -1,4 +1,5 @@
 import sqlite3
+from inferential.config import config
 
 
 def log(model, input_toks, output_toks):

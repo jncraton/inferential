@@ -1,8 +1,8 @@
-import yaml
 import sqlite3
 from flask import Flask, Response, request, render_template, send_from_directory
 from inferential.inference import generate, models, config
 from inferential.stats import get_model_stats
+from inferential.config import config
 
 
 def create_app(test_config=None):
