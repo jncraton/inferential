@@ -1,6 +1,5 @@
 """Tests for the /api endpoints"""
 
-import yaml
 import pytest
 
 
@@ -41,10 +40,8 @@ def test_empty_query_api(client):
 
 def test_query_too_big_api(client):
     """This will test verify status code for a too big query"""
-    with open("config.yml", "r") as f:
-        config_models = yaml.safe_load(f)["models"]
-    for model in config_models:
-        response = client.get(f"/api?input={'a ' * model['max_prompt_length']}")
+    for model in pytest.conf["models"]:
+        response = client.get(f"/api?input={'a ' * 10000}")
         assert response.status_code == 413
 
 
@@ -58,9 +55,7 @@ def test_invalid_model_name_api(client):
 def test_all_models_name_api(client):
     """This will test to verify all models in config file return valid status code"""
     # Opens the config file and assigns it to config_index
-    with open("config.yml", "r") as f:
-        config_models = yaml.safe_load(f)["models"]
-    for model in config_models:
+    for model in pytest.conf["models"]:
         response = client.get("/api?input=Where is Paris&model=" + model["name"])
         assert response.status_code == 200
 

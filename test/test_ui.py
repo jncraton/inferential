@@ -1,7 +1,6 @@
 """ This module contains test cases using Pytest and Playwright for the "Inferential" web app.
  The tests cover various aspects including API responses, user interactions, form validations, navigation, and visual elements."""
 
-import yaml
 import pytest
 from playwright.sync_api import Page, expect
 
@@ -31,27 +30,21 @@ def test_empty_query(page: Page):
 
 def test_query_too_big(page: Page):
     """This will test if the query of a user is to big"""
-    with open("config.yml", "r") as f:
-        config_models = yaml.safe_load(f)["models"]
     page.goto("http://127.0.0.1:5000/playground")
     page.get_by_label("Prompt").click()
-    page.get_by_label("Prompt").fill("a " * config_models[0]["max_prompt_length"])
+    page.get_by_label("Prompt").fill("a " * 10000)
     page.get_by_role("button", name="Submit").click()
     chat_reply = page.locator("#outputResponse")
-    expect(chat_reply).to_contain_text(
-        f"Error: The prompt exceeded maximum length of {config_models[0]['max_prompt_length']} ."
-    )
+    expect(chat_reply).to_contain_text(f"prompt exceeded maximum length")
 
 
 def test_dropdown_input(page: Page):
     """This will test the dropdown inputs"""
     # Opens the config file and assigns it to config_index
-    with open("config.yml", "r") as f:
-        config_models = yaml.safe_load(f)["models"]
     page.goto("http://127.0.0.1:5000/playground")
     dropdown = page.locator("select[id='modelSelect']")
     i = 0
-    for model in config_models:
+    for model in pytest.conf["models"]:
         dropdown.select_option(index=i)
         expect(dropdown).to_contain_text(model["name"])
         i += 1

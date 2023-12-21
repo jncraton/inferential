@@ -1,3 +1,4 @@
+import yaml
 import pytest
 from inferential import create_app
 
@@ -13,6 +14,9 @@ def client(app):
 
 
 def pytest_configure(config):
+    with open("config.yml", "r") as f:
+        pytest.conf = yaml.safe_load(f)
+
     client = create_app({"TESTING": True}).test_client()
     while not client.get("/api/status").json["loadedAll"]:
         pass
