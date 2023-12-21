@@ -1,17 +1,21 @@
 # Configuration file for the "Inferential" web app. Specifies models, their backends, and the logo used in the application.
 
 models:
-  - name: jncraton/LaMini-Flan-T5-248M-ct2-int8
+  - name: LaMini-Flan-T5-248M
+    hf_path: jncraton/LaMini-Flan-T5-248M-ct2-int8
     backend: ctranslate2
     max_prompt_length: 250
-  - name: jncraton/LaMini-GPT-124M-ct2-int8
+  - name: LaMini-GPT-124M
+    hf_path: jncraton/LaMini-GPT-124M-ct2-int8
     backend: ctranslate2
     max_prompt_length: 250
-  - name: marella/gpt-2-ggml
+  - name: gpt2
+    hf_path: marella/gpt-2-ggml
     backend: ctransformers
     max_prompt_length: 250
 # Example vllm config
-#  - name: TheBloke/neural-chat-7B-v3-1-AWQ
+#  - name: neural-chat-7B-v3
+#    hf_path: TheBloke/neural-chat-7B-v3-1-AWQ
 #    backend: vllm
 #    url: http://localhost:8000/generate
 #    max_prompt_length: 250

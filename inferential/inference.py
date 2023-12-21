@@ -19,9 +19,9 @@ def download_llms():
         print(f"Loading model {name}")
 
         if model["backend"] == "ctransformers":
-            model["model"] = AutoModelForCausalLM.from_pretrained(name)
+            model["model"] = AutoModelForCausalLM.from_pretrained(model["hf_path"])
         elif model["backend"] == "ctranslate2":
-            path = snapshot_download(repo_id=name)
+            path = snapshot_download(repo_id=model["hf_path"])
 
             try:
                 model["model"] = ctranslate2.Translator(path, compute_type="int8")
@@ -29,7 +29,7 @@ def download_llms():
                 model["model"] = ctranslate2.Generator(path, compute_type="int8")
             model["tokenizer"] = Tokenizer.from_file(join(path, "tokenizer.json"))
         elif model["backend"] == "vllm":
-            path = hf_hub_download(repo_id=name, filename="tokenizer.json")
+            path = hf_hub_download(repo_id=model["hf_path"], filename="tokenizer.json")
             model["model"] = True
             model["tokenizer"] = Tokenizer.from_file(path)
         else:
