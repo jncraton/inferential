@@ -51,7 +51,6 @@ def test_invalid_model_name_api(client):
 
 def test_all_models_name_api(client):
     """This will test to verify all models in config file return valid status code"""
-    # Opens the config file and assigns it to config_index
     for model in pytest.conf["models"]:
         response = client.get("/api?input=Where is Paris&model=" + model["name"])
         assert response.status_code == 200
