@@ -3,15 +3,8 @@
 
 import yaml
 import pytest
-from app import app
 from playwright.sync_api import Page, expect
 import time
-
-
-@pytest.fixture()
-def client():
-    app.config["TESTING"] = True
-    return app.test_client()
 
 
 def test_model_download_api(client):
