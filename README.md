@@ -63,7 +63,7 @@ pip install gunicorn
 Then all that is left is to start the server using gunicorn using the following command
 
 ```sh
-gunicorn -w 4 -b 0.0.0.0:8000 app:app
+gunicorn -w 4 -b 0.0.0.0:8000 "inferential:create_app()"
 ```
 
 Once you have run that command you should be able to connect to your server on 0.0.0.0:8000 For further help, refer to the Gunicorn documentation. (https://gunicorn.org/)
