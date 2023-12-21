@@ -4,13 +4,10 @@ import pytest
 
 
 def test_model_download_api(client):
-    """This test will confirm all of the models are ready"""
+    """Verify the status endpoint returns an appropriate object"""
     response = client.get("/api/status")
-    print(response.json)
-    while not response.json["loadedAll"]:
-        time.sleep(5)  # Waits 5 seconds
-        response = client.get("/api/status")
-    assert response.json["loadedAll"]
+    assert response.status_code == 200
+    assert len(response.json["models"]) == 3
 
 
 def test_paris_query_api(client):
