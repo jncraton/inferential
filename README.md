@@ -6,34 +6,26 @@ Inferential is a web application that provides a playground and API for running 
 
 ## QuickStart
 
-Clone the git repository
+Use the following to clone the git repository, install dependencies, and run the application:
 
 ```sh
 git clone git@github.com:jncraton/inferential.git
+cd inferential
+pip install -r requirements.txt
+make run
 ```
 
-```sh
-pip install requirements.txt
-```
-
-Run the web application
-
-```sh
-flask run
-```
-
-Basic python script to communicate with the API
+Here's a Python example communicating with the API:
 
 ```python
-import requests
-print(requests.get("http://127.0.0.1:5000/api?input=Where is Paris").text)
-# Returns a json object with the following response
-'{"data":"Paris is located in France."}'
+>>> import requests
+>>> requests.get("http://localhost:5000/api?input=Where is Paris").text
+'Paris is located in France.'
 ```
 
 ## Production Deployment
 
-While using the built in "flask run" command is useful for developing, it is not ideal for a production environment. You will need to deploy the application to a server that is safer for production use. One way you can deploy is using the gunicorn package. Gunicorn only works on Unix based machines so if you use this method be sure to use a Unix machine. To start the process, clone the git repository onto your Unix machine.
+While using the built in server is useful for development, it is not ideal for a production environment. You will need to deploy the application to a server that is safer for production use. One way you can deploy is using the gunicorn package. Gunicorn only works on Unix based machines so if you use this method be sure to use a Unix machine. To start the process, clone the git repository onto your Unix machine.
 
 Clone the repository
 
