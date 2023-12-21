@@ -4,7 +4,7 @@
     <title>Inferential</title>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="{{ logo }}" class="icon" />
+    <link rel="icon" type="image/png" href="{{config['logo']}}" class="icon" />
     <meta name="theme-color" content="#00ff00" />
     <link rel="stylesheet" type="text/css" href="/static/style.css" />
     {% block scripts %}{% endblock %}
@@ -16,7 +16,7 @@
         <li><a href="/status" class="nav-active">Status</a></li>
         <li><a href="/playground">Playground</a></li>
         <a href="/">
-          <img src="{{ logo }}" alt="logo" class="body_logo" />
+          <img src="{{config['logo']}}" alt="logo" class="body_logo" />
         </a>
       </ul>
     </nav>

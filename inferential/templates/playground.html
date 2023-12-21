@@ -5,7 +5,7 @@
 
 <h2><label for="modelSelect">Choose Model</label></h2>
 <select id="modelSelect">
-  {% for model in models %}
+  {% for model in config['models'] %}
   <option value="{{model.name}}">{{model.name}}</option>
   {% endfor %}
 </select>

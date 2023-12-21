@@ -9,17 +9,15 @@ def create_app(test_config=None):
 
     @app.route("/")
     def landing_page():
-        return render_template("landing.html", logo=config["logo"])
+        return render_template("landing.html", config=config)
 
     @app.route("/status")
     def loading_page():
-        return render_template("status.html", logo=config["logo"])
+        return render_template("status.html", config=config)
 
     @app.route("/playground")
     def playground():
-        return render_template(
-            "playground.html", models=config["models"], logo=config["logo"]
-        )
+        return render_template("playground.html", config=config)
 
     @app.route("/api")
     def api():
