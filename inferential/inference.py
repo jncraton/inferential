@@ -7,9 +7,9 @@ import ctranslate2
 from ctransformers import AutoModelForCausalLM
 from huggingface_hub import snapshot_download, hf_hub_download
 import yaml
-import sqlite3
 import requests
 import json
+from inferential.stats import log
 
 with open("config.yml", "r") as f:
     config = yaml.safe_load(f)
@@ -42,16 +42,6 @@ def download_llms():
 
 
 threading.Thread(target=download_llms).start()
-
-
-def log(model, input_toks, output_toks):
-    conn = sqlite3.connect("data.db")
-    cursor = conn.cursor()
-    cursor.execute(
-        "insert into requests(model,input_tokens,output_tokens) " "values (?,?,?)",
-        (model, input_toks, output_toks),
-    )
-    conn.commit()
 
 
 def generate(prompt, model_name):

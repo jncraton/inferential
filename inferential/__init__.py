@@ -2,6 +2,7 @@ import yaml
 import sqlite3
 from flask import Flask, Response, request, render_template, send_from_directory
 from inferential.inference import generate, models, config
+from inferential.stats import get_model_stats
 
 
 def create_app(test_config=None):
@@ -44,12 +45,7 @@ def create_app(test_config=None):
 
     @app.route("/api/status")
     def api_status_page():
-        conn = sqlite3.connect("data.db")
-        conn.row_factory = sqlite3.Row
-        cursor = conn.cursor()
-        cursor.execute("select model, sum(1) as count from requests group by model")
-
-        reqs = {m["model"]: m["count"] for m in cursor.fetchall()}
+        reqs = get_model_stats()
 
         status = [
             {
