@@ -13,7 +13,7 @@ def log(model, input_toks, output_toks):
 
 
 def build_hour_stats(key, model, stats):
-    sparse = {s["minutes_ago"]: s["requests"] for s in stats if s["model"] == model}
+    sparse = {s["minutes_ago"]: s[key] for s in stats if s["model"] == model}
 
     return [sparse.get(i, 0) for i in range(60)]
 
