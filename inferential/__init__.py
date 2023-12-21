@@ -39,17 +39,6 @@ def create_app(test_config=None):
 
     @app.route("/api/status")
     def api_status_page():
-        reqs = get_model_stats()
-
-        status = [
-            {
-                "name": m["name"],
-                "loaded": "model" in m,
-                "requests": reqs.get(m["name"], 0),
-            }
-            for m in models.values()
-        ]
-
-        return {"models": status, "loadedAll": all(m["loaded"] for m in status)}
+        return get_model_stats()
 
     return app

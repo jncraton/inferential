@@ -18,4 +18,15 @@ def get_model_stats():
     cursor = conn.cursor()
     cursor.execute("select model, sum(1) as count from requests group by model")
 
-    return {m["model"]: m["count"] for m in cursor.fetchall()}
+    reqs = {m["model"]: m["count"] for m in cursor.fetchall()}
+
+    status = [
+        {
+            "name": m["name"],
+            "loaded": "model" in m,
+            "requests": reqs.get(m["name"], 0),
+        }
+        for m in config["models"]
+    ]
+
+    return {"models": status, "loadedAll": all(m["loaded"] for m in status)}
