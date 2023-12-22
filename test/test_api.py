@@ -61,11 +61,12 @@ def test_invalid_model_name_api(client):
     assert response.status_code == 400
 
 
-def test_all_models_name_api(client):
+@pytest.mark.parametrize("model", pytest.conf["models"])
+def test_all_models_name_api(client, model):
     """This will test to verify all models in config file return valid status code"""
-    for model in pytest.conf["models"]:
-        response = client.get("/api?input=Where is Paris&model=" + model["name"])
-        assert response.status_code == 200
+    response = client.get("/api?input=Say hi&max_tokens=2&model=" + model["name"])
+    assert response.status_code == 200
+    assert len(response.text) > 0
 
 
 def test_streaming(client):
