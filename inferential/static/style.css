@@ -88,36 +88,36 @@ nav {
 }
 
 nav ul {
+  display: flex;
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-nav ul > li {
-  float: left;
+nav ul li {
+  display: flex;
+}
+
+nav ul li:last-child {
+  margin-left: auto;
 }
 
 nav ul > li a {
-  display: block;
+  display: flex;
+  align-items: center;
   color: inherit;
-  text-align: center;
-  padding: 16px;
+  padding: 1em;
   text-decoration: none;
+}
+
+nav ul li a img {
+  margin: 0 1em;
+  width: 32px;
+  height: 32px;
 }
 
 nav ul > li a:hover {
   background-color: #eee;
-}
-
-nav ul > li a.nav-active {
-  font-weight: bold;
-}
-
-.body_logo {
-  float: right;
-  width: 30px;
-  height: 30px;
-  margin: 10px;
 }
 
 #loadingSpinner {

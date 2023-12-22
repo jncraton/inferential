@@ -79,10 +79,8 @@ def test_redirect(page: Page):
 def test_logo_appears(page: Page):
     """This will test if the logo appears on the main playground page."""
     page.goto("http://127.0.0.1:5000/playground")
-    nav_logo = page.locator("nav .body_logo")
+    nav_logo = page.locator("nav img")
     expect(nav_logo).to_be_visible()
-    body_logo = page.locator(".body_logo")
-    expect(body_logo).to_be_visible()
 
 
 def test_disable_api_during_request(page: Page):
