@@ -22,47 +22,36 @@ async function checkModelStatus() {
 checkModelStatus()
 
 // Event Listeners
-button.addEventListener('click', submitButton)
+button.addEventListener('click', displayCompletion)
 input.addEventListener('keydown', function (e) {
   if (e.key === 'Enter' && !e.shiftKey) {
     e.preventDefault()
     if (!button.disabled) {
-      submitButton()
+      displayCompletion()
     }
   }
 })
 
-// Function calls fetch API upon prompt submission
-function submitButton() {
+async function displayCompletion() {
   button.disabled = true
   loadingSpinner.classList.remove('spinner-hidden')
 
-  fetch(
+  let response = await fetch(
     '/api?' +
       new URLSearchParams({ input: input.value, model: modelSelect.value }),
   )
-    .then(response => {
-      const textStream = response.body.getReader()
-      let accumulatedData = '' // To accumulate the data
-      const decoder = new TextDecoder()
 
-      function readAndDisplay() {
-        textStream.read().then(({ done, value }) => {
-          if (done) {
-            button.disabled = false
-            loadingSpinner.classList.add('spinner-hidden')
-            return // All tokens have been received
-          }
-          accumulatedData += decoder.decode(value) // Accumulate the received text
-          output.innerText = accumulatedData
-          readAndDisplay() // Continue reading and displaying
-        })
-      }
+  const textStream = response.body.getReader()
+  const decoder = new TextDecoder()
+  completion = ''
 
-      readAndDisplay() // Start the process
-    })
-    .catch(err => {
-      console.error(err)
-      loadingSpinner.classList.add('spinner-hidden') // Hide loading spinner on error
-    })
+  while (true) {
+    output.innerText = completion
+    let { done, value } = await textStream.read()
+    if (done) break
+    completion += decoder.decode(value)
+  }
+
+  button.disabled = false
+  loadingSpinner.classList.add('spinner-hidden')
 }
