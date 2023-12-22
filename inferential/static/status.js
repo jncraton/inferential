@@ -8,19 +8,19 @@ async function updateData() {
     plt = document.createElement('div')
     document.getElementById('status').append(plt)
 
-    title = ` Tokens/min for ${model.name}${model.loaded ? '' : ' (Offline)'}`
     Plotly.newPlot(
       plt,
       [
         {
           x: Array.from(new Array(60), (_, i) => -i),
-          y: model.tokens_per_min,
+          y: model.tokens_per_min.map(x => x / 60),
         },
       ],
       {
-        title: title,
-        height: 240,
-        margin: { l: 32, r: 32, b: 32, t: 32 },
+        title: `${model.name}${model.loaded ? '' : ' (Offline)'}`,
+        height: 320,
+        xaxis: { title: 'Minutes' },
+        yaxis: { title: 'Tokens/s' },
       },
     )
   })
