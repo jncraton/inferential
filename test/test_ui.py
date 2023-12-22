@@ -7,7 +7,6 @@ from playwright.sync_api import Page, expect
 def test_text_appears(page: Page):
     """This will test a basic query."""
     page.goto("http://127.0.0.1:5000/playground")
-    page.get_by_label("Prompt").click()
     page.get_by_label("Prompt").fill("Where is Paris")
     page.get_by_role("button", name="Submit").click()
 
@@ -30,7 +29,6 @@ def test_empty_query(page: Page):
 def test_query_too_big(page: Page):
     """This will test if the query of a user is to big"""
     page.goto("http://127.0.0.1:5000/playground")
-    page.get_by_label("Prompt").click()
     page.get_by_label("Prompt").fill("a " * 10000)
     page.get_by_role("button", name="Submit").click()
     chat_reply = page.locator("#outputResponse")
@@ -52,17 +50,14 @@ def test_dropdown_input(page: Page):
 def test_shift_enter(page: Page):
     """This will test if shift+enter creates a new line"""
     page.goto("http://127.0.0.1:5000/playground")
-    prompt_box = page.get_by_label("Prompt")
-    prompt_box.click()
-    prompt_box.press("Shift+Enter")
-    expect(prompt_box).to_contain_text("\n")
+    page.get_by_label("Prompt").press("Shift+Enter")
+    expect(page.get_by_label("Prompt")).to_contain_text("\n")
 
 
 def test_enter(page: Page):
     """This will test if enter submits prompt"""
     page.goto("http://127.0.0.1:5000/playground")
     prompt_box = page.get_by_label("Prompt")
-    prompt_box.click()
     prompt_box.press("Enter")
     expect(prompt_box).to_contain_text("")
     chat_reply = page.locator("#outputResponse")
@@ -86,10 +81,8 @@ def test_logo_appears(page: Page):
 def test_disable_api_during_request(page: Page):
     """This will test if the submit button is disabled during the API request."""
     page.goto("http://127.0.0.1:5000/playground")
-    prompt_box = page.get_by_label("Prompt")
     submit_button = page.get_by_role("button", name="Submit")
-    prompt_box.click()
-    prompt_box.fill("Where is Paris")
+    page.get_by_label("Prompt").fill("Where is Paris")
     submit_button.click()
     expect(submit_button).to_be_disabled()
     page.wait_for_selector("#outputResponse:not(:empty)")
@@ -99,7 +92,6 @@ def test_disable_api_during_request(page: Page):
 def test_loading_spinner(page: Page):
     """Test if the loading spinner is visible when a response is being generated."""
     page.goto("http://127.0.0.1:5000/playground")
-    page.get_by_label("Prompt").click()
     page.get_by_label("Prompt").fill("Where is Paris")
     page.get_by_role("button", name="Submit").click()
     loading_spinner = page.locator("#loadingSpinner")
@@ -116,6 +108,4 @@ def test_max_tokens(page: Page):
     page.get_by_label("Max tokens").fill("1")
     page.get_by_role("button", name="Submit").click()
 
-    chat_reply = page.wait_for_selector("#outputResponse")
-
-    assert chat_reply.inner_text().strip() == "Paris"
+    assert page.wait_for_selector("#outputResponse").inner_text() == "Paris"
