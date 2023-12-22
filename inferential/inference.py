@@ -41,8 +41,9 @@ def download_llms():
 threading.Thread(target=download_llms).start()
 
 
-def generate(prompt, model_name):
+def generate(prompt, model_name, gen_params):
     model_data = models[model_name]
+    max_tokens = int(gen_params.get("max_tokens", 128))
 
     if not model_data["model"]:
         return
@@ -52,6 +53,8 @@ def generate(prompt, model_name):
         for text in model_data["model"](prompt, stream=True, top_k=1):
             num_tokens_generated += 1
             yield text
+            if num_tokens_generated >= max_tokens:
+                break
         log(model_name, None, num_tokens_generated)
     elif model_data["backend"] == "ctranslate2":
         # Tokenize the input
@@ -68,6 +71,8 @@ def generate(prompt, model_name):
             new_text = decoded_string[bytes_sent:]
             bytes_sent = len(decoded_string)
             yield new_text
+            if len(output_tokens) >= max_tokens:
+                break
 
         log(model_name, len(input_tokens), len(output_tokens))
 

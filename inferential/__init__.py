@@ -35,7 +35,9 @@ def create_app(test_config=None):
         if not "model" in models[model_name]:
             return f"Error: Model '{model_name}' is not yet loaded.", 503
 
-        return Response(generate(query, model_name), content_type="text/plain")
+        return Response(
+            generate(query, model_name, request.args), content_type="text/plain"
+        )
 
     @app.route("/api/status")
     def api_status_page():

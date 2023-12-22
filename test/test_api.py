@@ -29,6 +29,18 @@ def test_status_req_count(client):
     assert response.json["models"][0]["requests_per_min"][0] == previous + 1
 
 
+def test_max_token_ctranslate2(client):
+    """Verify that request count increase in the status endpoint"""
+    response = client.get("/api?input=What is ML&max_tokens=3")
+    assert response.text == "ML stands"
+
+
+def test_max_token_ctransformers(client):
+    """Verify that request count increase in the status endpoint"""
+    response = client.get("/api?input=In&max_tokens=3&model=gpt2")
+    assert response.text == " the past,"
+
+
 def test_empty_query_api(client):
     """This will test to verify a status for empty query"""
     response = client.get("/api?input=")
