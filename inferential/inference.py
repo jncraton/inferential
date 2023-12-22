@@ -49,7 +49,7 @@ def generate(prompt, model_name):
 
     if model_data["backend"] == "ctransformers":
         num_tokens_generated = 0
-        for text in model_data["model"](prompt, stream=True):
+        for text in model_data["model"](prompt, stream=True, top_k=1):
             num_tokens_generated += 1
             yield text
         log(model_name, None, num_tokens_generated)
