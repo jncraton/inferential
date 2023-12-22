@@ -38,7 +38,11 @@ async function displayCompletion() {
 
   let response = await fetch(
     '/api?' +
-      new URLSearchParams({ input: input.value, model: modelSelect.value }),
+      new URLSearchParams({
+        input: input.value,
+        model: modelSelect.value,
+        max_tokens: maxTokens.value,
+      }),
   )
 
   const textStream = response.body.getReader()

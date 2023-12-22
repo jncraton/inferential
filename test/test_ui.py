@@ -106,3 +106,16 @@ def test_loading_spinner(page: Page):
     expect(loading_spinner).to_be_visible()
     page.wait_for_selector("#loadingSpinner", state="hidden")
     expect(loading_spinner).to_be_hidden()
+
+
+def test_max_tokens(page: Page):
+    """Verify that max_tokens field limits response size"""
+    page.goto("http://127.0.0.1:5000/playground")
+    page.get_by_label("Prompt").fill("What is the capital of France?")
+    page.get_by_text("Generation parameters").click()
+    page.get_by_label("Max tokens").fill("1")
+    page.get_by_role("button", name="Submit").click()
+
+    chat_reply = page.wait_for_selector("#outputResponse")
+
+    assert chat_reply.inner_text().strip() == "Paris"
