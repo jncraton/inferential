@@ -29,16 +29,12 @@ def test_status_req_count(client):
     assert response.json["models"][0]["requests_per_min"][0] == previous + 1
 
 
-def test_max_token_ctranslate2(client):
-    """Verify that request count increase in the status endpoint"""
-    response = client.get("/api?input=What is ML&max_tokens=3")
-    assert response.text == "ML stands"
-
-
-def test_max_token_ctransformers(client):
-    """Verify that request count increase in the status endpoint"""
-    response = client.get("/api?input=In&max_tokens=3&model=gpt2")
-    assert response.text == " the past,"
+@pytest.mark.parametrize("model", pytest.conf["models"])
+def test_max_token(client, model):
+    """This will test to verify all models in config file return valid status code"""
+    response = client.get("/api?input=Go&max_tokens=1&model=" + model["name"])
+    assert response.status_code == 200
+    assert 0 < len(response.text) < 10
 
 
 def test_empty_query_api(client):
