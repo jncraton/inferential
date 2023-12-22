@@ -21,14 +21,12 @@ async function checkModelStatus() {
 }
 checkModelStatus()
 
-let isWaiting = false // Flag to track if waiting for API response
-
 // Event Listeners
 button.addEventListener('click', submitButton)
 input.addEventListener('keydown', function (e) {
   if (e.key === 'Enter' && !e.shiftKey) {
     e.preventDefault()
-    if (!isWaiting) {
+    if (!button.disabled) {
       submitButton()
     }
   }
@@ -36,11 +34,6 @@ input.addEventListener('keydown', function (e) {
 
 // Function calls fetch API upon prompt submission
 function submitButton() {
-  if (isWaiting) {
-    return // Do nothing if waiting for response
-  }
-
-  isWaiting = true // Set flag to indicate waiting for API response
   button.disabled = true
   loadingSpinner.classList.remove('spinner-hidden')
 
@@ -56,7 +49,6 @@ function submitButton() {
       function readAndDisplay() {
         textStream.read().then(({ done, value }) => {
           if (done) {
-            isWaiting = false // Reset flag when API response is complete
             button.disabled = false
             loadingSpinner.classList.add('spinner-hidden')
             return // All tokens have been received
