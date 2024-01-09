@@ -81,7 +81,7 @@ def generate(prompt, model_name, gen_params):
         pload = {
             "prompt": prompt,
             "temperature": 0.0,
-            "max_tokens": 2048,
+            "max_tokens": max_tokens,
             "stream": True,
         }
         response = requests.post(
