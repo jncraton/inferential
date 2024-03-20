@@ -9,7 +9,7 @@ Inferential is a web application that provides a playground and API for running 
 Use the following to clone the git repository, install dependencies, and run the application:
 
 ```sh
-git clone git@github.com:jncraton/inferential.git
+git clone https://github.com/jncraton/inferential.git
 cd inferential
 pip install -r requirements.txt
 make run
