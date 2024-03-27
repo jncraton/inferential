@@ -59,3 +59,12 @@ async function displayCompletion() {
   button.disabled = false
   loadingSpinner.classList.add('spinner-hidden')
 }
+
+const prompts = document.getElementById('prompts');
+const promptReq = document.getElementById('promptReq');
+
+modelSelect.addEventListener('change', function() {
+  const selectedIndex = modelSelect.selectedIndex;
+  prompts.selectedIndex = selectedIndex;
+  promptReq.textContent = prompts.value;
+});

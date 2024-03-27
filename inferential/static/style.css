@@ -146,3 +146,7 @@ nav ul > li a:hover {
     transform: rotate(360deg);
   }
 }
+
+#prompts {
+  display: none;
+}
