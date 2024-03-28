@@ -60,6 +60,7 @@ async function displayCompletion() {
   loadingSpinner.classList.add('spinner-hidden')
 }
 
+//Displays text from prompts based on which model is selected
 const prompts = document.getElementById('prompts')
 const promptReq = document.getElementById('promptReq')
 

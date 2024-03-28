@@ -21,6 +21,7 @@
   <div id="promptReq" class="right-half"></div>
 </div>
 
+<!--INVISIBLE select box to populate prompts and keep track of them-->
 <select id="prompts">
   {% for model in config['models'] %}
   <option value="{{model.prompts}}">{{model.prompts}}</option>

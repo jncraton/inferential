@@ -22,6 +22,7 @@ models:
 #    backend: vllm
 #    url: http://localhost:8000/generate
 #    max_prompt_length: 250
+#    prompts: This model will answer questions if prompted by <user> question -new line- <bot> answer -new line- <user>
 
 # When changing the logo, be sure to resize it to 30px by 30px for the best quality
 logo: /static/logos/default.png
