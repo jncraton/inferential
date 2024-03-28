@@ -59,3 +59,18 @@ async function displayCompletion() {
   button.disabled = false
   loadingSpinner.classList.add('spinner-hidden')
 }
+
+//Displays text from prompts based on which model is selected
+const prompts = document.getElementById('prompts')
+const promptReq = document.getElementById('promptReq')
+
+modelSelect.addEventListener('change', function () {
+  const selectedIndex = modelSelect.selectedIndex
+  prompts.selectedIndex = selectedIndex
+
+  if (prompts.value === 'None') {
+    promptReq.textContent = ''
+  } else {
+    promptReq.textContent = prompts.value
+  }
+})
