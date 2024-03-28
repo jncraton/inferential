@@ -150,3 +150,18 @@ nav ul > li a:hover {
 #prompts {
   display: none;
 }
+
+.container {
+  display: flex;
+}
+
+.left-half {
+  flex: 1;
+}
+
+.right-half {
+  flex: 0 0 70%;
+  margin-left: 2px;
+  margin-right: 8px;
+  align-self: flex-end;
+}

@@ -5,17 +5,17 @@ models:
     hf_path: jncraton/LaMini-Flan-T5-248M-ct2-int8
     backend: ctranslate2
     max_prompt_length: 250
-    prompts: 
+    prompts:
   - name: LaMini-GPT-124M
     hf_path: jncraton/LaMini-GPT-124M-ct2-int8
     backend: ctranslate2
     max_prompt_length: 250
-    prompts: 
+    prompts:
   - name: gpt2
     hf_path: marella/gpt-2-ggml
     backend: ctransformers
     max_prompt_length: 250
-    prompts: This is a lightweight model, which will not answer questions, but instead continue writing sentences you say like it is part of a story.
+    prompts: This is a very small model, which will not answer qustions or respond to prompts, but extend the current prompts as if it was one story.
 # Example vllm config
 #  - name: neural-chat-7B-v3
 #    hf_path: TheBloke/neural-chat-7B-v3-1-AWQ
