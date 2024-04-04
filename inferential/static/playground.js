@@ -61,16 +61,28 @@ async function displayCompletion() {
 }
 
 //Displays text from prompts based on which model is selected
-const prompts = document.getElementById('prompts')
+const promptLong = document.getElementById('promptLong')
+const promptShort = document.getElementById('promptShort')
 const promptReq = document.getElementById('promptReq')
+const promptDesc = document.getElementById('PromptDesc')
+const promptMenu = document.getElementById('promptMenu')
 
 modelSelect.addEventListener('change', function () {
   const selectedIndex = modelSelect.selectedIndex
-  prompts.selectedIndex = selectedIndex
+  promptShort.selectedIndex = selectedIndex
 
-  if (prompts.value === 'None') {
+  if (promptShort.value === 'None') {
     promptReq.textContent = ''
   } else {
-    promptReq.textContent = prompts.value
+    promptReq.textContent = promptShort.value
+  }
+
+  promptLong.selectedIndex = selectedIndex
+
+  if (promptLong.value == '') {
+    promptMenu.style.display = 'none'
+  } else {
+    promptMenu.style.display = 'block'
+    promptDesc.textContent = promptLong.value
   }
 })

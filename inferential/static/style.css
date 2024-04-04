@@ -147,7 +147,7 @@ nav ul > li a:hover {
   }
 }
 
-#prompts {
+.hidden-menu {
   display: none;
 }
 
@@ -160,8 +160,12 @@ nav ul > li a:hover {
 }
 
 .right-half {
-  flex: 0 0 70%;
+  flex: 0 0 64%;
   margin-left: 2px;
   margin-right: 8px;
   align-self: flex-end;
+}
+
+details[open] .model-description {
+  margin-bottom: 10px;
 }

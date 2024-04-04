@@ -2,29 +2,42 @@
 <script src="/static/playground.js" defer></script>
 {% endblock %} {% block main %}
 <h1>Playground</h1>
+<h2><label for="modelSelect">Choose Model</label></h2>
 
 <div class="container">
   <div class="left-half">
-    <h2><label for="modelSelect">Choose Model</label></h2>
     <select id="modelSelect">
       {% for model in config['models'] %}
       <option value="{{model.name}}">{{model.name}}</option>
       {% endfor %}
     </select>
-    <details>
-      <summary>Generation parameters</summary>
-      <label
-        >Max tokens<input id="maxTokens" type="number" value="128"
-      /></label>
-    </details>
   </div>
   <div id="promptReq" class="right-half"></div>
 </div>
+<br />
+<div id="promptMenu" class="hidden-menu">
+  <details>
+    <summary>Model Description</summary>
+    <div class="model-description">
+      <label id="PromptDesc"></label>
+    </div>
+  </details>
+</div>
+<details>
+  <summary>Generation Parameters</summary>
+  <label>Max tokens<input id="maxTokens" type="number" value="128" /></label>
+</details>
 
-<!--INVISIBLE select box to populate prompts and keep track of them-->
-<select id="prompts">
+<!--INVISIBLE select box to populate prompts and keep track of them
+    Probably not the most effecient way to do it-->
+<select id="promptLong" class="hidden-menu">
   {% for model in config['models'] %}
-  <option value="{{model.prompts}}">{{model.prompts}}</option>
+  <option value="{{model.long_desc}}">{{model.long_desc}}</option>
+  {% endfor %}
+</select>
+<select id="promptShort" class="hidden-menu">
+  {% for model in config['models'] %}
+  <option value="{{model.short_desc}}">{{model.short_desc}}</option>
   {% endfor %}
 </select>
 

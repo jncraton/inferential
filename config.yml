@@ -5,24 +5,24 @@ models:
     hf_path: jncraton/LaMini-Flan-T5-248M-ct2-int8
     backend: ctranslate2
     max_prompt_length: 250
-    prompts:
   - name: LaMini-GPT-124M
     hf_path: jncraton/LaMini-GPT-124M-ct2-int8
     backend: ctranslate2
     max_prompt_length: 250
-    prompts:
   - name: gpt2
     hf_path: marella/gpt-2-ggml
     backend: ctransformers
     max_prompt_length: 250
-    prompts: This is a very small model, which will not answer qustions or respond to prompts, but extend the current prompts as if it was one story.
+    short_desc: An early and very light version of gtp.
+    long_desc: Will complete prompts as one continuous story. It does not directly interact or respond to prompts, just "finishes" them by continuing to generate off of what is prompted.
 # Example vllm config
 #  - name: neural-chat-7B-v3
 #    hf_path: TheBloke/neural-chat-7B-v3-1-AWQ
 #    backend: vllm
 #    url: http://localhost:8000/generate
 #    max_prompt_length: 250
-#    prompts: This model will answer questions if prompted by <user> question -new line- <bot> answer -new line- <user>
+#    short_desc: This model is an LLM
+#    long_desc: This model needs to be prompted with <user>: and end with <you>:
 
 # When changing the logo, be sure to resize it to 30px by 30px for the best quality
 logo: /static/logos/default.png
