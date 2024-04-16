@@ -11,12 +11,24 @@
   </head>
 
   <body>
-    <nav>
+    <nav class="top-navbar">
       <ul>
         <li><a href="/status">Status</a></li>
         <li><a href="/playground">Playground</a></li>
         <li>
           <a href="/">Inferential<img src="{{config['logo']}}" alt="logo" /></a>
+        </li>
+      </ul>
+    </nav>
+
+    <nav class="bottom-navbar">
+      <ul>
+        <li class="profile-dropdown">
+          Guest
+          <ul class="profile-menu">
+            <li><a href="/profile">Profile</a></li>
+            <li><a href="/login">Log in</a></li>
+          </ul>
         </li>
       </ul>
     </nav>
