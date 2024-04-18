@@ -38,14 +38,6 @@
   {% endfor %}
 </select>
 
-<!--  Drop down menu for short prompts - currently disabled due to formatting issues
-<select id="promptShort" class="hidden-menu">
-  {% for model in config['models'] %}
-  <option value="{{model.short_desc}}">{{model.short_desc}}</option>
-  {% endfor %}
-</select>
--->
-
 <h2><label for="input">Prompt</label></h2>
 <!-- Do not indent the contents of the textarea. -->
 <textarea id="input" name="input" autofocus disabled>
