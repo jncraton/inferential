@@ -2,18 +2,38 @@
 <script src="/static/playground.js" defer></script>
 {% endblock %} {% block main %}
 <h1>Playground</h1>
-
 <h2><label for="modelSelect">Choose Model</label></h2>
-<select id="modelSelect">
-  {% for model in config['models'] %}
-  <option value="{{model.name}}">{{model.name}}</option>
-  {% endfor %}
-</select>
 
+<div class="container">
+  <div class="left-half">
+    <select id="modelSelect">
+      {% for model in config['models'] %}
+      <option value="{{model.name}}">{{model.name}}</option>
+      {% endfor %}
+    </select>
+  </div>
+</div>
+<br />
+<div id="promptMenu" class="hidden-menu">
+  <details>
+    <summary>Model Description</summary>
+    <div class="model-description">
+      <label id="PromptDesc"></label>
+    </div>
+  </details>
+</div>
 <details>
-  <summary>Generation parameters</summary>
+  <summary>Generation Parameters</summary>
   <label>Max tokens<input id="maxTokens" type="number" value="128" /></label>
 </details>
+
+<!--INVISIBLE select box to populate prompts and keep track of them
+    Probably not the most effecient way to do it-->
+<select id="promptLong" class="hidden-menu">
+  {% for model in config['models'] %}
+  <option value="{{model.long_desc}}">{{model.long_desc}}</option>
+  {% endfor %}
+</select>
 
 <h2><label for="input">Prompt</label></h2>
 <!-- Do not indent the contents of the textarea. -->

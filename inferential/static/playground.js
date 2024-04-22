@@ -59,3 +59,20 @@ async function displayCompletion() {
   button.disabled = false
   loadingSpinner.classList.add('spinner-hidden')
 }
+
+//Displays text from prompts based on which model is selected
+const promptLong = document.getElementById('promptLong')
+const promptDesc = document.getElementById('PromptDesc')
+const promptMenu = document.getElementById('promptMenu')
+
+modelSelect.addEventListener('change', function () {
+  const selectedIndex = modelSelect.selectedIndex
+  promptLong.selectedIndex = selectedIndex
+
+  if (promptLong.value == '') {
+    promptMenu.style.display = 'none'
+  } else {
+    promptMenu.style.display = 'block'
+    promptDesc.textContent = promptLong.value
+  }
+})

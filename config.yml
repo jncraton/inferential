@@ -13,12 +13,14 @@ models:
     hf_path: marella/gpt-2-ggml
     backend: ctransformers
     max_prompt_length: 250
+    long_desc: Will complete prompts as one continuous story. It does not directly interact or respond to prompts, just "finishes" them by continuing to generate off of what is prompted.
 # Example vllm config
 #  - name: neural-chat-7B-v3
 #    hf_path: TheBloke/neural-chat-7B-v3-1-AWQ
 #    backend: vllm
 #    url: http://localhost:8000/generate
 #    max_prompt_length: 250
+#    long_desc: This model needs to be prompted with <user>: and end with <you>:
 
 # When changing the logo, be sure to resize it to 30px by 30px for the best quality
 logo: /static/logos/default.png
