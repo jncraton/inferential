@@ -12,6 +12,18 @@ def log(model, input_toks, output_toks):
     conn.commit()
 
 
+def populate():
+    conn = sqlite3.connect("data.db")
+    cursor = conn.cursor()
+
+    with open("schema.sql", "r") as file:
+        sql = file.read()
+
+    cursor.executescript(sql)
+    conn.commit()
+    conn.close()
+
+
 def build_hour_stats(key, model, stats):
     sparse = {s["minutes_ago"]: s[key] for s in stats if s["model"] == model}
 

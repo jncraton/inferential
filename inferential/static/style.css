@@ -83,26 +83,26 @@ input {
   font: inherit;
 }
 
-.top-navbar {
+nav {
   background-color: #ccc;
 }
 
-.top-navbar ul {
+nav ul {
   display: flex;
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-.top-navbar ul li {
+nav ul li {
   display: flex;
 }
 
-.top-navbar ul li:last-child {
+nav ul li:last-child {
   margin-left: auto;
 }
 
-.top-navbar ul > li a {
+nav ul > li a {
   display: flex;
   align-items: center;
   color: inherit;
@@ -110,56 +110,14 @@ input {
   text-decoration: none;
 }
 
-.top-navbar ul li a img {
+nav ul li a img {
   margin: 0 1em;
   width: 32px;
   height: 32px;
 }
 
-.top-navbar ul > li a:hover {
+nav ul > li a:hover {
   background-color: #eee;
-}
-
-.bottom-navbar {
-  background-color: #f2f2f2;
-}
-
-.bottom-navbar ul {
-  display: flex;
-  justify-content: flex-start;
-  list-style-type: none;
-  margin: 0;
-  padding-left: 1em; /* Add padding to create space */
-}
-
-.bottom-navbar ul li {
-  margin-right: 1em;
-}
-
-.profile-dropdown {
-  position: relative;
-}
-
-.profile-dropdown .profile-menu {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: #fff;
-  padding: 0.5em;
-  border: 1px solid #ccc;
-}
-
-.profile-dropdown:hover .profile-menu {
-  display: block;
-}
-
-.profile-menu li {
-  margin-bottom: 0.5em;
-}
-
-.profile-menu li:last-child {
-  margin-bottom: 0;
 }
 
 #loadingSpinner {
